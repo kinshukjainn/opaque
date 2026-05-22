@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import {
   Geist,
   Geist_Mono,
+  Plus_Jakarta_Sans,
   Poppins,
   Public_Sans,
   Roboto,
@@ -36,6 +37,12 @@ const publicSans = Public_Sans({
   variable: "--font-public-sans",
 });
 
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-plus-jakarta",
+});
+
 const roboto = Roboto({
   subsets: ["latin"],
   weight: ["100", "300", "400", "500", "700", "900"],
@@ -63,7 +70,7 @@ export default function RootLayout({
       <html
         lang="en"
         data-google-analytics-opt-out=""
-        className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${publicSans.variable} ${roboto.variable} ${ubuntu.variable} h-full antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${publicSans.variable} ${plusJakarta.variable} ${roboto.variable} ${ubuntu.variable} h-full antialiased`}
       >
         <body className="min-h-full flex flex-col">
           <Header />

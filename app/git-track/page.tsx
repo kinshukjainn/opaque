@@ -46,7 +46,7 @@ interface GithubCommit {
 
 const GITHUB_CONFIG = {
   username: "kinshukjainn",
-  repository: "kosha",
+  repository: "endvault",
   branch: "master",
   perPage: 100,
   maxPages: 10,

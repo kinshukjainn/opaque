@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useUser } from "@clerk/nextjs";
 import {
   Shield,
   User,
@@ -17,12 +18,15 @@ import {
   Activity,
 } from "lucide-react";
 import Link from "next/link";
+import UserProfileDropdown from "./UserprofileDropdown";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
-  // Added icons and fixed capitalization/spelling inconsistencies
+  // Same hook UserProfileDropdown uses — resolves cleanly in your project.
+  const { isLoaded, isSignedIn } = useUser();
+
   const navItems = [
     { name: "Architecture", href: "/architecture", icon: Layers },
     { name: "About Us", href: "/about-us", icon: Users },
@@ -32,6 +36,12 @@ export default function Header() {
     { name: "Integrations", href: "/integrations", icon: Puzzle },
     { name: "Checker", href: "/checker", icon: Activity },
   ];
+
+  // shared block styles (kept from your original)
+  const signInBlock =
+    "flex items-center gap-2 px-6 h-full border-l border-zinc-800/80 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900/50 transition-all uppercase tracking-wider whitespace-nowrap";
+  const ctaBlock =
+    "group flex items-center gap-2 px-6 h-full bg-zinc-100 text-black text-sm font-semibold hover:bg-white transition-colors uppercase tracking-wider border-l border-zinc-800/80 whitespace-nowrap";
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-zinc-800/80 ">
@@ -49,7 +59,7 @@ export default function Header() {
             </span>
           </Link>
 
-          {/* Desktop Navigation (Hidden on screens smaller than xl to prevent flex wrapping) */}
+          {/* Desktop Navigation */}
           <nav className="hidden xl:flex items-center px-2 h-full overflow-x-auto no-scrollbar">
             {navItems.map((item) => {
               const Icon = item.icon;
@@ -64,7 +74,6 @@ export default function Header() {
                   <Icon className="w-4 h-4" />
                   <span>{item.name}</span>
 
-                  {/* Framer Motion background pill for hover */}
                   {hoveredItem === item.name && (
                     <motion.div
                       layoutId="header-hover-pill"
@@ -85,26 +94,31 @@ export default function Header() {
           </nav>
         </div>
 
-        {/* RIGHT SECTION: Auth & CTA */}
-        {/* Hidden below xl to ensure the layout never breaks */}
+        {/* RIGHT SECTION: Auth-aware (renders nothing until Clerk loads → no flash) */}
         <div className="hidden xl:flex h-full items-center flex-shrink-0">
-          {/* Sign In Block */}
-          <Link
-            href="#"
-            className="flex items-center gap-2 px-6 h-full border-l border-zinc-800/80 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900/50 transition-all uppercase tracking-wider whitespace-nowrap"
-          >
-            <span>Sign In</span>
-            <User className="w-4 h-4" />
-          </Link>
-
-          {/* Primary CTA Block */}
-          <Link
-            href="#"
-            className="group flex items-center gap-2 px-6 h-full bg-zinc-100 text-black text-sm font-semibold hover:bg-white transition-colors uppercase tracking-wider border-l border-zinc-800/80 whitespace-nowrap"
-          >
-            <span>Initialize Vault</span>
-            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-          </Link>
+          {isLoaded &&
+            (isSignedIn ? (
+              <>
+                <Link href="/vault" className={ctaBlock}>
+                  <span>Open Vault</span>
+                  <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </Link>
+                <div className="flex items-center px-5 h-full border-l border-zinc-800/80">
+                  <UserProfileDropdown variant="desktop" />
+                </div>
+              </>
+            ) : (
+              <>
+                <Link href="/verify-regis" className={signInBlock}>
+                  <span>Sign In</span>
+                  <User className="w-4 h-4" />
+                </Link>
+                <Link href="/vault" className={ctaBlock}>
+                  <span>Initialize Vault</span>
+                  <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </Link>
+              </>
+            ))}
         </div>
 
         {/* MOBILE MENU TOGGLE */}
@@ -126,7 +140,6 @@ export default function Header() {
             transition={{ duration: 0.3, ease: [0.2, 0, 0, 1] }}
             className="xl:hidden overflow-hidden bg-black border-b border-zinc-800/80"
           >
-            {/* Added max-h and overflow-y-auto to prevent breaking on short screens */}
             <div className="flex flex-col px-4 py-6 space-y-4 max-h-[calc(100vh-4rem)] overflow-y-auto">
               {navItems.map((item) => {
                 const Icon = item.icon;
@@ -145,21 +158,42 @@ export default function Header() {
 
               <div className="h-px bg-zinc-800/80 w-full my-4" />
 
-              <Link
-                href="#"
-                className="flex items-center justify-between text-lg font-medium text-zinc-300 hover:text-white p-2"
-              >
-                <span>Sign In</span>
-                <User className="w-5 h-5" />
-              </Link>
-
-              <Link
-                href="#"
-                className="flex items-center justify-between w-full p-4 mt-2 bg-zinc-100 text-black text-sm font-semibold rounded-md uppercase tracking-wider"
-              >
-                <span>Initialize Vault</span>
-                <ArrowUpRight className="w-5 h-5" />
-              </Link>
+              {isLoaded &&
+                (isSignedIn ? (
+                  <>
+                    <UserProfileDropdown
+                      variant="mobile"
+                      onAction={() => setIsOpen(false)}
+                    />
+                    <Link
+                      href="/vault"
+                      onClick={() => setIsOpen(false)}
+                      className="flex items-center justify-between w-full p-4 mt-2 bg-zinc-100 text-black text-sm font-semibold rounded-md uppercase tracking-wider"
+                    >
+                      <span>Open Vault</span>
+                      <ArrowUpRight className="w-5 h-5" />
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      href="/verify-regis"
+                      onClick={() => setIsOpen(false)}
+                      className="flex items-center justify-between text-lg font-medium text-zinc-300 hover:text-white p-2"
+                    >
+                      <span>Sign In</span>
+                      <User className="w-5 h-5" />
+                    </Link>
+                    <Link
+                      href="/vault"
+                      onClick={() => setIsOpen(false)}
+                      className="flex items-center justify-between w-full p-4 mt-2 bg-zinc-100 text-black text-sm font-semibold rounded-md uppercase tracking-wider"
+                    >
+                      <span>Initialize Vault</span>
+                      <ArrowUpRight className="w-5 h-5" />
+                    </Link>
+                  </>
+                ))}
             </div>
           </motion.div>
         )}
