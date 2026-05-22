@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Architecture : Your password manager",
-  description: "Explaination of archietecture of application",
+  title: "Strength Checker",
+  description: "Check your password strength easily",
 };
 
 export default function BlogLayout({

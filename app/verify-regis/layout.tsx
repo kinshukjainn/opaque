@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Architecture : Your password manager",
-  description: "Explaination of archietecture of application",
+  title: "Sigin/up",
+  description: "sigin/up of the endvault application",
 };
 
 export default function BlogLayout({
