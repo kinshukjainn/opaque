@@ -54,7 +54,7 @@ export default function Header() {
             className="flex items-center gap-3 px-4 md:px-6 h-full border-r border-zinc-800/80 hover:bg-zinc-900/50 transition-colors flex-shrink-0"
           >
             <Shield className="w-6 h-6 text-zinc-100" />
-            <span className="text-lg font-semibold tracking-tight text-zinc-100 whitespace-nowrap">
+            <span className="text-lg font-semibold tracking-tight heading-font text-zinc-100 whitespace-nowrap">
               END<span className="text-zinc-500 font-light">Vault</span>
             </span>
           </Link>
@@ -77,7 +77,7 @@ export default function Header() {
                   {hoveredItem === item.name && (
                     <motion.div
                       layoutId="header-hover-pill"
-                      className="absolute inset-y-3 inset-x-0 bg-zinc-800/50 rounded-md -z-10"
+                      className="absolute inset-y-3 inset-x-0 bg-zinc-800/50 rounded-full -z-10"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}

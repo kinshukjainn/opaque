@@ -74,7 +74,7 @@ export default function AuthPage() {
   const [pendingMfa, setPendingMfa] = useState(false);
   const [mfaCode, setMfaCode] = useState("");
 
-  const providers = ["Clerk", "Neon"];
+  const providers = ["Clerk", "Neon", "AWS"];
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -252,8 +252,8 @@ export default function AuthPage() {
     : pendingVerification
       ? "Verify Email"
       : isSignUp
-        ? "Create an Account"
-        : "Welcome Back";
+        ? "Create your vault"
+        : "Get back to your Vault";
 
   const subtext = pendingMfa
     ? "A security code has been sent to your email."
@@ -280,7 +280,7 @@ export default function AuthPage() {
     "w-full flex items-center justify-center gap-2 py-3 px-4 font-semibold text-[14px] cursor-pointer bg-transparent border border-[#333333] hover:bg-[#1a1a1a] text-gray-200 rounded-full transition-all disabled:opacity-50";
 
   return (
-    <div className="grid min-h-screen grid-cols-1 lg:grid-cols-2 bg-[#050505] text-gray-100 selection:bg-[#0078D4] selection:text-white">
+    <div className="grid pt-10  min-h-screen grid-cols-1 lg:grid-cols-2 bg-[#050505] text-gray-100 selection:bg-[#0078D4] selection:text-white">
       {/* LEFT PANEL: Branding & Benefits (Strictly contained, hidden on mobile) */}
       <div className="relative hidden lg:flex flex-col justify-between p-12 xl:p-16 bg-black border-r border-[#1f1f1f] overflow-hidden">
         {/* Background Graphic */}
@@ -289,8 +289,8 @@ export default function AuthPage() {
         <div className="relative z-10 flex flex-col gap-10">
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <span className="text-xl font-bold tracking-tight text-white flex items-center flex-wrap gap-2">
-              {APP_NAME.toUpperCase()} /{" "}
+            <span className="text-2xl font-bold tracking-tight text-white flex items-center flex-wrap gap-2">
+              {APP_NAME} /{" "}
               <span className="text-[11px] px-3 py-1 bg-blue-800/20 border-blue-400 border rounded-full">
                 Authentication
               </span>
@@ -331,7 +331,7 @@ export default function AuthPage() {
 
         {/* Dynamic Security Badge */}
         <div className="relative z-10 flex items-center gap-2 mt-auto pt-10">
-          <div className="flex items-center gap-2 text-[13px] text-gray-400 bg-[#111111] border border-[#222222] px-4 py-2 rounded-full">
+          <div className="flex items-center gap-2 text-[13px] text-gray-400 bg-[#111111] border border-blue-400 px-4 py-2 rounded-full">
             <LockKeyhole className="w-4 h-4 text-[#0078D4]" />
             <span>Secured infrastructure by</span>
             <div className="relative flex items-center justify-start w-[50px] h-[18px] overflow-hidden font-semibold text-gray-200">

@@ -6,6 +6,7 @@ import {
   Poppins,
   Public_Sans,
   Roboto,
+  Staatliches,
   Ubuntu,
 } from "next/font/google";
 import "./globals.css";
@@ -35,6 +36,12 @@ const publicSans = Public_Sans({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-public-sans",
+});
+
+const staatliches = Staatliches({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-staatliches",
 });
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -70,7 +77,7 @@ export default function RootLayout({
       <html
         lang="en"
         data-google-analytics-opt-out=""
-        className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${publicSans.variable} ${plusJakarta.variable} ${roboto.variable} ${ubuntu.variable} h-full antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${staatliches.variable}  ${poppins.variable} ${publicSans.variable} ${plusJakarta.variable} ${roboto.variable} ${ubuntu.variable} h-full antialiased`}
       >
         <body className="min-h-full flex flex-col">
           <Header />

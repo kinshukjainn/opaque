@@ -320,7 +320,7 @@ export default function IntegrationsPage() {
         <header className="max-w-3xl">
           <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-zinc-100 flex items-center gap-4 mb-4">
             <Puzzle className="w-10 h-10 text-zinc-400" />
-            Supported Services
+            Supported Integrations
           </h1>
           <p className="text-zinc-400 text-lg leading-relaxed">
             EndVault provides end-to-end encrypted credential storage for the
@@ -351,7 +351,7 @@ export default function IntegrationsPage() {
               placeholder="Search applications..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-zinc-950 text-zinc-200 border border-zinc-800 pl-10 pr-4 py-2.5 rounded-full outline-none focus:border-zinc-600 focus:ring-1 focus:ring-zinc-600 transition-all text-sm"
+              className="w-full bg-zinc-950 text-zinc-200 border border-zinc-800 pl-10 pr-4 py-2.5 rounded-full outline-none  transition-all text-md"
             />
           </div>
 
@@ -361,9 +361,9 @@ export default function IntegrationsPage() {
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat as Category | "All")}
-                className={`px-4 py-2 rounded-lg text-xs font-medium transition-colors border ${
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors border ${
                   activeCategory === cat
-                    ? "bg-zinc-100 text-black border-zinc-100"
+                    ? "bg-zinc-100 font-semibold text-black border-zinc-100"
                     : "bg-zinc-950 text-zinc-400 border-zinc-800 hover:text-zinc-200 hover:border-zinc-700"
                 }`}
               >
@@ -391,16 +391,16 @@ export default function IntegrationsPage() {
               return (
                 <div
                   key={app.id}
-                  className="group flex flex-col items-center justify-center gap-4 p-6 bg-zinc-900/10 border border-zinc-800/80 hover:bg-zinc-900/40 hover:border-zinc-700 transition-all rounded-2xl cursor-default"
+                  className="group flex flex-col items-center justify-center gap-4 p-6 bg-zinc-900/10 border border-zinc-800/80 hover:bg-zinc-900/40 hover:border-zinc-700 transition-all rounded-4xl cursor-default"
                 >
-                  <div className="p-4 bg-zinc-950 border border-zinc-800/50 rounded-xl group-hover:scale-110 group-hover:shadow-lg transition-transform duration-300">
-                    <Icon className="w-8 h-8 text-zinc-400 group-hover:text-zinc-100 transition-colors" />
+                  <div className="p-4 bg-zinc-950 border border-zinc-800/50 rounded-full group-hover:scale-110 group-hover:shadow-lg transition-transform duration-300">
+                    <Icon className="w-8 h-8 text-white group-hover:text-zinc-100 transition-colors" />
                   </div>
                   <div className="text-center space-y-1">
-                    <h3 className="text-zinc-200 text-sm font-medium tracking-tight">
+                    <h3 className="text-white text-sm font-semibold tracking-tight">
                       {app.name}
                     </h3>
-                    <p className="text-zinc-600 text-[10px] uppercase tracking-wider font-mono">
+                    <p className="text-[#ff9100] text-[13px]  tracking-wider ">
                       {app.category.split("&")[0]}
                     </p>
                   </div>

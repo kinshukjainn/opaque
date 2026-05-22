@@ -5,3 +5,7 @@ body {
   color: white;
   font-family: var(--font-plus-jakarta), sans-serif;
 }
+
+.heading-font {
+  font-family: var(--font-staatliches), sans-serif;
+}

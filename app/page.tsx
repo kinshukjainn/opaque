@@ -155,10 +155,12 @@ export default function Home() {
 
             <motion.h1
               variants={fadeUp}
-              className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white mb-6 leading-[1.1]"
+              className="mb-6 text-4xl font-bold leading-tight tracking-tighter text-white sm:text-5xl md:text-6xl lg:text-7xl md:leading-[1.1]"
             >
-              The password manager <br className="hidden md:block" />
-              that <span className="text-blue-400">can&apos;t read</span> your
+              The <span className="heading-font">End</span>
+              <span className="text-[#505050] heading-font">Vault</span>{" "}
+              <br className="hidden md:block" />
+              <span className="text-blue-400">can&apos;t read</span> your
               passwords.
             </motion.h1>
 
@@ -172,17 +174,17 @@ export default function Home() {
 
             <motion.div
               variants={fadeUp}
-              className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
+              className="flex flex-col sm:flex-row gap-1 w-full sm:w-auto"
             >
               <Link
                 href="/vault"
-                className="py-4 px-8 flex items-center justify-center gap-2 rounded-lg bg-zinc-100 text-black font-semibold hover:bg-white transition-colors focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 focus:ring-offset-black"
+                className="py-4 px-8 flex items-center justify-center gap-2 rounded-l-full bg-zinc-100 text-black font-semibold hover:bg-white transition-colors focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 focus:ring-offset-black"
               >
                 Get Started Free <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 href="#architecture"
-                className="py-4 px-8 flex items-center justify-center rounded-lg bg-zinc-900/40 backdrop-blur-md text-zinc-300 font-medium hover:bg-zinc-900/80 border border-zinc-800/80 transition-colors"
+                className="py-4 px-8 flex items-center justify-center rounded-r-full bg-zinc-900/40 backdrop-blur-md text-zinc-300 font-medium hover:bg-zinc-900/80 border border-zinc-800/80 transition-colors"
               >
                 How it works
               </Link>
@@ -194,7 +196,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, ...springTransition }}
-            className="mt-16 w-full max-w-4xl mx-auto border border-zinc-800/80 rounded-xl bg-zinc-950/40 backdrop-blur-xl shadow-2xl shadow-black/80 overflow-hidden"
+            className="mt-16 w-full max-w-4xl mx-auto border border-zinc-800/80 rounded-2xl bg-zinc-950/40 backdrop-blur-xl shadow-lg shadow-[#252525]/80 overflow-hidden"
           >
             {/* Mockup Header */}
             <div className="h-12 border-b border-zinc-800/80 flex items-center px-4 gap-2 bg-zinc-900/30">
@@ -214,10 +216,10 @@ export default function Home() {
                   {[1, 2, 3].map((i) => (
                     <div
                       key={i}
-                      className="flex items-center justify-between p-3 rounded-lg border border-zinc-800/50 bg-zinc-900/30 backdrop-blur-sm"
+                      className="flex items-center justify-between p-3 rounded-3xl  border border-zinc-800/50  bg-zinc-900/30 backdrop-blur-sm"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded bg-zinc-800/80 flex items-center justify-center">
+                        <div className="w-8 h-8 rounded-full bg-zinc-800/80 flex items-center justify-center">
                           <Key className="w-4 h-4 text-zinc-400" />
                         </div>
                         <div className="space-y-1.5">
@@ -260,8 +262,8 @@ export default function Home() {
         >
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20">
-                <Zap className="w-6 h-6 text-blue-400" />
+              <div className="w-12 h-12 rounded-full bg-blue-400 flex items-center justify-center">
+                <Zap className="w-6 h-6 text-black" />
               </div>
               <h3 className="text-xl font-semibold text-zinc-100">
                 Effortless Logins
@@ -273,8 +275,8 @@ export default function Home() {
               </p>
             </div>
             <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-green-500/10 flex items-center justify-center border border-green-500/20">
-                <Shield className="w-6 h-6 text-green-400" />
+              <div className="w-12 h-12 rounded-full bg-green-400 flex items-center justify-center ">
+                <Shield className="w-6 h-6 text-black" />
               </div>
               <h3 className="text-xl font-semibold text-zinc-100">
                 Bulletproof Privacy
@@ -285,8 +287,8 @@ export default function Home() {
               </p>
             </div>
             <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-purple-500/10 flex items-center justify-center border border-purple-500/20">
-                <Globe className="w-6 h-6 text-purple-400" />
+              <div className="w-12 h-12 rounded-full bg-purple-300 flex items-center justify-center">
+                <Globe className="w-6 h-6 text-black" />
               </div>
               <h3 className="text-xl font-semibold text-zinc-100">
                 Access Anywhere

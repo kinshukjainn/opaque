@@ -236,9 +236,9 @@ function StateNode({
 }) {
   return (
     <div
-      className={`min-w-[160px] p-4 rounded-lg border text-center transition-colors ${
+      className={`min-w-[160px] p-4 rounded-2xl border text-center transition-colors ${
         highlight
-          ? "border-zinc-500 bg-zinc-800/30"
+          ? "border-[#ff9100] bg-zinc-800/30"
           : "border-zinc-800 bg-black"
       }`}
     >
