@@ -3,9 +3,15 @@
 body {
   background: black;
   color: white;
-  font-family: var(--font-plus-jakarta), sans-serif;
+  font-family: var(--font-public-sans), sans-serif;
 }
 
 .heading-font {
   font-family: var(--font-staatliches), sans-serif;
+}
+
+.prose pre code {
+  background: transparent;
+  padding: 0;
+  font-size: 0.875rem;
 }
