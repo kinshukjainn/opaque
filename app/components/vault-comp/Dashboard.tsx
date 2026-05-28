@@ -4,14 +4,10 @@
 //  components/vault/Dashboard.tsx
 // ------------------------------------------------------------
 //  The unlocked vault UI. Self-contained: the add/edit modal and
-//  the password generator live in this file, so there are no extra
-//  component imports to wire up. Talks only to useVault().
-//
-//  Search runs client-side over DECRYPTED items (Fuse.js) — the
-//  server never sees plaintext, so search can only happen here.
+//  the password generator live in this file.
 // ============================================================
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaSpinner } from "react-icons/fa";
 import Fuse from "fuse.js";
@@ -70,9 +66,10 @@ const BLANK: FormState = {
   favorite: false,
 };
 
+// Material You / Pixel Styled Inputs
 const inputClass =
-  "w-full px-3.5 py-2 bg-[#111111] border border-[#333333] text-[15px] text-gray-100 placeholder-gray-500 focus:border-[#0078D4] focus:ring-1 focus:ring-[#0078D4] focus:outline-none rounded-md transition-all";
-const labelClass = "block text-[13px] font-medium text-gray-300 mb-1.5";
+  "w-full px-4 py-3.5 bg-[#1E1F20] border-none text-[16px] text-[#E2E2E2] placeholder-[#8E918F] focus:bg-[#282A2C] focus:ring-2 focus:ring-[#A8C7FA] focus:outline-none rounded-3xl transition-all";
+const labelClass = "block text-[14px] font-medium text-[#C4C7C5] mb-2 pl-2";
 
 function displayName(item: DecryptedItem): string {
   if (item.secret.service === "other") {
@@ -88,10 +85,10 @@ function ServiceChip({
   service: ServiceId;
   label: string;
 }) {
-  const color = SERVICE_MAP[service]?.color ?? "#6B7280";
+  const color = SERVICE_MAP[service]?.color ?? "#444746";
   return (
     <div
-      className="w-9 h-9 rounded-lg flex items-center justify-center text-[14px] font-bold text-white flex-shrink-0"
+      className="w-12 h-12 rounded-full flex items-center justify-center text-[18px] font-bold text-white flex-shrink-0 shadow-sm"
       style={{ background: color }}
     >
       {(label || "?").charAt(0).toUpperCase()}
@@ -108,7 +105,11 @@ export default function Dashboard() {
   const [revealed, setRevealed] = useState<Record<string, boolean>>({});
   const [confirmDel, setConfirmDel] = useState<string | null>(null);
 
-  // modal
+  // Toast State using useRef to satisfy ESLint purity and unused-var rules
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const toastIdRef = useRef<number>(0);
+
+  // Modal
   const [modalOpen, setModalOpen] = useState(false);
   const [form, setForm] = useState<FormState>(BLANK);
   const [showFormPw, setShowFormPw] = useState(false);
@@ -143,18 +144,36 @@ export default function Dashboard() {
     );
   }, [query, fuse, items, filter]);
 
-  const copy = async (text: string, key: string) => {
+  // Pixel-style Toast Trigger
+  const showToast = useCallback((message: string) => {
+    toastIdRef.current += 1;
+    const currentId = toastIdRef.current;
+    setToastMessage(message);
+
+    setTimeout(() => {
+      // Only clear if a newer toast hasn't been triggered
+      if (toastIdRef.current === currentId) {
+        setToastMessage(null);
+      }
+    }, 2500);
+  }, []);
+
+  const copy = async (text: string, key: string, label: string) => {
     await navigator.clipboard.writeText(text);
     setCopied(key);
+    showToast(`${label} copied`);
     setTimeout(() => setCopied((c) => (c === key ? null : c)), 1500);
   };
 
-  const toggleFav = (item: DecryptedItem) =>
+  const toggleFav = (item: DecryptedItem) => {
     updateItem(item.id, item.secret, { favorite: !item.favorite });
+    showToast(item.favorite ? "Removed from favorites" : "Added to favorites");
+  };
 
   const remove = async (id: string) => {
     await deleteItem(id);
     setConfirmDel(null);
+    showToast("Item deleted");
   };
 
   const openAdd = () => {
@@ -203,10 +222,16 @@ export default function Dashboard() {
         ...(form.url.trim() ? { url: form.url.trim() } : {}),
         ...(form.notes.trim() ? { notes: form.notes.trim() } : {}),
       };
-      if (form.id)
+
+      const isEdit = !!form.id;
+      if (form.id) {
         await updateItem(form.id, secret, { favorite: form.favorite });
-      else await addItem(secret, form.type);
+      } else {
+        await addItem(secret, form.type);
+      }
+
       closeModal();
+      showToast(isEdit ? "Changes saved" : "Saved to vault");
     } catch (e) {
       setFormError(e instanceof Error ? e.message : "Save failed.");
     } finally {
@@ -215,251 +240,329 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] pt-20 text-gray-100 selection:bg-[#0078D4] selection:text-white">
+    <div className="min-h-screen  bg-[#000000] pt-20 text-[#E2E2E2] selection:bg-[#A8C7FA] selection:text-[#041E49] pb-24 md:pb-6 font-sans overflow-x-hidden">
       {/* Header */}
-      <header className="sticky top-0 z-20 bg-[#050505]/90 backdrop-blur border-b border-[#1f1f1f]">
-        <div className="max-w-5xl mx-auto px-6 py-4 flex items-center gap-4">
-          <div className="flex items-center gap-2 text-white font-bold">
-            <KeyRound className="w-5 h-5 text-[#0078D4]" />
-            <span className="hidden sm:inline">Vault</span>
-          </div>
+      <header className="sticky top-0 z-20 bg-[#000000]/80 backdrop-blur-2xl">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-6 pb-3 flex flex-col gap-4">
+          {/* Top Bar */}
+          <div className="flex items-center gap-3 w-full">
+            <div className="flex items-center justify-center w-11 h-11 bg-[#1E1F20] rounded-full text-[#A8C7FA] flex-shrink-0">
+              <KeyRound className="w-5 h-5" />
+            </div>
 
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search vault…"
-              className={`${inputClass} pl-9`}
-            />
-          </div>
+            <div className="relative flex-1">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#8E918F]" />
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search vault…"
+                className="w-full pl-11 pr-4 py-3 bg-[#1E1F20] text-[16px] text-[#E2E2E2] placeholder-[#8E918F] focus:bg-[#282A2C] focus:ring-2 focus:ring-[#A8C7FA] focus:outline-none rounded-full transition-all"
+              />
+            </div>
 
-          <button
-            onClick={openAdd}
-            className="flex items-center gap-2 py-2 px-4 text-[14px] font-semibold bg-[#0078D4] hover:bg-[#006abc] text-white rounded-full transition-all"
-          >
-            <Plus className="w-4 h-4" />
-            <span className="hidden sm:inline">Add</span>
-          </button>
-
-          <button
-            onClick={lock}
-            title="Lock vault"
-            className="p-2 text-gray-400 hover:text-white border border-[#333] rounded-full transition-all"
-          >
-            <Lock className="w-4 h-4" />
-          </button>
-        </div>
-
-        {/* Filters */}
-        <div className="max-w-5xl mx-auto px-6 pb-3 flex gap-2 overflow-x-auto">
-          {FILTERS.map((f) => (
             <button
-              key={f.key}
-              onClick={() => setFilter(f.key)}
-              className={`px-3 py-1 text-[13px] rounded-full whitespace-nowrap transition-all border ${
-                filter === f.key
-                  ? "bg-[#0078D4]/15 border-[#0078D4]/50 text-[#4aa3e0]"
-                  : "border-[#222] text-gray-400 hover:text-gray-200"
-              }`}
+              onClick={lock}
+              title="Lock vault"
+              className="p-3.5 bg-[#1E1F20] hover:bg-[#282A2C] text-[#C4C7C5] rounded-full transition-all flex-shrink-0 active:scale-95"
             >
-              {f.label}
+              <Lock className="w-5 h-5" />
             </button>
-          ))}
+          </div>
+
+          {/* Filters (Horizontal Scroll) */}
+          <div
+            className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
+            <AnimatePresence mode="popLayout">
+              {FILTERS.map((f) => (
+                <motion.button
+                  layout
+                  key={f.key}
+                  onClick={() => setFilter(f.key)}
+                  className={`px-5 py-2 text-[14px] font-medium rounded-full whitespace-nowrap transition-all flex-shrink-0 ${
+                    filter === f.key
+                      ? "bg-[#A8C7FA] text-[#041E49]"
+                      : "bg-[#1E1F20] text-[#C4C7C5] hover:bg-[#282A2C] hover:text-[#E2E2E2]"
+                  }`}
+                >
+                  {f.label}
+                </motion.button>
+              ))}
+            </AnimatePresence>
+          </div>
         </div>
       </header>
 
+      {/* Floating Action Button (Mobile & Desktop) */}
+      <div className="fixed bottom-6 right-6 z-30">
+        <button
+          onClick={openAdd}
+          className="flex items-center justify-center gap-3 h-16 px-6 bg-[#A8C7FA] text-[#041E49] hover:bg-[#b9d3fc] shadow-[0_4px_14px_0_rgba(168,199,250,0.3)] rounded-[20px] transition-all transform hover:scale-[1.02] active:scale-95"
+        >
+          <Plus className="w-6 h-6" />
+          <span className="font-semibold text-[15px] hidden sm:block">
+            Add Item
+          </span>
+        </button>
+      </div>
+
       {/* List */}
-      <main className="max-w-5xl mx-auto px-6 py-6">
-        {visible.length === 0 ? (
-          <div className="text-center py-24">
-            <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-[#111] border border-[#222] flex items-center justify-center text-gray-500">
-              <KeyRound className="w-6 h-6" />
-            </div>
-            <p className="text-gray-300 font-medium">
-              {items.length === 0 ? "Your vault is empty" : "No matching items"}
-            </p>
-            <p className="text-[13px] text-gray-500 mt-1">
-              {items.length === 0
-                ? "Add your first password to get started."
-                : "Try a different search or filter."}
-            </p>
-          </div>
-        ) : (
-          <div className="space-y-2.5">
-            {visible.map((item) => {
-              const name = displayName(item);
-              const isRevealed = !!revealed[item.id];
-              return (
-                <div
-                  key={item.id}
-                  className="group flex items-center gap-3 p-3.5 bg-[#0c0c0c] border border-[#1f1f1f] hover:border-[#333] rounded-xl transition-all"
-                >
-                  <ServiceChip service={item.secret.service} label={name} />
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-4">
+        <AnimatePresence mode="wait">
+          {visible.length === 0 ? (
+            <motion.div
+              key="empty-state"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="flex flex-col items-center justify-center py-32 text-center"
+            >
+              <div className="w-20 h-20 mb-6 rounded-full bg-[#1E1F20] flex items-center justify-center text-[#A8C7FA]">
+                <KeyRound className="w-8 h-8" />
+              </div>
+              <p className="text-[#E2E2E2] text-xl font-medium">
+                {items.length === 0
+                  ? "Your vault is empty"
+                  : "No matching items"}
+              </p>
+              <p className="text-[15px] text-[#8E918F] mt-2">
+                {items.length === 0
+                  ? "Tap the + button to store a new password."
+                  : "Try a different search or filter."}
+              </p>
+            </motion.div>
+          ) : (
+            <motion.div
+              layout
+              className="grid grid-cols-1 md:grid-cols-2 gap-3"
+            >
+              <AnimatePresence>
+                {visible.map((item) => {
+                  const name = displayName(item);
+                  const isRevealed = !!revealed[item.id];
+                  return (
+                    <motion.div
+                      layout
+                      initial={{ opacity: 0, scale: 0.9, y: 10 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.9, y: -10 }}
+                      transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+                      key={item.id}
+                      className="group flex items-start gap-4 p-5 bg-[#131314] hover:bg-[#1E1F20] border border-transparent hover:border-[#282A2C] rounded-[28px] transition-all overflow-hidden"
+                    >
+                      <ServiceChip service={item.secret.service} label={name} />
 
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[15px] font-medium text-gray-100 truncate">
-                        {name}
-                      </span>
-                      {item.favorite && (
-                        <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400 flex-shrink-0" />
-                      )}
-                    </div>
-                    {item.secret.username && (
-                      <span className="text-[13px] text-gray-500 truncate block">
-                        {item.secret.username}
-                      </span>
-                    )}
-                    {isRevealed && item.secret.password && (
-                      <span className="text-[13px] font-mono text-[#4aa3e0] break-all block mt-0.5">
-                        {item.secret.password}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="flex items-center gap-1 flex-shrink-0">
-                    {item.secret.username && (
-                      <IconBtn
-                        title="Copy username"
-                        onClick={() =>
-                          copy(item.secret.username!, `${item.id}:u`)
-                        }
-                      >
-                        {copied === `${item.id}:u` ? (
-                          <Check className="w-4 h-4 text-green-400" />
-                        ) : (
-                          <Copy className="w-4 h-4" />
+                      <div className="min-w-0 flex-1 mt-0.5">
+                        <div className="flex items-center gap-2">
+                          <span className="text-[17px] font-medium text-[#E2E2E2] truncate">
+                            {name}
+                          </span>
+                          {item.favorite && (
+                            <Star className="w-4 h-4 text-[#F9BC05] fill-[#F9BC05] flex-shrink-0" />
+                          )}
+                        </div>
+                        {item.secret.username && (
+                          <span className="text-[14px] text-[#A8C7FA] truncate block mt-0.5">
+                            {item.secret.username}
+                          </span>
                         )}
-                      </IconBtn>
-                    )}
-                    {item.secret.password && (
-                      <>
-                        <IconBtn
-                          title={isRevealed ? "Hide password" : "Show password"}
-                          onClick={() =>
-                            setRevealed((r) => ({
-                              ...r,
-                              [item.id]: !r[item.id],
-                            }))
-                          }
-                        >
-                          {isRevealed ? (
-                            <EyeOff className="w-4 h-4" />
-                          ) : (
-                            <Eye className="w-4 h-4" />
-                          )}
-                        </IconBtn>
-                        <IconBtn
-                          title="Copy password"
-                          onClick={() =>
-                            copy(item.secret.password!, `${item.id}:p`)
-                          }
-                        >
-                          {copied === `${item.id}:p` ? (
-                            <Check className="w-4 h-4 text-green-400" />
-                          ) : (
-                            <Copy className="w-4 h-4" />
-                          )}
-                        </IconBtn>
-                      </>
-                    )}
-                    <IconBtn title="Favorite" onClick={() => toggleFav(item)}>
-                      <Star
-                        className={`w-4 h-4 ${
-                          item.favorite ? "text-amber-400 fill-amber-400" : ""
-                        }`}
-                      />
-                    </IconBtn>
-                    <IconBtn title="Edit" onClick={() => openEdit(item)}>
-                      <Pencil className="w-4 h-4" />
-                    </IconBtn>
 
-                    {confirmDel === item.id ? (
-                      <div className="flex items-center gap-1">
-                        <button
-                          onClick={() => remove(item.id)}
-                          className="text-[12px] px-2 py-1 rounded-md bg-red-600 hover:bg-red-500 text-white"
-                        >
-                          Delete
-                        </button>
-                        <button
-                          onClick={() => setConfirmDel(null)}
-                          className="text-[12px] px-2 py-1 rounded-md border border-[#333] text-gray-300"
-                        >
-                          No
-                        </button>
+                        <AnimatePresence>
+                          {isRevealed && item.secret.password && (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                              animate={{
+                                opacity: 1,
+                                height: "auto",
+                                marginTop: 10,
+                              }}
+                              exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                              className="p-3 bg-[#1E1F20] rounded-2xl overflow-hidden"
+                            >
+                              <span className="text-[12px] text-[#8E918F] uppercase tracking-wider font-semibold block mb-1">
+                                Password
+                              </span>
+                              <span className="text-[15px] font-mono text-[#E2E2E2] break-all block">
+                                {item.secret.password}
+                              </span>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+
+                        {/* Action Bar inside item */}
+                        <div className="flex items-center gap-1.5 mt-4 overflow-x-auto scrollbar-hide -ml-2">
+                          {item.secret.username && (
+                            <IconBtn
+                              title="Copy User"
+                              onClick={() =>
+                                copy(
+                                  item.secret.username!,
+                                  `${item.id}:u`,
+                                  "Username",
+                                )
+                              }
+                            >
+                              {copied === `${item.id}:u` ? (
+                                <Check className="w-4 h-4 text-[#34A853]" />
+                              ) : (
+                                <Copy className="w-4 h-4" />
+                              )}
+                            </IconBtn>
+                          )}
+                          {item.secret.password && (
+                            <>
+                              <IconBtn
+                                title={isRevealed ? "Hide" : "Show"}
+                                onClick={() =>
+                                  setRevealed((r) => ({
+                                    ...r,
+                                    [item.id]: !r[item.id],
+                                  }))
+                                }
+                              >
+                                {isRevealed ? (
+                                  <EyeOff className="w-4 h-4" />
+                                ) : (
+                                  <Eye className="w-4 h-4" />
+                                )}
+                              </IconBtn>
+                              <IconBtn
+                                title="Copy Pass"
+                                onClick={() =>
+                                  copy(
+                                    item.secret.password!,
+                                    `${item.id}:p`,
+                                    "Password",
+                                  )
+                                }
+                              >
+                                {copied === `${item.id}:p` ? (
+                                  <Check className="w-4 h-4 text-[#34A853]" />
+                                ) : (
+                                  <Copy className="w-4 h-4" />
+                                )}
+                              </IconBtn>
+                            </>
+                          )}
+                          <IconBtn
+                            title="Favorite"
+                            onClick={() => toggleFav(item)}
+                          >
+                            <Star
+                              className={`w-4 h-4 ${item.favorite ? "text-[#F9BC05] fill-[#F9BC05]" : ""}`}
+                            />
+                          </IconBtn>
+                          <IconBtn title="Edit" onClick={() => openEdit(item)}>
+                            <Pencil className="w-4 h-4" />
+                          </IconBtn>
+
+                          {confirmDel === item.id ? (
+                            <motion.div
+                              initial={{ opacity: 0, x: 10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              className="flex items-center gap-1.5 ml-auto"
+                            >
+                              <button
+                                onClick={() => remove(item.id)}
+                                className="text-[13px] font-medium px-4 py-1.5 rounded-full bg-[#F2B8B5] text-[#601410] active:scale-95 transition-transform"
+                              >
+                                Confirm
+                              </button>
+                              <button
+                                onClick={() => setConfirmDel(null)}
+                                className="text-[13px] font-medium px-4 py-1.5 rounded-full bg-[#282A2C] text-[#E2E2E2] active:scale-95 transition-transform"
+                              >
+                                Cancel
+                              </button>
+                            </motion.div>
+                          ) : (
+                            <div className="ml-auto">
+                              <IconBtn
+                                title="Delete"
+                                onClick={() => setConfirmDel(item.id)}
+                              >
+                                <Trash2 className="w-4 h-4 hover:text-[#F2B8B5]" />
+                              </IconBtn>
+                            </div>
+                          )}
+                        </div>
                       </div>
-                    ) : (
-                      <IconBtn
-                        title="Delete"
-                        onClick={() => setConfirmDel(item.id)}
-                      >
-                        <Trash2 className="w-4 h-4 hover:text-red-400" />
-                      </IconBtn>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
+                    </motion.div>
+                  );
+                })}
+              </AnimatePresence>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
 
-      {/* Add / Edit modal */}
+      {/* Add / Edit modal (Bottom Sheet on Mobile, Centered on Desktop) */}
       <AnimatePresence>
         {modalOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4"
+            className="fixed inset-0 z-40 flex items-end md:items-center justify-center bg-black/60 backdrop-blur-sm p-0 md:p-4"
             onClick={closeModal}
           >
             <motion.div
-              initial={{ scale: 0.96, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.96, opacity: 0 }}
+              initial={{ y: "100%", opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: "100%", opacity: 0 }}
+              transition={{ type: "spring", damping: 28, stiffness: 250 }}
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-[480px] bg-[#0a0a0a] border border-[#222] rounded-2xl p-6 max-h-[90vh] overflow-y-auto"
+              className="w-full max-w-[500px] pt-10 bg-[#131314] rounded-t-[32px] md:rounded-[32px] p-6 pb-10 md:pb-6 max-h-[90vh] overflow-y-auto"
             >
-              <div className="flex items-center justify-between mb-5">
-                <h2 className="text-lg font-bold text-white">
-                  {form.id ? "Edit item" : "Add item"}
+              <div className="w-12 h-1.5 bg-[#444746] rounded-full mx-auto mb-6 md:hidden" />
+
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-[#E2E2E2]">
+                  {form.id ? "Edit item" : "New item"}
                 </h2>
                 <button
                   onClick={closeModal}
-                  className="text-gray-500 hover:text-white"
+                  className="p-2 bg-[#1E1F20] hover:bg-[#282A2C] rounded-full text-[#C4C7C5] transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
-              {formError && (
-                <div className="mb-4 p-3 bg-red-950/30 border border-red-900/50 rounded-lg text-[13px] text-red-200">
-                  {formError}
-                </div>
-              )}
+              <AnimatePresence>
+                {formError && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="mb-6 p-4 bg-[#601410] rounded-2xl text-[14px] text-[#F2B8B5]"
+                  >
+                    {formError}
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
-              <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-5">
+                <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className={labelClass}>Type</label>
-                    <select
-                      value={form.type}
-                      onChange={(e) =>
-                        setForm((f) => ({
-                          ...f,
-                          type: e.target.value as VaultItemType,
-                        }))
-                      }
-                      className={inputClass}
-                    >
-                      <option value="login">Login</option>
-                      <option value="note">Secure note</option>
-                      <option value="card">Card</option>
-                      <option value="identity">Identity</option>
-                    </select>
+                    <div className="relative">
+                      <select
+                        value={form.type}
+                        onChange={(e) =>
+                          setForm((f) => ({
+                            ...f,
+                            type: e.target.value as VaultItemType,
+                          }))
+                        }
+                        className={`${inputClass} appearance-none pr-10`}
+                      >
+                        <option value="login">Login</option>
+                        <option value="note">Secure Note</option>
+                        <option value="card">Card</option>
+                        <option value="identity">Identity</option>
+                      </select>
+                    </div>
                   </div>
                   <div>
                     <label className={labelClass}>Service</label>
@@ -471,7 +574,7 @@ export default function Dashboard() {
                           service: e.target.value as ServiceId,
                         }))
                       }
-                      className={inputClass}
+                      className={`${inputClass} appearance-none pr-10`}
                     >
                       {POPULAR_SERVICES.map((s) => (
                         <option key={s.id} value={s.id}>
@@ -482,19 +585,25 @@ export default function Dashboard() {
                   </div>
                 </div>
 
-                {form.service === "other" && (
-                  <div>
-                    <label className={labelClass}>Service name</label>
-                    <input
-                      value={form.customName}
-                      onChange={(e) =>
-                        setForm((f) => ({ ...f, customName: e.target.value }))
-                      }
-                      className={inputClass}
-                      placeholder="e.g. My Local Bank"
-                    />
-                  </div>
-                )}
+                <AnimatePresence>
+                  {form.service === "other" && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                    >
+                      <label className={labelClass}>Custom Service Name</label>
+                      <input
+                        value={form.customName}
+                        onChange={(e) =>
+                          setForm((f) => ({ ...f, customName: e.target.value }))
+                        }
+                        className={inputClass}
+                        placeholder="e.g. Local Library"
+                      />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
                 <div>
                   <label className={labelClass}>Title *</label>
@@ -504,82 +613,89 @@ export default function Dashboard() {
                       setForm((f) => ({ ...f, title: e.target.value }))
                     }
                     className={inputClass}
-                    placeholder="e.g. Personal Gmail"
+                    placeholder="e.g. Personal Email"
                   />
                 </div>
 
-                {form.type === "login" && (
-                  <>
-                    <div>
-                      <label className={labelClass}>Username / email</label>
-                      <input
-                        value={form.username}
-                        onChange={(e) =>
-                          setForm((f) => ({ ...f, username: e.target.value }))
-                        }
-                        className={inputClass}
-                        placeholder="you@example.com"
-                      />
-                    </div>
+                <AnimatePresence>
+                  {form.type === "login" && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="space-y-5"
+                    >
+                      <div>
+                        <label className={labelClass}>Username / Email</label>
+                        <input
+                          value={form.username}
+                          onChange={(e) =>
+                            setForm((f) => ({ ...f, username: e.target.value }))
+                          }
+                          className={inputClass}
+                          placeholder="you@example.com"
+                        />
+                      </div>
 
-                    <div>
-                      <label className={labelClass}>Password</label>
-                      <div className="flex gap-2">
-                        <div className="relative flex-1">
-                          <input
-                            type={showFormPw ? "text" : "password"}
-                            value={form.password}
-                            onChange={(e) =>
-                              setForm((f) => ({
-                                ...f,
-                                password: e.target.value,
-                              }))
-                            }
-                            className={`${inputClass} pr-10 font-mono`}
-                            placeholder="••••••••"
-                          />
+                      <div>
+                        <label className={labelClass}>Password</label>
+                        <div className="flex gap-2">
+                          <div className="relative flex-1">
+                            <input
+                              type={showFormPw ? "text" : "password"}
+                              value={form.password}
+                              onChange={(e) =>
+                                setForm((f) => ({
+                                  ...f,
+                                  password: e.target.value,
+                                }))
+                              }
+                              className={`${inputClass} pr-12 font-mono tracking-widest`}
+                              placeholder="••••••••"
+                            />
+                            <button
+                              type="button"
+                              tabIndex={-1}
+                              onClick={() => setShowFormPw((s) => !s)}
+                              className="absolute right-4 top-1/2 -translate-y-1/2 text-[#8E918F] hover:text-[#E2E2E2] p-1"
+                            >
+                              {showFormPw ? (
+                                <EyeOff className="w-5 h-5" />
+                              ) : (
+                                <Eye className="w-5 h-5" />
+                              )}
+                            </button>
+                          </div>
                           <button
                             type="button"
-                            tabIndex={-1}
-                            onClick={() => setShowFormPw((s) => !s)}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-200"
+                            onClick={() =>
+                              setForm((f) => ({
+                                ...f,
+                                password: generate({ length: 20 }),
+                              }))
+                            }
+                            title="Generate robust password"
+                            className="px-4 flex items-center justify-center bg-[#1E1F20] hover:bg-[#282A2C] rounded-3xl text-[#A8C7FA] transition-colors active:scale-95"
                           >
-                            {showFormPw ? (
-                              <EyeOff className="w-4 h-4" />
-                            ) : (
-                              <Eye className="w-4 h-4" />
-                            )}
+                            <RefreshCw className="w-5 h-5" />
                           </button>
                         </div>
-                        <button
-                          type="button"
-                          onClick={() =>
-                            setForm((f) => ({
-                              ...f,
-                              password: generate({ length: 20 }),
-                            }))
-                          }
-                          title="Generate strong password"
-                          className="px-3 flex items-center gap-1.5 text-[13px] bg-[#111] border border-[#333] hover:bg-[#1a1a1a] rounded-md text-gray-200"
-                        >
-                          <RefreshCw className="w-4 h-4" />
-                        </button>
                       </div>
-                    </div>
 
-                    <div>
-                      <label className={labelClass}>Website</label>
-                      <input
-                        value={form.url}
-                        onChange={(e) =>
-                          setForm((f) => ({ ...f, url: e.target.value }))
-                        }
-                        className={inputClass}
-                        placeholder="https://example.com"
-                      />
-                    </div>
-                  </>
-                )}
+                      <div>
+                        <label className={labelClass}>Website URL</label>
+                        <input
+                          value={form.url}
+                          onChange={(e) =>
+                            setForm((f) => ({ ...f, url: e.target.value }))
+                          }
+                          className={inputClass}
+                          placeholder="https://example.com"
+                        />
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
                 <div>
                   <label className={labelClass}>Notes</label>
@@ -594,21 +710,40 @@ export default function Dashboard() {
                   />
                 </div>
 
-                <button
-                  onClick={save}
-                  disabled={saving}
-                  className="w-full flex items-center justify-center gap-2 py-2.5 font-semibold text-[14px] bg-[#0078D4] hover:bg-[#006abc] text-white rounded-full transition-all disabled:opacity-50"
-                >
-                  {saving ? (
-                    <FaSpinner className="animate-spin w-5 h-5" />
-                  ) : form.id ? (
-                    "Save changes"
-                  ) : (
-                    "Add to vault"
-                  )}
-                </button>
+                <div className="pt-4 pb-2">
+                  <button
+                    onClick={save}
+                    disabled={saving}
+                    className="w-full flex items-center justify-center gap-2 py-4 font-medium text-[16px] bg-[#A8C7FA] hover:bg-[#b9d3fc] text-[#041E49] rounded-full transition-all disabled:opacity-50 disabled:cursor-not-allowed active:scale-95"
+                  >
+                    {saving ? (
+                      <FaSpinner className="animate-spin w-5 h-5" />
+                    ) : form.id ? (
+                      "Save Changes"
+                    ) : (
+                      "Save to Vault"
+                    )}
+                  </button>
+                </div>
               </div>
             </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Global Toast Notification System */}
+      <AnimatePresence>
+        {toastMessage && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.9 }}
+            transition={{ type: "spring", stiffness: 400, damping: 30 }}
+            className="fixed bottom-28 left-1/2 -translate-x-1/2 z-50 pointer-events-none"
+          >
+            <div className="bg-[#282A2C] text-[#E2E2E2] px-5 py-3 rounded-full text-[14px] font-medium shadow-[0_4px_14px_0_rgba(0,0,0,0.3)] border border-[#333537]">
+              {toastMessage}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -629,7 +764,7 @@ function IconBtn({
     <button
       title={title}
       onClick={onClick}
-      className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-[#1a1a1a] transition-all"
+      className="p-2.5 rounded-full text-[#C4C7C5] hover:text-[#E2E2E2] hover:bg-[#282A2C] transition-colors flex items-center justify-center active:scale-90"
     >
       {children}
     </button>

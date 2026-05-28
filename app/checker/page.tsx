@@ -46,37 +46,37 @@ interface MetricCardProps {
 
 // --- Configuration ---
 
-// Professional, flat colors for enterprise look
+// Material You Tonal Colors Mapping for Scores (0-4)
 const SCORE_COLORS = [
   {
-    text: "text-rose-500",
-    bg: "bg-rose-500",
-    border: "border-rose-500/20",
-    lightBg: "bg-rose-500/10",
+    text: "text-[#F2B8B5]", // Red Tonal
+    bg: "bg-[#F2B8B5]",
+    border: "border-[#601410]",
+    lightBg: "bg-[#601410]",
   },
   {
-    text: "text-orange-500",
-    bg: "bg-orange-500",
-    border: "border-orange-500/20",
-    lightBg: "bg-orange-500/10",
+    text: "text-[#FFB4A1]", // Orange Tonal
+    bg: "bg-[#FFB4A1]",
+    border: "border-[#8C3725]",
+    lightBg: "bg-[#8C3725]",
   },
   {
-    text: "text-yellow-500",
-    bg: "bg-yellow-500",
-    border: "border-yellow-500/20",
-    lightBg: "bg-yellow-500/10",
+    text: "text-[#F9BC05]", // Yellow Tonal
+    bg: "bg-[#F9BC05]",
+    border: "border-[#684C00]",
+    lightBg: "bg-[#684C00]",
   },
   {
-    text: "text-lime-500",
-    bg: "bg-lime-500",
-    border: "border-lime-500/20",
-    lightBg: "bg-lime-500/10",
+    text: "text-[#C4EDD0]", // Light Green Tonal
+    bg: "bg-[#C4EDD0]",
+    border: "border-[#0F5223]",
+    lightBg: "bg-[#0F5223]",
   },
   {
-    text: "text-emerald-500",
-    bg: "bg-emerald-500",
-    border: "border-emerald-500/20",
-    lightBg: "bg-emerald-500/10",
+    text: "text-[#81C995]", // Standard Green Tonal
+    bg: "bg-[#81C995]",
+    border: "border-[#0D652D]",
+    lightBg: "bg-[#0D652D]",
   },
 ];
 
@@ -94,12 +94,12 @@ function DashboardMeter({ score }: { score: number }) {
   const activeColor = SCORE_COLORS[score];
 
   return (
-    <div className="flex gap-2 w-full h-2.5">
+    <div className="flex gap-2 w-full h-3">
       {[0, 1, 2, 3, 4].map((i) => (
         <div
           key={i}
-          className={`flex-1 rounded-sm transition-colors duration-500 ease-out ${
-            i <= score ? activeColor.bg : "bg-zinc-800"
+          className={`flex-1 rounded-full transition-colors duration-500 ease-out ${
+            i <= score ? activeColor.bg : "bg-[#282A2C]"
           }`}
         />
       ))}
@@ -112,20 +112,22 @@ function MetricCard({
   value,
   icon: Icon,
   subtitle,
-  colorClass = "text-zinc-100",
+  colorClass = "text-[#E2E2E2]",
 }: MetricCardProps) {
   return (
-    <div className="bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-6 flex flex-col justify-between h-full">
-      <div className="flex items-center justify-between mb-4">
-        <span className="text-sm font-medium text-zinc-400">{title}</span>
-        <Icon className="w-5 h-5 text-zinc-500" />
+    <div className="bg-[#131314] border border-[#282A2C] rounded-[32px] p-6 md:p-8 flex flex-col justify-between h-full hover:bg-[#1E1F20] transition-colors">
+      <div className="flex items-center justify-between mb-6">
+        <span className="text-[15px] font-medium text-[#8E918F]">{title}</span>
+        <div className="w-10 h-10 rounded-full bg-[#1E1F20] flex items-center justify-center">
+          <Icon className="w-5 h-5 text-[#C4C7C5]" />
+        </div>
       </div>
       <div>
         <div className={`text-3xl font-semibold tracking-tight ${colorClass}`}>
           {value}
         </div>
         {subtitle && (
-          <div className="text-sm text-zinc-500 mt-2">{subtitle}</div>
+          <div className="text-[13px] text-[#8E918F] mt-2">{subtitle}</div>
         )}
       </div>
     </div>
@@ -198,38 +200,38 @@ export default function PasswordDashboard() {
   const genScore = scoreFromBits(generated.entropyBits);
   const genColor = SCORE_COLORS[genScore];
 
-  if (!mounted) return <div className="min-h-screen bg-[#09090b]" />;
+  if (!mounted) return <div className="min-h-screen bg-[#000000]" />;
 
   return (
-    <div className="min-h-screen bg-[#09090b] text-zinc-300  selection:bg-zinc-800 selection:text-white flex flex-col">
+    <div className="min-h-screen bg-[#000000] text-[#E2E2E2] selection:bg-[#A8C7FA] selection:text-[#041E49] flex flex-col ">
       {/* Top Navigation Bar */}
-      <header className=" bg-[#09090b]/80 pt-20 backdrop-blur-xl border-b border-zinc-800/80 px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <header className="bg-[#000000]/80 pt-20 backdrop-blur-2xl border-b border-[#282A2C] px-4 sm:px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-5 sticky top-0 z-10">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-zinc-900 border border-zinc-800 rounded-lg">
-            <Shield className="w-5 h-5 text-zinc-100" />
+          <div className="w-12 h-12 bg-[#1E1F20] rounded-full flex items-center justify-center shadow-sm">
+            <Shield className="w-6 h-6 text-[#A8C7FA]" />
           </div>
-          <h1 className="text-xl font-semibold text-zinc-100 tracking-tight">
+          <h1 className="text-xl font-normal text-[#E2E2E2] tracking-tight">
             Security Workspace
           </h1>
         </div>
 
         {/* Dashboard Segmented Control */}
-        <div className="flex p-1 bg-zinc-900/80 border border-zinc-800/80 rounded-xl w-full sm:w-auto">
+        <div className="flex p-1.5 bg-[#1E1F20] rounded-full w-full sm:w-auto shadow-inner border border-[#282A2C]">
           <button
-            className={`flex-1 sm:w-32 py-2 text-sm font-medium rounded-lg transition-all ${
+            className={`flex-1 sm:w-32 py-2.5 px-4 text-[14px] font-medium rounded-full transition-all ${
               mode === "analyze"
-                ? "bg-zinc-800 text-zinc-100 shadow-sm border border-zinc-700/50"
-                : "text-zinc-400 hover:text-zinc-200"
+                ? "bg-[#A8C7FA] text-[#041E49] shadow-sm"
+                : "text-[#C4C7C5] hover:text-[#E2E2E2]"
             }`}
             onClick={() => setMode("analyze")}
           >
             Analysis
           </button>
           <button
-            className={`flex-1 sm:w-32 py-2 text-sm font-medium rounded-lg transition-all ${
+            className={`flex-1 sm:w-32 py-2.5 px-4 text-[14px] font-medium rounded-full transition-all ${
               mode === "generate"
-                ? "bg-zinc-800 text-zinc-100 shadow-sm border border-zinc-700/50"
-                : "text-zinc-400 hover:text-zinc-200"
+                ? "bg-[#A8C7FA] text-[#041E49] shadow-sm"
+                : "text-[#C4C7C5] hover:text-[#E2E2E2]"
             }`}
             onClick={() => setMode("generate")}
           >
@@ -239,23 +241,26 @@ export default function PasswordDashboard() {
       </header>
 
       {/* Main Dashboard Canvas */}
-      <main className="flex-1 w-full max-w-[1600px] mx-auto p-4 sm:p-6 lg:p-8 animate-in fade-in duration-500">
+      <main className="flex-1 w-full max-w-[1600px] mx-auto p-4 sm:p-6 lg:p-8 animate-in fade-in duration-500 pb-32">
         {mode === "analyze" ? (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
             {/* Left Column: Input Action */}
-            <div className="lg:col-span-5 flex flex-col gap-6">
-              <div className="bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-6 h-full flex flex-col">
-                <h2 className="text-lg font-medium text-zinc-100 mb-6 flex items-center gap-2">
-                  <Lock className="w-5 h-5 text-zinc-400" /> Target Password
+            <div className="lg:col-span-5 flex flex-col gap-4">
+              <div className="bg-[#131314] border border-[#282A2C] rounded-[32px] p-6 md:p-8 h-full flex flex-col">
+                <h2 className="text-lg font-medium text-[#E2E2E2] mb-6 flex items-center gap-3">
+                  <div className="p-2 bg-[#1E1F20] rounded-full">
+                    <Lock className="w-4 h-4 text-[#A8C7FA]" />
+                  </div>
+                  Target Password
                 </h2>
 
                 <div className="relative group flex-1">
                   <textarea
-                    className="w-full h-40 bg-[#09090b] border border-zinc-800 rounded-xl py-4 pl-4 pr-12 text-zinc-100 font-mono text-lg outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500 transition-all placeholder:text-zinc-600 resize-none shadow-inner"
+                    className="w-full h-48 bg-[#1E1F20] border-2 border-transparent rounded-[24px] py-6 pl-6 pr-14 text-[#E2E2E2] font-mono text-xl outline-none focus:bg-[#282A2C] focus:border-[#A8C7FA] transition-all placeholder:text-[#8E918F] resize-none"
                     value={pw}
                     autoFocus
                     spellCheck={false}
-                    placeholder="Enter payload to analyze..."
+                    placeholder="Enter payload..."
                     onChange={(e) => setPw(e.target.value)}
                     style={
                       {
@@ -264,7 +269,7 @@ export default function PasswordDashboard() {
                     }
                   />
                   <button
-                    className="absolute right-3 top-3 p-2 text-zinc-500 hover:text-zinc-300 transition-colors rounded-lg bg-[#09090b]"
+                    className="absolute right-4 top-4 w-10 h-10 flex items-center justify-center text-[#8E918F] hover:text-[#E2E2E2] transition-colors rounded-full bg-[#131314] hover:bg-[#282A2C] border border-[#282A2C]"
                     onClick={() => setReveal((r) => !r)}
                     title={reveal ? "Hide" : "Show"}
                   >
@@ -279,14 +284,14 @@ export default function PasswordDashboard() {
             </div>
 
             {/* Right Column: Analytics Metrics */}
-            <div className="lg:col-span-7 flex flex-col gap-6">
+            <div className="lg:col-span-7 flex flex-col gap-4 lg:gap-6">
               {/* Strength Meter Card */}
-              <div className="bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-6">
-                <div className="flex justify-between items-end mb-4">
-                  <span className="text-sm font-medium text-zinc-400">
+              <div className="bg-[#131314] border border-[#282A2C] rounded-[32px] p-6 md:p-8">
+                <div className="flex justify-between items-end mb-6">
+                  <span className="text-[15px] font-medium text-[#8E918F]">
                     Security Index
                   </span>
-                  <span className={`text-lg font-semibold ${activeColor.text}`}>
+                  <span className={`text-xl font-semibold ${activeColor.text}`}>
                     {pw ? result.label : "Awaiting Input"}
                   </span>
                 </div>
@@ -294,7 +299,7 @@ export default function PasswordDashboard() {
               </div>
 
               {/* Metrics Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
                 <MetricCard
                   title="Entropy Value"
                   value={`${result.entropyBits} bits`}
@@ -312,26 +317,26 @@ export default function PasswordDashboard() {
               {/* Feedback Console */}
               {(result.warnings.length > 0 ||
                 result.suggestions.length > 0) && (
-                <div className="bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-6">
-                  <h3 className="text-sm font-medium text-zinc-400 mb-4">
+                <div className="bg-[#131314] border border-[#282A2C] rounded-[32px] p-6 md:p-8">
+                  <h3 className="text-[15px] font-medium text-[#8E918F] mb-6">
                     Audit Logs
                   </h3>
                   <div className="flex flex-col gap-3">
                     {result.warnings.map((w, i) => (
                       <div
                         key={`w${i}`}
-                        className="text-sm px-4 py-3 bg-rose-500/10 text-rose-300 rounded-xl border border-rose-500/20 flex items-start gap-3"
+                        className="text-[14px] px-5 py-4 bg-[#601410] text-[#F2B8B5] rounded-[24px] flex items-start gap-3"
                       >
-                        <AlertTriangle className="w-4 h-4 mt-0.5 shrink-0" />
+                        <AlertTriangle className="w-5 h-5 mt-0.5 shrink-0" />
                         <span className="leading-relaxed">{w}</span>
                       </div>
                     ))}
                     {result.suggestions.map((s, i) => (
                       <div
                         key={`s${i}`}
-                        className="text-sm px-4 py-3 bg-zinc-950 text-zinc-400 rounded-xl border border-zinc-800/80 flex items-start gap-3"
+                        className="text-[14px] px-5 py-4 bg-[#1E1F20] text-[#E2E2E2] rounded-[24px] flex items-start gap-3"
                       >
-                        <Info className="w-4 h-4 mt-0.5 shrink-0 text-zinc-500" />
+                        <Info className="w-5 h-5 mt-0.5 shrink-0 text-[#A8C7FA]" />
                         <span className="leading-relaxed">{s}</span>
                       </div>
                     ))}
@@ -341,33 +346,33 @@ export default function PasswordDashboard() {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
             {/* Left Column: Output & Controls */}
-            <div className="lg:col-span-7 flex flex-col gap-6">
+            <div className="lg:col-span-7 flex flex-col gap-4 lg:gap-6">
               {/* Output Display */}
-              <div className="bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-6 lg:p-8">
-                <h2 className="text-sm font-medium text-zinc-400 mb-4">
+              <div className="bg-[#131314] border border-[#282A2C] rounded-[32px] p-6 lg:p-10">
+                <h2 className="text-[15px] font-medium text-[#8E918F] mb-6">
                   Generated Credential
                 </h2>
-                <div className="flex items-center gap-4 bg-[#09090b] border border-zinc-800/80 p-4 rounded-xl shadow-inner mb-6">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-[#1E1F20] border border-[#282A2C] p-4 pl-6 rounded-[28px] mb-8">
                   <code
-                    className={`flex-1 font-mono text-xl sm:text-2xl break-all ${genColor.text}`}
+                    className={`flex-1 font-mono text-xl sm:text-2xl break-all tracking-wide ${genColor.text}`}
                   >
                     {generated.password}
                   </code>
-                  <div className="flex gap-2 shrink-0">
+                  <div className="flex gap-2 shrink-0 w-full sm:w-auto justify-end mt-2 sm:mt-0">
                     <button
-                      className="w-12 h-12 flex items-center justify-center border border-zinc-700 bg-zinc-800 rounded-xl text-zinc-300 hover:text-white hover:border-zinc-500 transition-all"
+                      className="w-12 h-12 flex items-center justify-center bg-[#282A2C] hover:bg-[#333537] rounded-full text-[#C4C7C5] hover:text-[#E2E2E2] transition-colors shadow-sm"
                       onClick={() => regenerate()}
                       title="Regenerate"
                     >
                       <RefreshCw className="w-5 h-5" />
                     </button>
                     <button
-                      className={`w-12 h-12 flex items-center justify-center border rounded-xl transition-all ${
+                      className={`w-12 h-12 flex items-center justify-center rounded-full transition-colors shadow-sm ${
                         copied
-                          ? "bg-emerald-500/10 border-emerald-500/50 text-emerald-500"
-                          : "border-zinc-700 bg-zinc-800 text-zinc-300 hover:text-white hover:border-zinc-500"
+                          ? "bg-[#0F5223] text-[#C4EDD0]"
+                          : "bg-[#A8C7FA] text-[#041E49] hover:bg-[#b9d3fc]"
                       }`}
                       onClick={copy}
                       title="Copy to clipboard"
@@ -381,11 +386,11 @@ export default function PasswordDashboard() {
                   </div>
                 </div>
 
-                <div className="flex justify-between items-end mb-3 mt-8">
-                  <span className="text-sm font-medium text-zinc-400">
+                <div className="flex justify-between items-end mb-4">
+                  <span className="text-[14px] font-medium text-[#8E918F]">
                     Generation Strength
                   </span>
-                  <span className="text-sm font-mono text-zinc-500">
+                  <span className="text-[14px] font-mono font-medium text-[#E2E2E2]">
                     {generated.entropyBits} bits
                   </span>
                 </div>
@@ -393,24 +398,26 @@ export default function PasswordDashboard() {
               </div>
 
               {/* Policy Controls */}
-              <div className="bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-6 lg:p-8">
-                <h2 className="text-lg font-medium text-zinc-100 mb-8 flex items-center gap-2">
-                  <Settings2 className="w-5 h-5 text-zinc-400" /> Security
-                  Policy
+              <div className="bg-[#131314] border border-[#282A2C] rounded-[32px] p-6 lg:p-10">
+                <h2 className="text-xl font-medium text-[#E2E2E2] mb-8 flex items-center gap-3">
+                  <div className="p-2.5 bg-[#1E1F20] rounded-full">
+                    <Settings2 className="w-5 h-5 text-[#A8C7FA]" />
+                  </div>
+                  Security Policy
                 </h2>
 
                 {/* Length Slider */}
-                <div className="mb-10">
-                  <div className="flex justify-between items-end mb-4">
-                    <span className="text-sm font-medium text-zinc-400">
+                <div className="mb-12">
+                  <div className="flex justify-between items-end mb-6">
+                    <span className="text-[15px] font-medium text-[#8E918F]">
                       String Length
                     </span>
-                    <span className="text-2xl font-mono font-medium text-zinc-100">
+                    <span className="text-3xl font-mono font-medium text-[#E2E2E2]">
                       {opts.length}
                     </span>
                   </div>
                   <input
-                    className="w-full h-2 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-zinc-300"
+                    className="w-full h-2 bg-[#282A2C] rounded-full appearance-none cursor-pointer accent-[#A8C7FA]"
                     type="range"
                     min={8}
                     max={128}
@@ -421,10 +428,10 @@ export default function PasswordDashboard() {
 
                 {/* Character Sets Grid */}
                 <div>
-                  <span className="block text-sm font-medium text-zinc-400 mb-4">
+                  <span className="block text-[15px] font-medium text-[#8E918F] mb-5">
                     Allowed Characters
                   </span>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                     {(
                       [
                         ["lowercase", "Lowercase (a-z)"],
@@ -436,16 +443,16 @@ export default function PasswordDashboard() {
                     ).map(([key, lbl]) => (
                       <button
                         key={key}
-                        className={`px-4 py-3 border rounded-xl text-sm font-medium transition-all text-left flex justify-between items-center ${
+                        className={`px-5 py-4 rounded-[24px] text-[14px] font-medium transition-all text-left flex justify-between items-center ${
                           opts[key]
-                            ? "bg-zinc-100 text-zinc-900 border-zinc-200"
-                            : "bg-[#09090b] text-zinc-400 border-zinc-800 hover:border-zinc-600"
+                            ? "bg-[#A8C7FA] text-[#041E49]"
+                            : "bg-[#1E1F20] text-[#C4C7C5] hover:bg-[#282A2C] hover:text-[#E2E2E2]"
                         }`}
                         onClick={() => setOpt({ [key]: !opts[key] })}
                       >
                         {lbl}
                         <div
-                          className={`w-2 h-2 rounded-full ${opts[key] ? "bg-zinc-900" : "bg-transparent"}`}
+                          className={`w-2.5 h-2.5 rounded-full ${opts[key] ? "bg-[#041E49]" : "bg-transparent"}`}
                         />
                       </button>
                     ))}
@@ -455,7 +462,7 @@ export default function PasswordDashboard() {
             </div>
 
             {/* Right Column: Generation Stats */}
-            <div className="lg:col-span-5 flex flex-col gap-6">
+            <div className="lg:col-span-5 flex flex-col gap-4 lg:gap-6">
               <MetricCard
                 title="Resulting Entropy"
                 value={`${generated.entropyBits} bits`}
@@ -463,12 +470,14 @@ export default function PasswordDashboard() {
                 colorClass={genColor.text}
                 subtitle="Based on selected policy parameters"
               />
-              <div className="bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-6 flex-1 flex flex-col justify-center">
-                <Shield className="w-12 h-12 text-zinc-700 mb-6" />
-                <h3 className="text-lg font-medium text-zinc-200 mb-2">
+              <div className="bg-[#131314] border border-[#282A2C] rounded-[32px] p-6 md:p-8 flex-1 flex flex-col justify-center">
+                <div className="w-16 h-16 bg-[#1E1F20] rounded-full flex items-center justify-center mb-6">
+                  <Shield className="w-8 h-8 text-[#A8C7FA]" />
+                </div>
+                <h3 className="text-xl font-medium text-[#E2E2E2] mb-3">
                   Zero-Knowledge Architecture
                 </h3>
-                <p className="text-zinc-500 text-sm leading-relaxed">
+                <p className="text-[#8E918F] text-[15px] leading-relaxed">
                   All password generation and analysis happens entirely in your
                   local browser memory. No data is ever transmitted, logged, or
                   stored on external servers.

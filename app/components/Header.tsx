@@ -11,7 +11,6 @@ import {
   X,
   Layers,
   Users,
-  CreditCard,
   BookOpen,
   GitBranch,
   Puzzle,
@@ -30,37 +29,36 @@ export default function Header() {
   const navItems = [
     { name: "Architecture", href: "/architecture", icon: Layers },
     { name: "About Us", href: "/about-us", icon: Users },
-    { name: "Pricing", href: "/pricing", icon: CreditCard },
     { name: "Docs", href: "/docs", icon: BookOpen },
     { name: "Logs", href: "/git-track", icon: GitBranch },
     { name: "Integrations", href: "/integrations", icon: Puzzle },
     { name: "Checker", href: "/checker", icon: Activity },
   ];
 
-  // shared block styles (kept from your original)
+  // Material You / Pixel Styled Blocks
   const signInBlock =
-    "flex items-center gap-2 px-6 h-full border-l border-zinc-800/80 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900/50 transition-all uppercase tracking-wider whitespace-nowrap";
+    "flex items-center gap-2 px-5 py-2.5 rounded-full text-[15px] font-medium text-[#C4C7C5] hover:text-[#E2E2E2] hover:bg-[#1E1F20] transition-all whitespace-nowrap";
   const ctaBlock =
-    "group flex items-center gap-2 px-6 h-full bg-zinc-100 text-black text-sm font-semibold hover:bg-white transition-colors uppercase tracking-wider border-l border-zinc-800/80 whitespace-nowrap";
+    "group flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#A8C7FA] text-[#041E49] text-[15px] font-semibold hover:bg-[#b9d3fc] transition-all whitespace-nowrap shadow-sm transform hover:scale-[1.02] active:scale-95";
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-zinc-800/80 ">
-      <div className="max-w-[1400px] mx-auto flex h-16 items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#000000]/80 backdrop-blur-2xl border-b border-[#282A2C] ">
+      <div className="max-w-[1400px] mx-auto flex h-[72px] items-center justify-between px-4 md:px-6">
         {/* LEFT SECTION: Logo & Nav */}
-        <div className="flex h-full flex-1 overflow-hidden">
+        <div className="flex h-full flex-1 items-center overflow-hidden gap-2 md:gap-6">
           {/* Logo Block */}
           <Link
             href="/"
-            className="flex items-center gap-3 px-4 md:px-6 h-full border-r border-zinc-800/80 hover:bg-zinc-900/50 transition-colors flex-shrink-0"
+            className="flex items-center gap-3 px-3 py-2 rounded-full hover:bg-[#1E1F20] transition-colors flex-shrink-0"
           >
-            <Shield className="w-6 h-6 text-zinc-100" />
-            <span className="text-lg font-semibold tracking-tight heading-font text-zinc-100 whitespace-nowrap">
-              END<span className="text-zinc-500 font-light">Vault</span>
+            <Shield className="w-7 h-7 text-[#A8C7FA]" />
+            <span className="text-xl font-medium tracking-tight text-[#E2E2E2] whitespace-nowrap">
+              END<span className="text-[#8E918F] font-normal">Vault</span>
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden xl:flex items-center px-2 h-full overflow-x-auto no-scrollbar">
+          <nav className="hidden xl:flex items-center gap-1 h-full overflow-x-auto no-scrollbar">
             {navItems.map((item) => {
               const Icon = item.icon;
               return (
@@ -69,7 +67,7 @@ export default function Header() {
                   href={item.href}
                   onMouseEnter={() => setHoveredItem(item.name)}
                   onMouseLeave={() => setHoveredItem(null)}
-                  className="relative px-3 2xl:px-4 h-full flex items-center gap-2 text-sm font-medium text-zinc-400 hover:text-zinc-100 transition-colors whitespace-nowrap"
+                  className="relative px-4 py-2 flex items-center gap-2 text-[14px] font-medium text-[#C4C7C5] hover:text-[#E2E2E2] transition-colors whitespace-nowrap z-10"
                 >
                   <Icon className="w-4 h-4" />
                   <span>{item.name}</span>
@@ -77,7 +75,7 @@ export default function Header() {
                   {hoveredItem === item.name && (
                     <motion.div
                       layoutId="header-hover-pill"
-                      className="absolute inset-y-3 inset-x-0 bg-zinc-800/50 rounded-full -z-10"
+                      className="absolute inset-0 bg-[#1E1F20] rounded-full -z-10"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
@@ -94,8 +92,8 @@ export default function Header() {
           </nav>
         </div>
 
-        {/* RIGHT SECTION: Auth-aware (renders nothing until Clerk loads → no flash) */}
-        <div className="hidden xl:flex h-full items-center flex-shrink-0">
+        {/* RIGHT SECTION: Auth-aware */}
+        <div className="hidden xl:flex h-full items-center gap-3 flex-shrink-0">
           {isLoaded &&
             (isSignedIn ? (
               <>
@@ -103,15 +101,15 @@ export default function Header() {
                   <span>Open Vault</span>
                   <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </Link>
-                <div className="flex items-center px-5 h-full border-l border-zinc-800/80">
+                <div className="flex items-center pl-2">
                   <UserProfileDropdown variant="desktop" />
                 </div>
               </>
             ) : (
               <>
                 <Link href="/verify-regis" className={signInBlock}>
-                  <span>Sign In</span>
                   <User className="w-4 h-4" />
+                  <span>Sign In</span>
                 </Link>
                 <Link href="/vault" className={ctaBlock}>
                   <span>Initialize Vault</span>
@@ -124,9 +122,9 @@ export default function Header() {
         {/* MOBILE MENU TOGGLE */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="xl:hidden flex items-center justify-center h-full px-6 border-l border-zinc-800/80 text-zinc-300 hover:text-white flex-shrink-0"
+          className="xl:hidden flex items-center justify-center p-2.5 rounded-full bg-transparent hover:bg-[#1E1F20] text-[#C4C7C5] hover:text-[#E2E2E2] transition-colors flex-shrink-0"
         >
-          {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
 
@@ -138,9 +136,9 @@ export default function Header() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.2, 0, 0, 1] }}
-            className="xl:hidden overflow-hidden bg-black border-b border-zinc-800/80"
+            className="xl:hidden overflow-hidden bg-[#131314] border-b border-[#282A2C] rounded-b-[32px] shadow-2xl absolute top-[72px] left-0 w-full z-40"
           >
-            <div className="flex flex-col px-4 py-6 space-y-4 max-h-[calc(100vh-4rem)] overflow-y-auto">
+            <div className="flex flex-col px-4 py-6 space-y-2 max-h-[calc(100vh-72px)] overflow-y-auto">
               {navItems.map((item) => {
                 const Icon = item.icon;
                 return (
@@ -148,51 +146,53 @@ export default function Header() {
                     key={item.name}
                     href={item.href}
                     onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-3 text-lg font-medium text-zinc-400 hover:text-zinc-100 transition-colors p-2 hover:bg-zinc-900/50 rounded-lg"
+                    className="flex items-center gap-4 text-[16px] font-medium text-[#E2E2E2] hover:bg-[#1E1F20] transition-colors p-4 rounded-[20px]"
                   >
-                    <Icon className="w-5 h-5" />
+                    <Icon className="w-5 h-5 text-[#A8C7FA]" />
                     <span>{item.name}</span>
                   </Link>
                 );
               })}
 
-              <div className="h-px bg-zinc-800/80 w-full my-4" />
+              <div className="h-px bg-[#282A2C] w-full my-4" />
 
               {isLoaded &&
                 (isSignedIn ? (
-                  <>
-                    <UserProfileDropdown
-                      variant="mobile"
-                      onAction={() => setIsOpen(false)}
-                    />
+                  <div className="flex flex-col gap-4">
+                    <div className="px-2">
+                      <UserProfileDropdown
+                        variant="mobile"
+                        onAction={() => setIsOpen(false)}
+                      />
+                    </div>
                     <Link
                       href="/vault"
                       onClick={() => setIsOpen(false)}
-                      className="flex items-center justify-between w-full p-4 mt-2 bg-zinc-100 text-black text-sm font-semibold rounded-md uppercase tracking-wider"
+                      className="flex items-center justify-center gap-2 w-full p-4 bg-[#A8C7FA] text-[#041E49] text-[16px] font-semibold rounded-full transition-transform active:scale-95"
                     >
                       <span>Open Vault</span>
                       <ArrowUpRight className="w-5 h-5" />
                     </Link>
-                  </>
+                  </div>
                 ) : (
-                  <>
+                  <div className="flex flex-col gap-3 pt-2">
                     <Link
                       href="/verify-regis"
                       onClick={() => setIsOpen(false)}
-                      className="flex items-center justify-between text-lg font-medium text-zinc-300 hover:text-white p-2"
+                      className="flex items-center justify-center gap-2 w-full p-4 text-[16px] font-medium text-[#E2E2E2] bg-[#1E1F20] hover:bg-[#282A2C] rounded-full transition-colors"
                     >
-                      <span>Sign In</span>
                       <User className="w-5 h-5" />
+                      <span>Sign In</span>
                     </Link>
                     <Link
                       href="/vault"
                       onClick={() => setIsOpen(false)}
-                      className="flex items-center justify-between w-full p-4 mt-2 bg-zinc-100 text-black text-sm font-semibold rounded-md uppercase tracking-wider"
+                      className="flex items-center justify-center gap-2 w-full p-4 bg-[#A8C7FA] text-[#041E49] text-[16px] font-semibold rounded-full transition-transform active:scale-95"
                     >
                       <span>Initialize Vault</span>
                       <ArrowUpRight className="w-5 h-5" />
                     </Link>
-                  </>
+                  </div>
                 ))}
             </div>
           </motion.div>

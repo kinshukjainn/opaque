@@ -3,7 +3,7 @@
 body {
   background: black;
   color: white;
-  font-family: var(--font-public-sans), sans-serif;
+  font-family: var(--font-plus-jakarta), sans-serif;
 }
 
 .heading-font {

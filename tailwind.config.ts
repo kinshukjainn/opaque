@@ -12,10 +12,10 @@ const config: Config = {
       fontFamily: {
         // Add your custom font here
         ubuntu: "var(--font-ubuntu) , sans-serif",
-        plusJakarta: "var(--font-plus-jakarta) , sans-serif",
         staatliches: "var(--font-staatliches) , sans-serif",
         geist: "var(--font-geist-mono) , monospaced",
         roboto: "var(--font-roboto) , sans-serif",
+        plusJakarta: "var(--font-plus-jakarta) , sans-serif",
         publicSans: "var(--font-public-sans) , sans-serif",
         poppins: "var(--font-poppins) , sans-serif",
       },

@@ -82,21 +82,18 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
               </button>
 
               {open && (
-                <ul className="mt-1 flex flex-col gap-0.5">
+                <ul className="mt-1 flex flex-col gap-1">
                   {section.items.map((item) => {
                     const active = isActive(item.slug);
                     return (
                       <li key={item.slug} className="relative">
-                        {active && (
-                          <span className="absolute left-0 top-1/2 h-4 w-0.5 -translate-y-1/2 rounded-full bg-blue-400" />
-                        )}
                         <Link
                           href={`/docs/${item.slug}`}
                           aria-current={active ? "page" : undefined}
                           onClick={onNavigate}
-                          className={`block rounded-xs px-2.5 py-1.5 text-[14px] transition-colors ${
+                          className={`block rounded-full px-2.5 py-1.5 text-[14px] transition-colors ${
                             active
-                              ? "bg-neutral-800/70 font-medium text-blue-400"
+                              ? "bg-neutral-800/70 border border-[#444444] font-medium text-white"
                               : "text-neutral-400 hover:bg-neutral-900 hover:text-neutral-200"
                           }`}
                         >
@@ -190,12 +187,12 @@ export function MobileDocsNav() {
           />
 
           {/* Drawer Content */}
-          <div className="relative flex w-4/5 max-w-xs flex-col bg-neutral-950 shadow-2xl">
+          <div className="relative flex w-4/5 max-w-xs flex-col bg-black shadow-2xl">
             <div className="flex items-center justify-between border-b border-neutral-800/60 px-4 py-3 sm:px-6">
-              <span className="text-sm font-bold text-white">Menu</span>
+              <span className="text-xl font-bold text-white">Menu</span>
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-1 text-neutral-400 hover:text-white"
+                className="p-1 bg-[#333] rounded-full cursor-pointer text-neutral-400 hover:text-white"
               >
                 <svg
                   viewBox="0 0 24 24"

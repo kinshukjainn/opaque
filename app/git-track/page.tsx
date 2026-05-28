@@ -217,7 +217,7 @@ export default function ChangelogTracker() {
       : "N/A";
 
   const inputClass =
-    "bg-zinc-950 text-zinc-200 border border-zinc-800 px-4 py-2 rounded-lg outline-none focus:border-zinc-600 focus:ring-1 focus:ring-zinc-600 transition-all text-sm w-full sm:w-auto";
+    "bg-zinc-950 text-zinc-200 border border-zinc-800 px-4 py-2 rounded-3xl outline-none focus:border-zinc-600 focus:ring-1 focus:ring-zinc-600 transition-all text-sm w-full sm:w-auto";
 
   return (
     <div className="min-h-screen bg-black text-zinc-300  selection:bg-zinc-800 selection:text-white pb-32">
@@ -259,21 +259,21 @@ export default function ChangelogTracker() {
         </header>
 
         {/* ── META INFO CARD ── */}
-        <div className="bg-zinc-900/20 border border-zinc-800/80 shadow-xl shadow-black/20 rounded-xl p-5 md:p-6 backdrop-blur-sm">
+        <div className="bg-zinc-900/20 border border-zinc-800/80 shadow-xl shadow-black/20 rounded-3xl p-5 md:p-6 backdrop-blur-sm">
           <div className="grid grid-cols-1 sm:grid-cols-[140px_1fr] gap-y-4 sm:gap-x-4 text-sm">
-            <div className="text-zinc-500 font-medium flex items-center gap-2">
+            <div className="text-green-500 font-medium flex items-center gap-2">
               <GitBranch className="w-4 h-4" /> Branch
             </div>
-            <div className="text-zinc-200 font-mono text-xs bg-zinc-800/50 w-fit px-2 py-0.5 rounded border border-zinc-700/50">
+            <div className="text-white font-mono text-xs bg-blue-800 w-fit px-2 py-0.5 rounded-full border-2 border-blue-400">
               {GITHUB_CONFIG.branch}
             </div>
 
-            <div className="text-zinc-500 font-medium flex items-center gap-2">
+            <div className="text-green-500 font-medium flex items-center gap-2">
               <Clock className="w-4 h-4" /> Last Change
             </div>
             <div className="text-zinc-200">{lastChangeDate}</div>
 
-            <div className="text-zinc-500 font-medium flex items-center gap-2">
+            <div className="text-green-500 font-medium flex items-center gap-2">
               <FaGithub className="w-4 h-4" /> Origin URL
             </div>
             <div>
@@ -306,7 +306,7 @@ export default function ChangelogTracker() {
         </div>
 
         {showFilters && (
-          <div className="bg-zinc-900/30 border border-zinc-800/80 rounded-xl p-5 mb-6 animate-in slide-in-from-top-2 fade-in duration-200">
+          <div className=" mb-6 animate-in slide-in-from-top-2 fade-in duration-200">
             <div className="flex flex-col sm:flex-row flex-wrap gap-4 items-start sm:items-end">
               <label className="flex flex-col gap-1.5 w-full sm:w-auto">
                 <span className="text-zinc-400 text-xs font-semibold uppercase tracking-wider">
@@ -368,7 +368,7 @@ export default function ChangelogTracker() {
                   setAuthorFilter("all");
                   setTypeFilter("all");
                 }}
-                className="h-[38px] px-5 bg-zinc-100 text-black text-sm font-medium rounded-lg hover:bg-white transition-colors w-full sm:w-auto mt-2 sm:mt-0"
+                className="h-[38px] px-5 bg-zinc-100 text-black text-sm font-medium rounded-full cursor-pointer  hover:bg-white transition-colors w-full sm:w-auto mt-2 sm:mt-0"
               >
                 Clear
               </button>
@@ -411,7 +411,7 @@ export default function ChangelogTracker() {
 
         {/* ── COMMITS LIST ── */}
         {!loading && !error && displayCommits.length > 0 && (
-          <div className="flex flex-col border border-zinc-800/80 bg-zinc-950 rounded-xl overflow-hidden shadow-xl shadow-black/20">
+          <div className="flex flex-col ">
             {displayCommits.map((commit, index) => {
               const title = getCommitTitle(commit.commit.message);
               // Subtle alternating rows
@@ -441,19 +441,19 @@ export default function ChangelogTracker() {
                       {title}
                     </span>
                     {index === 0 && (
-                      <span className="bg-zinc-800 text-zinc-300 border border-zinc-700 text-[10px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider shrink-0">
-                        latest
+                      <span className="bg-zinc-800 text-white border border-zinc-700 text-[13px] font-bold px-2.5 py-0.5 rounded-full  tracking-wider shrink-0">
+                        Latest
                       </span>
                     )}
                   </div>
 
                   {/* Right: Actions */}
-                  <div className="shrink-0 flex items-center gap-3 text-xs font-mono text-zinc-500 md:justify-end">
+                  <div className="shrink-0 flex items-center gap-3 text-sm  text-zinc-500 md:justify-end">
                     <a
                       href={commit.html_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:text-zinc-100 transition-colors flex items-center gap-1"
+                      className="text-green-500 hover:text-zinc-100 font-semibold transition-colors flex items-center gap-1"
                     >
                       {commit.sha.substring(0, 7)}
                     </a>

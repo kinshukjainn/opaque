@@ -37,15 +37,15 @@ function BenefitItem({
   description: string;
 }) {
   return (
-    <div className="flex items-start gap-4">
-      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-white flex items-center justify-center text-blue-800 shadow-sm">
+    <div className="flex items-start gap-5 p-4 rounded-[28px] hover:bg-[#1E1F20] transition-colors border border-transparent hover:border-[#282A2C]">
+      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-[#1E1F20] flex items-center justify-center text-[#A8C7FA] shadow-sm">
         {icon}
       </div>
       <div>
-        <h3 className="text-gray-100 font-semibold text-[15px] mb-1">
+        <h3 className="text-[#E2E2E2] font-medium text-[16px] mb-1.5">
           {title}
         </h3>
-        <p className="text-gray-400 text-[13px] leading-relaxed">
+        <p className="text-[#8E918F] text-[14px] leading-relaxed">
           {description}
         </p>
       </div>
@@ -253,7 +253,7 @@ export default function AuthPage() {
       ? "Verify Email"
       : isSignUp
         ? "Create your vault"
-        : "Get back to your Vault";
+        : "Welcome back";
 
   const subtext = pendingMfa
     ? "A security code has been sent to your email."
@@ -271,27 +271,28 @@ export default function AuthPage() {
         ? !!(email && password && firstName && lastName)
         : !!(email && password);
 
+  // Material You Styling Variables
   const inputClass =
-    "w-full px-4 py-3 bg-[#111111] border border-[#333333] text-[15px] text-gray-100 placeholder-gray-500 focus:border-[#0078D4] focus:ring-1 focus:ring-[#0078D4] focus:outline-none rounded-lg transition-all";
-  const labelClass = "block text-[14px] font-medium text-gray-200 mb-2";
+    "w-full px-6 py-4 bg-[#1E1F20] border-2 border-transparent text-[16px] text-[#E2E2E2] placeholder-[#8E918F] focus:bg-[#282A2C] focus:border-[#A8C7FA] focus:outline-none rounded-full transition-all duration-300";
+  const labelClass = "block text-[14px] font-medium text-[#C4C7C5] mb-2 pl-4";
   const primaryButtonClass =
-    "w-full flex items-center justify-center gap-2 py-3 px-4 font-semibold text-[14px] bg-[#0078D4] hover:bg-[#006abc] text-white rounded-full shadow-lg shadow-[#0078D4]/20 cursor-pointer transition-all disabled:opacity-50 disabled:cursor-not-allowed";
+    "w-full flex items-center justify-center gap-2 py-4 px-6 font-semibold text-[16px] bg-[#A8C7FA] hover:bg-[#b9d3fc] text-[#041E49] rounded-full shadow-[0_4px_14px_0_rgba(168,199,250,0.2)] cursor-pointer transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100";
   const secondaryButtonClass =
-    "w-full flex items-center justify-center gap-2 py-3 px-4 font-semibold text-[14px] cursor-pointer bg-transparent border border-[#333333] hover:bg-[#1a1a1a] text-gray-200 rounded-full transition-all disabled:opacity-50";
+    "w-full flex items-center justify-center gap-2 py-4 px-6 font-medium text-[15px] cursor-pointer bg-[#1E1F20] hover:bg-[#282A2C] text-[#E2E2E2] rounded-full transition-all active:scale-95 disabled:opacity-50";
 
   return (
-    <div className="grid pt-10  min-h-screen grid-cols-1 lg:grid-cols-2 bg-[#050505] text-gray-100 selection:bg-[#0078D4] selection:text-white">
-      {/* LEFT PANEL: Branding & Benefits (Strictly contained, hidden on mobile) */}
-      <div className="relative hidden lg:flex flex-col justify-between p-12 xl:p-16 bg-black border-r border-[#1f1f1f] overflow-hidden">
-        {/* Background Graphic */}
-        <div className="absolute inset-0 z-0 bg-black/80" />
+    <div className="grid pt-0 lg:pt-16 min-h-screen pt-20 grid-cols-1 lg:grid-cols-2 bg-[#000000] text-[#E2E2E2] selection:bg-[#A8C7FA] selection:text-[#041E49] ">
+      {/* LEFT PANEL: Branding & Benefits */}
+      <div className="relative hidden lg:flex flex-col justify-between p-12 xl:p-16 bg-[#131314] rounded-r-[40px] shadow-2xl overflow-hidden my-4 ml-4 border border-[#282A2C]">
+        {/* Background Glow */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#A8C7FA]/5 blur-[100px] rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none" />
 
         <div className="relative z-10 flex flex-col gap-10">
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <span className="text-2xl font-bold tracking-tight text-white flex items-center flex-wrap gap-2">
-              {APP_NAME} /{" "}
-              <span className="text-[11px] px-3 py-1 bg-blue-800/20 border-blue-400 border rounded-full">
+            <span className="text-2xl font-medium tracking-tight text-[#E2E2E2] flex items-center flex-wrap gap-3">
+              {APP_NAME}
+              <span className="text-[12px] font-medium px-4 py-1.5 bg-[#1E1F20] text-[#A8C7FA] border border-[#282A2C] rounded-full">
                 Authentication
               </span>
             </span>
@@ -299,10 +300,10 @@ export default function AuthPage() {
 
           {/* Value Proposition */}
           <div className="mt-4">
-            <h1 className="text-4xl xl:text-5xl font-bold text-white mb-6 leading-tight max-w-[480px]">
+            <h1 className="text-4xl xl:text-5xl font-semibold text-[#E2E2E2] mb-6 leading-tight max-w-[480px]">
               Your passwords, sealed by encryption only you can open.
             </h1>
-            <p className="text-lg text-gray-400 max-w-md leading-relaxed">
+            <p className="text-lg text-[#8E918F] max-w-md leading-relaxed">
               A zero-knowledge password vault. Everything is encrypted on your
               device before it ever reaches our servers — so no one but you can
               read it.
@@ -310,19 +311,19 @@ export default function AuthPage() {
           </div>
 
           {/* Benefits List */}
-          <div className="space-y-8 mt-4 max-w-md">
+          <div className="space-y-2 mt-4 max-w-md -ml-4">
             <BenefitItem
-              icon={<ShieldCheck className="w-5 h-5" />}
+              icon={<ShieldCheck className="w-6 h-6" />}
               title="Zero-Knowledge Encryption"
               description="Your secrets are encrypted in your browser with AES-256. We store only ciphertext — even we can never read them."
             />
             <BenefitItem
-              icon={<KeyRound className="w-5 h-5" />}
+              icon={<KeyRound className="w-6 h-6" />}
               title="One Master Password"
               description="Unlock everything with a single master password, backed by a 12-word recovery phrase that only you hold."
             />
             <BenefitItem
-              icon={<Zap className="w-5 h-5" />}
+              icon={<Zap className="w-6 h-6" />}
               title="Built-in Generator"
               description="Create strong, unique passwords for every account in one click — no more reusing the same password."
             />
@@ -331,17 +332,17 @@ export default function AuthPage() {
 
         {/* Dynamic Security Badge */}
         <div className="relative z-10 flex items-center gap-2 mt-auto pt-10">
-          <div className="flex items-center gap-2 text-[13px] text-gray-400 bg-[#111111] border border-blue-400 px-4 py-2 rounded-full">
-            <LockKeyhole className="w-4 h-4 text-[#0078D4]" />
+          <div className="flex items-center gap-2 text-[14px] text-[#C4C7C5] bg-[#1E1F20] border border-[#282A2C] px-5 py-2.5 rounded-full shadow-sm">
+            <LockKeyhole className="w-4 h-4 text-[#A8C7FA]" />
             <span>Secured infrastructure by</span>
-            <div className="relative flex items-center justify-start w-[50px] h-[18px] overflow-hidden font-semibold text-gray-200">
+            <div className="relative flex items-center justify-start w-[50px] h-[20px] overflow-hidden font-medium text-[#E2E2E2]">
               <AnimatePresence mode="popLayout">
                 <motion.span
                   key={providers[index]}
-                  initial={{ y: 15, opacity: 0 }}
+                  initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -15, opacity: 0 }}
-                  transition={{ duration: 0.3 }}
+                  exit={{ y: -20, opacity: 0 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
                   className="absolute left-0"
                 >
                   {providers[index]}
@@ -352,233 +353,268 @@ export default function AuthPage() {
         </div>
       </div>
 
-      {/* RIGHT PANEL: Authentication Form (Strictly centered) */}
-      <div className="flex flex-col justify-center items-center w-full px-6 py-12 lg:px-12 bg-[#050505]">
-        <div className="w-full max-w-[400px]">
-          {/* Mobile Logo (Visible only on small screens) */}
-          <div className="lg:hidden flex items-center justify-center gap-3 mb-10">
-            <span className="text-2xl font-bold tracking-tight text-white flex items-center">
-              {APP_NAME} <span className="mx-2 text-gray-500">/</span>
-              <span className="text-xs px-2 py-1 bg-blue-800/20 border border-blue-400 rounded-full">
+      {/* RIGHT PANEL: Authentication Form */}
+      <div className="flex flex-col justify-center items-center w-full px-6 py-12 lg:px-12 bg-[#000000]">
+        <div className="w-full max-w-[420px]">
+          {/* Mobile Logo */}
+          <div className="lg:hidden flex items-center justify-center gap-3 mb-12">
+            <span className="text-2xl font-medium tracking-tight text-[#E2E2E2] flex items-center gap-3">
+              {APP_NAME}
+              <span className="text-[12px] font-medium px-4 py-1.5 bg-[#1E1F20] text-[#A8C7FA] border border-[#282A2C] rounded-full">
                 Auth
               </span>
             </span>
           </div>
 
           {/* Header */}
-          <div className="mb-8 text-center sm:text-left">
-            <h2 className="text-3xl font-bold text-white mb-2">{heading}</h2>
-            <p className="text-[15px] text-gray-400 leading-relaxed">
+          <motion.div layout className="mb-10 text-center sm:text-left">
+            <motion.h2
+              layout
+              className="text-3xl font-bold text-[#E2E2E2] mb-3"
+            >
+              {heading}
+            </motion.h2>
+            <motion.p
+              layout
+              className="text-[15px] text-[#8E918F] leading-relaxed"
+            >
               {subtext}
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
 
           {/* Error Banner */}
-          {authError && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mb-6 p-4 bg-red-950/30 border border-red-900/50 flex items-start gap-3 rounded-xl"
-            >
-              <div className="mt-0.5 text-red-500 flex-shrink-0">
-                <Sparkles className="w-4 h-4" />
-              </div>
-              <p className="text-[13.5px] font-medium text-red-200 leading-snug">
-                {authError}
-              </p>
-            </motion.div>
-          )}
+          <AnimatePresence>
+            {authError && (
+              <motion.div
+                layout
+                initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, height: 0, marginBottom: 0 }}
+                className="mb-6 p-4 bg-[#601410] rounded-[24px] flex items-start gap-3"
+              >
+                <div className="mt-0.5 text-[#F2B8B5] flex-shrink-0">
+                  <Sparkles className="w-5 h-5" />
+                </div>
+                <p className="text-[14px] font-medium text-[#F2B8B5] leading-snug">
+                  {authError}
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Main Form container */}
-          <div className="space-y-5">
-            {pendingMfa || pendingVerification ? (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="space-y-6"
-              >
-                <div>
-                  <label className={labelClass}>Security Code</label>
-                  <input
-                    type="text"
-                    inputMode="numeric"
-                    placeholder="000000"
-                    value={pendingMfa ? mfaCode : verificationCode}
-                    onChange={(e) => {
-                      const val = e.target.value.replace(/\D/g, "").slice(0, 6);
-                      if (pendingMfa) setMfaCode(val);
-                      else setVerificationCode(val);
-                    }}
-                    onKeyDown={(e) =>
-                      e.key === "Enter" && canSubmit && handleSubmit()
-                    }
-                    className={`${inputClass} text-center text-3xl tracking-[0.3em] py-4 font-mono`}
-                  />
-                </div>
-
-                <div className="space-y-4 pt-2">
-                  <button
-                    onClick={handleSubmit}
-                    disabled={loading || !canSubmit}
-                    className={primaryButtonClass}
-                  >
-                    {loading ? (
-                      <FaSpinner className="animate-spin w-5 h-5" />
-                    ) : (
-                      "Verify & Continue"
-                    )}
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      setPendingMfa(false);
-                      setPendingVerification(false);
-                      setVerificationCode("");
-                      setMfaCode("");
-                      setAuthError(null);
-                    }}
-                    className="w-full text-center text-[14px] text-gray-400 hover:text-white transition-colors"
-                  >
-                    Cancel and go back
-                  </button>
-                </div>
-              </motion.div>
-            ) : (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="space-y-5"
-              >
-                {isSignUp && (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className={labelClass}>First Name</label>
-                      <input
-                        type="text"
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                        className={inputClass}
-                        placeholder="Jane"
-                      />
-                    </div>
-                    <div>
-                      <label className={labelClass}>Last Name</label>
-                      <input
-                        type="text"
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                        className={inputClass}
-                        placeholder="Doe"
-                      />
-                    </div>
-                  </div>
-                )}
-
-                <div>
-                  <label className={labelClass}>Email Address</label>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    autoComplete="email"
-                    className={inputClass}
-                    placeholder="you@company.com"
-                  />
-                </div>
-
-                <div>
-                  <label className={labelClass}>Password</label>
-                  <div className="relative">
+          <motion.div layout className="space-y-5">
+            <AnimatePresence mode="wait">
+              {pendingMfa || pendingVerification ? (
+                <motion.div
+                  key="otp-view"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                  className="space-y-6"
+                >
+                  <div>
+                    <label className={labelClass}>Security Code</label>
                     <input
-                      type={showPassword ? "text" : "password"}
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      autoComplete={
-                        isSignUp ? "new-password" : "current-password"
-                      }
+                      type="text"
+                      inputMode="numeric"
+                      placeholder="000000"
+                      value={pendingMfa ? mfaCode : verificationCode}
+                      onChange={(e) => {
+                        const val = e.target.value
+                          .replace(/\D/g, "")
+                          .slice(0, 6);
+                        if (pendingMfa) setMfaCode(val);
+                        else setVerificationCode(val);
+                      }}
                       onKeyDown={(e) =>
                         e.key === "Enter" && canSubmit && handleSubmit()
                       }
-                      className={`${inputClass} pr-12`}
-                      placeholder="••••••••"
+                      className={`${inputClass} text-center text-3xl tracking-[0.5em] py-5 font-mono`}
                     />
+                  </div>
+
+                  <div className="space-y-3 pt-2">
                     <button
-                      type="button"
-                      onClick={() => setShowPassword((s) => !s)}
-                      tabIndex={-1}
-                      aria-label={
-                        showPassword ? "Hide password" : "Show password"
-                      }
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-200 transition-colors p-2"
+                      onClick={handleSubmit}
+                      disabled={loading || !canSubmit}
+                      className={primaryButtonClass}
                     >
-                      {showPassword ? (
-                        <EyeOff className="w-5 h-5" />
+                      {loading ? (
+                        <FaSpinner className="animate-spin w-5 h-5" />
                       ) : (
-                        <Eye className="w-5 h-5" />
+                        "Verify & Continue"
                       )}
                     </button>
+
+                    <button
+                      onClick={() => {
+                        setPendingMfa(false);
+                        setPendingVerification(false);
+                        setVerificationCode("");
+                        setMfaCode("");
+                        setAuthError(null);
+                      }}
+                      className="w-full text-center text-[14px] font-medium text-[#8E918F] hover:text-[#E2E2E2] hover:bg-[#1E1F20] py-3 rounded-full transition-colors active:bg-[#282A2C]"
+                    >
+                      Cancel and go back
+                    </button>
                   </div>
-                </div>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="form-view"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                  className="space-y-5"
+                >
+                  {isSignUp && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="grid grid-cols-1 sm:grid-cols-2 gap-5"
+                    >
+                      <div>
+                        <label className={labelClass}>First Name</label>
+                        <input
+                          type="text"
+                          value={firstName}
+                          onChange={(e) => setFirstName(e.target.value)}
+                          className={inputClass}
+                          placeholder="Jane"
+                        />
+                      </div>
+                      <div>
+                        <label className={labelClass}>Last Name</label>
+                        <input
+                          type="text"
+                          value={lastName}
+                          onChange={(e) => setLastName(e.target.value)}
+                          className={inputClass}
+                          placeholder="Doe"
+                        />
+                      </div>
+                    </motion.div>
+                  )}
 
-                <div
-                  id="clerk-captcha"
-                  data-cl-theme="dark"
-                  data-cl-size="flexible"
-                  className="pt-1"
-                />
+                  <div>
+                    <label className={labelClass}>Email Address</label>
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      autoComplete="email"
+                      className={inputClass}
+                      placeholder="you@example.com"
+                    />
+                  </div>
 
-                <div className="pt-2 space-y-4">
-                  <button
-                    onClick={handleSubmit}
-                    disabled={loading || !canSubmit}
-                    className={primaryButtonClass}
-                  >
-                    {loading ? (
-                      <FaSpinner className="animate-spin w-5 h-5" />
-                    ) : isSignUp ? (
-                      "Create Account"
-                    ) : (
-                      "Sign In"
-                    )}
-                  </button>
-
-                  <div className="relative flex items-center justify-center py-2">
-                    <div className="absolute inset-0 flex items-center">
-                      <div className="w-full border-t border-[#222]"></div>
-                    </div>
-                    <div className="relative bg-[#050505] px-4 text-[12px] font-semibold text-gray-400 uppercase tracking-wider">
-                      or
+                  <div>
+                    <label className={labelClass}>Password</label>
+                    <div className="relative">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        autoComplete={
+                          isSignUp ? "new-password" : "current-password"
+                        }
+                        onKeyDown={(e) =>
+                          e.key === "Enter" && canSubmit && handleSubmit()
+                        }
+                        className={`${inputClass} pr-14 ${!showPassword && password ? "tracking-[0.25em] font-mono text-lg" : ""}`}
+                        placeholder={
+                          !showPassword ? "••••••••" : "Your password"
+                        }
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword((s) => !s)}
+                        tabIndex={-1}
+                        aria-label={
+                          showPassword ? "Hide password" : "Show password"
+                        }
+                        className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full text-[#8E918F] hover:text-[#E2E2E2] hover:bg-[#282A2C] transition-colors"
+                      >
+                        {showPassword ? (
+                          <EyeOff className="w-5 h-5" />
+                        ) : (
+                          <Eye className="w-5 h-5" />
+                        )}
+                      </button>
                     </div>
                   </div>
 
-                  <button onClick={toggleMode} className={secondaryButtonClass}>
-                    {isSignUp
-                      ? "Log in to existing account"
-                      : "Create a new account"}
-                  </button>
-                </div>
-              </motion.div>
-            )}
-          </div>
+                  <div
+                    id="clerk-captcha"
+                    data-cl-theme="dark"
+                    data-cl-size="flexible"
+                    className="pt-1"
+                  />
+
+                  <div className="pt-4 space-y-5">
+                    <button
+                      onClick={handleSubmit}
+                      disabled={loading || !canSubmit}
+                      className={primaryButtonClass}
+                    >
+                      {loading ? (
+                        <FaSpinner className="animate-spin w-5 h-5" />
+                      ) : isSignUp ? (
+                        "Create Account"
+                      ) : (
+                        "Sign In"
+                      )}
+                    </button>
+
+                    <div className="relative flex items-center justify-center py-2">
+                      <div className="absolute inset-0 flex items-center">
+                        <div className="w-full border-t border-[#282A2C]"></div>
+                      </div>
+                      <div className="relative bg-[#000000] px-4 text-[13px] font-medium text-[#8E918F] uppercase tracking-wider">
+                        or
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={toggleMode}
+                      className={secondaryButtonClass}
+                    >
+                      {isSignUp
+                        ? "Log in to existing account"
+                        : "Create a new account"}
+                    </button>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
 
           {/* Footer Terms */}
-          <div className="mt-10 text-center text-[13px] text-gray-500 leading-relaxed">
+          <motion.div
+            layout
+            className="mt-10 text-center text-[14px] text-[#8E918F] leading-relaxed px-4"
+          >
             By continuing, you agree to our{" "}
             <Link
               href="/terms"
-              className="text-gray-300 hover:text-white transition-colors underline decoration-gray-600 underline-offset-2"
+              className="text-[#C4C7C5] hover:text-[#E2E2E2] transition-colors underline decoration-[#282A2C] hover:decoration-[#A8C7FA] underline-offset-4"
             >
               Terms of Service
             </Link>{" "}
             and{" "}
             <Link
               href="/privacy"
-              className="text-gray-300 hover:text-white transition-colors underline decoration-gray-600 underline-offset-2"
+              className="text-[#C4C7C5] hover:text-[#E2E2E2] transition-colors underline decoration-[#282A2C] hover:decoration-[#A8C7FA] underline-offset-4"
             >
               Privacy Policy
             </Link>
             .
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

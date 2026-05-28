@@ -13,7 +13,7 @@ import {
 import { Shield, ArrowRight } from "lucide-react";
 
 const primaryButtonClass =
-  "inline-flex w-fit items-center justify-center gap-2 h-10 px-6 font-medium text-sm bg-zinc-100 text-black rounded-md hover:bg-white transition-colors focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 focus:ring-offset-black";
+  "inline-flex w-fit items-center justify-center gap-2 h-10 px-6 font-medium text-sm bg-zinc-100 text-black rounded-full hover:bg-white transition-colors focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 focus:ring-offset-black";
 
 export default function AboutUs() {
   const links = [
