@@ -22,10 +22,10 @@ Each user has one vault holding typed items. The supported types are:
 
 | Type | What it stores |
 |----------|----------------------------|
-| login | Username / email, password, website |
-| note | A free-form secure note |
-| card | Payment card details |
-| identity | Personal identity information |
+| `login` | Username / email, password, website |
+| `note` | A free-form secure note |
+| `card` | Payment card details |
+| `identity` | Personal identity information |
 
 Items can be favorited, sorted into folders, and searched instantly, all against the decrypted copy that only ever exists in your browser.
 
