@@ -1,12 +1,12 @@
 ---
 title: Key Management and KDF
 slug: key-management
-description: How EndVault derives, wraps, stores, and rotates keys — and what a KDF actually does.
+description: How Opaque derives, wraps, stores, and rotates keys — and what a KDF actually does.
 ---
 
 ## Overview
 
-Key management is the part of EndVault that decides *which* keys exist, *where*
+Key management is the part of Opaque that decides *which* keys exist, *where*
 they come from, and *what is ever written to the database*. The short version:
 exactly one key — the **Vault Key** — encrypts your items, and that key is only
 ever stored in **wrapped** (re-encrypted) form. The keys that do the wrapping are
@@ -68,7 +68,7 @@ throughput down from billions per second to a comparative trickle.
 | **scrypt**    | Memory-hard    | Strong, older, widely available                             |
 | **PBKDF2**    | Iteration-only | Ubiquitous and FIPS-friendly, but easier to accelerate      |
 
-EndVault records which one was used in the `kdf_algo` column, so the choice is
+Opaque records which one was used in the `kdf_algo` column, so the choice is
 not baked in — it can be upgraded later and migrated per user.
 
 ## Salt and parameters (and why they're not secret)
@@ -83,7 +83,7 @@ Two things accompany the KDF and are stored **in the clear**:
   memory/iterations/parallelism for Argon2id/scrypt. These are stored so the
   browser can reproduce the *exact same* derivation on every unlock.
 
-Storing these openly is safe by design. EndVault's security rests on the secrecy
+Storing these openly is safe by design. Opaque's security rests on the secrecy
 of your password and the fact that the Vault Key is never stored unwrapped — not
 on hiding the salt or the cost settings. (Indeed they *must* be readable, or you
 couldn't unlock your own vault.)
@@ -109,7 +109,7 @@ or written by the server.
 
 ## Wrapping and unwrapping
 
-"Wrapping" is just authenticated encryption of one key by another. EndVault uses
+"Wrapping" is just authenticated encryption of one key by another. Opaque uses
 an authenticated cipher (AES-GCM-style: ciphertext plus an authentication tag),
 which gives a useful property for free:
 
@@ -192,7 +192,7 @@ copying fixed numbers.
 
 Always consult current published guidance (e.g. OWASP's password-storage
 recommendations) for up-to-date minimums, and re-evaluate periodically — what's
-expensive for an attacker today gets cheaper every year. Because EndVault stores
+expensive for an attacker today gets cheaper every year. Because Opaque stores
 `kdf_algo` and `kdf_params` per user, you can raise parameters or switch
 algorithms over time and migrate users transparently on their next unlock.
 

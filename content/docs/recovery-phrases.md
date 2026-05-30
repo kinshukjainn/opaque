@@ -6,12 +6,12 @@ description: What a recovery phrase is, how BIP39 works, and how it gets you bac
 
 ## Why a recovery phrase exists at all
 
-EndVault is zero-knowledge: the server never holds your keys, so it physically
+Opaque is zero-knowledge: the server never holds your keys, so it physically
 *cannot* reset your password and let you back in. There is no "email me a reset
 link" because a reset link would require the server to have access to your Vault
 Key — which is exactly the thing the design refuses to allow.
 
-So EndVault needs a second, independent way for *you* (and only you) to unlock
+So Opaque needs a second, independent way for *you* (and only you) to unlock
 your vault if you forget your master password. That second way is the **recovery
 phrase**: a list of random words, generated once at setup, that you keep safe.
 It is a spare key — not a hint, not a question, but a genuine second key to the
@@ -23,21 +23,21 @@ Think of your vault as a safe with two keyholes. One keyhole takes your master
 password. The other takes a key made from your recovery phrase. Either key opens
 the safe; neither is held by the company that built the safe.
 
-When you set up EndVault, it shows you a sequence of words — for example, a
+When you set up Opaque, it shows you a sequence of words — for example, a
 12-word list. Those words *are* the spare key. Write them down, store them
 somewhere safe and offline, and never share them. If you ever forget your
 password, you type the words back in and you're in.
 
 > The phrase is shown to you exactly once. It is never stored on the server and
 > can't be retrieved later. If you lose it *and* forget your password, the vault
-> is unrecoverable — by anyone, including EndVault. That permanence is the price
+> is unrecoverable — by anyone, including Opaque. That permanence is the price
 > of having no backdoor.
 
 ## What the words actually are: BIP39
 
 The recovery phrase follows **BIP39**, a widely used standard (originally from
 the Bitcoin world) for turning random data into a memorable, error-resistant
-list of words. EndVault uses the `@scure/bip39` library to do this. A few
+list of words. Opaque uses the `@scure/bip39` library to do this. A few
 properties make BIP39 a good fit:
 
 - **Fixed word list.** BIP39 defines a list of exactly **2048 words**. Each word
@@ -130,7 +130,7 @@ same Vault Key**. That has an important consequence:
 - **Don't photograph it or paste it into notes/email/chat.** Anything synced to
   the cloud widens the attack surface.
 - **Never type it into a page you reached from a link.** Confirm you're on the
-  genuine EndVault site first — phishing a recovery phrase is as damaging as
+  genuine Opaque site first — phishing a recovery phrase is as damaging as
   phishing a password.
 - **Treat losing it as serious.** Without the phrase, your master password
   becomes your *only* way in. Losing both means permanent loss of the data.
@@ -169,7 +169,7 @@ const vaultKey = await unwrapKey(recovery_wrapped_key, recovery_wrapped_key_iv, 
 
 ## Quick FAQ
 
-**Can EndVault show me my phrase again later?**
+**Can Opaque show me my phrase again later?**
 No. It's displayed once at setup and never stored, so there's nothing to show.
 
 **If someone gets my phrase, what can they do?**

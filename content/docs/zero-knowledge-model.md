@@ -1,14 +1,14 @@
 ---
 title: Zero Knowledge Model
 slug: zero-knowledge-model
-description: How EndVault keeps your secrets unreadable to its own servers — explained for everyone.
+description: How Opaque keeps your secrets unreadable to its own servers — explained for everyone.
 ---
 
 ## The one-sentence version
 
-EndVault is **zero-knowledge**: your secrets are locked inside your browser
+Opaque is **zero-knowledge**: your secrets are locked inside your browser
 before they're sent anywhere, and the key to unlock them is made from something
-only you know — so the EndVault servers store your data but can never read it.
+only you know — so the Opaque servers store your data but can never read it.
 
 ## In plain words
 
@@ -18,7 +18,7 @@ shelve it. They give it back when you return. At no point do they have a key,
 and the box has no keyhole they can reach — it only opens with a combination
 that lives in your head.
 
-EndVault works the same way:
+Opaque works the same way:
 
 1. You type a secret (say, your Instagram password) into the app.
 2. Your **browser** locks it into an unreadable form before sending it.
@@ -26,7 +26,7 @@ EndVault works the same way:
 4. When you come back, the server hands the locked form to your browser, and
    your browser unlocks it — using a key built from your master password.
 
-If a thief stole the entire EndVault database tomorrow, they'd walk away with a
+If a thief stole the entire Opaque database tomorrow, they'd walk away with a
 pile of locked boxes and no combinations. The contents would be useless noise.
 
 ## What the server can and cannot see
@@ -58,7 +58,7 @@ This is the heart of the design. Bear with one new idea: **wrapping**. To "wrap"
 a key just means to encrypt it with another key. A wrapped key is itself a
 locked box.
 
-EndVault uses a small hierarchy:
+Opaque uses a small hierarchy:
 
 - **Master password** — what you type. It never leaves your browser and is
   *never stored anywhere*, not even encrypted.
@@ -155,7 +155,7 @@ Honest security docs draw this line clearly.
   can read secrets while the vault is unlocked, because that's where decryption
   happens.
 - **Losing both factors.** If you forget your master password *and* lose your
-  recovery phrase, no one — including EndVault — can recover your data. That's
+  recovery phrase, no one — including Opaque — can recover your data. That's
   the trade-off for true zero-knowledge: there is no backdoor.
 - **Phishing.** If you're tricked into typing your master password into a fake
   page, encryption can't help. Always confirm you're on the real site.
@@ -201,11 +201,11 @@ A few consequences of this model that are easy to overlook:
 
 ## Quick FAQ
 
-**Can EndVault reset my password and recover my data?**
-No. By design, EndVault never holds your keys. A reset would mean a backdoor,
+**Can Opaque reset my password and recover my data?**
+No. By design, Opaque never holds your keys. A reset would mean a backdoor,
 which would break the entire model.
 
-**What happens if EndVault gets hacked?**
+**What happens if Opaque gets hacked?**
 Attackers would obtain encrypted blobs and public KDF parameters — not your
 secrets. Your master password remains your protection.
 
@@ -215,6 +215,6 @@ your items are what's encrypted.
 
 ## Where to go next
 
-- **Project setup** — install, configure, and run EndVault.
+- **Project setup** — install, configure, and run Opaque.
 - **Architecture** — how the routes, database, and webhook sync fit together.
 - **Introduction** — the high-level overview of the project.

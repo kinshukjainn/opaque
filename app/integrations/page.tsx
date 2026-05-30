@@ -326,7 +326,7 @@ export default function IntegrationsPage() {
             </h1>
           </div>
           <p className="text-[#8E918F] text-[17px] leading-relaxed">
-            EndVault provides end-to-end encrypted credential storage for the
+            Opaque provides end-to-end encrypted credential storage for the
             tools you use every day. Below are the natively recognized
             environments for custom autofill, metadata mapping, and icon
             resolution.
@@ -337,11 +337,11 @@ export default function IntegrationsPage() {
             <Info className="w-6 h-6 text-[#F2B8B5] flex-shrink-0 mt-0.5" />
             <p className="text-[#F2B8B5] text-[15px] leading-relaxed">
               <span className="font-semibold block mb-1">
-                EndVault stores account credentials only
+                Opaque stores account credentials only
               </span>
               Passwords, email IDs, and login details for your accounts. Please
               don&lsquo;t save banking or financial information here, such as
-              card numbers, CVVs, PINs, or net-banking credentials. EndVault
+              card numbers, CVVs, PINs, or net-banking credentials. Opaque
               isn&apos;t designed to hold that kind of data.
             </p>
           </div>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Sigin/up",
-  description: "sigin/up of the endvault application",
+  description: "sigin/up of the Opaque application",
 };
 
 export default function BlogLayout({

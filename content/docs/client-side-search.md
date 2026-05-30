@@ -6,7 +6,7 @@ description: Why search runs in the browser, how Fuse.js fuzzy-matches your item
 
 ## The constraint that shapes everything
 
-Search in EndVault runs entirely in your browser — never on the server. This
+Search in Opaque runs entirely in your browser — never on the server. This
 isn't a performance choice or a preference; it's a direct consequence of the
 zero-knowledge design. The things you'd want to search by — an item's title,
 username, or website — live inside the encrypted payload. The server stores those
@@ -27,7 +27,7 @@ searched at all.
 
 ## How it works: Fuse.js over decrypted items
 
-EndVault uses **Fuse.js**, a small fuzzy-search library, to power the search box.
+Opaque uses **Fuse.js**, a small fuzzy-search library, to power the search box.
 "Fuzzy" means it tolerates imperfect input — typos, partial words, slightly wrong
 spelling — and still finds the right item. Searching `gmial` or `gmai` still
 turns up your Gmail login.

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Integration",
-  description: "All the integration listed with endvault ",
+  description: "All the integration listed with Opaque ",
 };
 
 export default function BlogLayout({

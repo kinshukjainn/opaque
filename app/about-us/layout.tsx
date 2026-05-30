@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "About us ",
-  description: "About the endvault creator and application",
+  description: "About the Opaque creator and application",
 };
 
 export default function BlogLayout({

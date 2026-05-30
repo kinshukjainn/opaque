@@ -1,13 +1,13 @@
 ---
 title: Password Generator
 slug: password-generator
-description: Why generated passwords are stronger, how a secure generator works, and how EndVault's fits in.
+description: Why generated passwords are stronger, how a secure generator works, and how Opaque's fits in.
 ---
 
 ## What the generator is for
 
 The password generator is the little refresh button next to the password field
-when you create or edit a login. Tap it and EndVault drops a fresh, strong,
+when you create or edit a login. Tap it and Opaque drops a fresh, strong,
 random password into the field for you. It exists to solve the single biggest
 weakness in any password system: the human picking the password.
 
@@ -47,7 +47,7 @@ Two things drive entropy:
 2. **Variety** — drawing from a bigger pool of possible characters (lowercase,
    uppercase, digits, symbols) makes each character carry more information.
 
-EndVault's generator is called with a length (the dashboard uses **20**
+Opaque's generator is called with a length (the dashboard uses **20**
 characters), and produces a random string of that length.
 
 ### How much strength does length 20 give?

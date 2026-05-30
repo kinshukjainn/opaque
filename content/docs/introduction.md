@@ -4,7 +4,7 @@ slug: introduction
 description: A zero-knowledge, end-to-end encrypted password vault built on Next.js, Clerk, and Neon.
 ---
 
-Welcome to **EndVault** — a password manager built on a simple promise: the
+Welcome to **Opaque** — a password manager built on a simple promise: the
 server never sees your secrets. Titles, usernames, passwords, URLs, notes, even
 the name of the service are encrypted in your browser before they ever leave
 it. The backend only ever stores opaque `ciphertext` + `iv` blobs that it

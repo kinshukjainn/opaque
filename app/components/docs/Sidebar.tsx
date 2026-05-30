@@ -51,7 +51,7 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search docs"
-          className="w-full rounded-full border border-neutral-800 bg-neutral-900/60 py-1.5 pl-8 pr-2 text-[13px] text-neutral-200 placeholder:text-neutral-500 outline-none transition-colors focus:border-neutral-600 focus:ring-1 focus:ring-neutral-600"
+          className="w-full rounded-full border border-neutral-800 bg-neutral-900/60 py-3 pl-8 pr-2 text-[15px] text-neutral-200 placeholder:text-neutral-500 outline-none transition-colors focus:border-neutral-600 focus:ring-1 focus:ring-neutral-600"
         />
       </div>
 
@@ -63,7 +63,7 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
             <div key={section.title}>
               <button
                 onClick={() => toggle(section.title)}
-                className="flex w-full items-center justify-between px-2.5 py-1 text-[12px] font-bold  tracking-wider text-green-500 transition-colors hover:text-green-300"
+                className="flex w-full items-center justify-between px-2.5 py-1 text-[12px] font-bold  tracking-wider text-white transition-colors hover:text-blue-300 cursor-pointer"
               >
                 {section.title}
                 <svg
@@ -93,8 +93,8 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
                           onClick={onNavigate}
                           className={`block rounded-full px-2.5 py-1.5 text-[14px] transition-colors ${
                             active
-                              ? "bg-neutral-800/70 border border-[#444444] font-medium text-white"
-                              : "text-neutral-400 hover:bg-neutral-900 hover:text-neutral-200"
+                              ? "bg-blue-400  font-semibold text-black"
+                              : "text-neutral-200 hover:bg-blue-300/20 hover:text-neutral-100 hover:font-medium"
                           }`}
                         >
                           {item.title}

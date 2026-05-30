@@ -1,7 +1,7 @@
 ---
 title: Project setup
 slug: project-setup
-description: How to install, configure, and run EndVault locally.
+description: How to install, configure, and run Opaque locally.
 ---
 
 
@@ -24,8 +24,28 @@ npm install
 # 2. Create your env file (see the table below)
 cp .env.example .env.local
 
+touch .env.sample
+
 # 3. Run the dev server
 npm run dev
+```
+
+## For Different Packages : 
+
+Different packages are :
+- npm **(Node Package Manager)**
+- bun
+- yarn 
+
+```bash
+# 1 For Node Package Manager
+npm run dev
+
+# 2 For Bun Package Manager
+bun dev
+
+# 3 For PNPM Package Manager 
+pnpm dev
 ```
 
 The app will be available at `http://localhost:3000`.

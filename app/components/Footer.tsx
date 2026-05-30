@@ -9,7 +9,7 @@ export default function Footer() {
           <div className="flex flex-col items-center gap-3 sm:items-start">
             <div className="flex items-center gap-2 font-bold text-gray-100 text-[15px]">
               <KeyRound className="h-5 w-5 text-[#0078D4]" />
-              <span>EndVault</span>
+              <span>Opaque</span>
             </div>
             <div className="flex items-center gap-1.5 rounded-full border border-green-900/50 bg-green-950/30 px-2.5 py-1 text-[12px] font-medium text-green-400">
               <ShieldCheck className="h-3.5 w-3.5" />

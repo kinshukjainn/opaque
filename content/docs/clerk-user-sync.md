@@ -1,29 +1,29 @@
 ---
 title: Clerk User Sync
 slug: clerk-user-sync
-description: How Clerk identities are mirrored into EndVault's own database via signed webhooks.
+description: How Clerk identities are mirrored into Opaque's own database via signed webhooks.
 ---
 
 ## Why sync users at all
 
-EndVault uses **Clerk** for authentication — sign-up, sign-in, sessions, profile
-data. But Clerk lives outside your database, and EndVault needs a local `users`
+Opaque uses **Clerk** for authentication — sign-up, sign-in, sessions, profile
+data. But Clerk lives outside your database, and Opaque needs a local `users`
 row to hang everything else off: the wrapped vault keys, the encrypted items, the
 plan and item count, folders. That local row is the anchor the rest of the schema
 references.
 
 So there are effectively two records of "you": the identity Clerk owns, and the
-application row EndVault owns. **User sync** is the process that keeps the
-EndVault row in step with Clerk — creating it when you sign up, updating it when
+application row Opaque owns. **User sync** is the process that keeps the
+Opaque row in step with Clerk — creating it when you sign up, updating it when
 your profile changes, and removing it when your account is deleted.
 
 ## In plain words
 
 When something happens to your account in Clerk — you register, you change your
-name, you delete your account — Clerk sends EndVault a little notification called
-a **webhook**. EndVault listens for these notifications and updates its own
+name, you delete your account — Clerk sends Opaque a little notification called
+a **webhook**. Opaque listens for these notifications and updates its own
 copy of your basic profile to match. It's a one-way mirror: Clerk is the source
-of truth for who you are; EndVault just keeps a synchronized reflection.
+of truth for who you are; Opaque just keeps a synchronized reflection.
 
 Crucially, that mirror only ever touches your *profile* fields (email, name,
 avatar). It never touches your vault's encrypted data — more on why that matters
@@ -34,13 +34,13 @@ below.
 A webhook is just an HTTP request Clerk makes to a URL you register
 (`/api/webhooks/clerk`). But an open endpoint that creates and deletes users
 would be dangerous if anyone could call it. So every webhook is **signed**, and
-EndVault verifies that signature before trusting a single byte.
+Opaque verifies that signature before trusting a single byte.
 
 Verification uses the **svix** library (Clerk delivers webhooks via svix):
 
 1. Clerk sends the event with three headers: `svix-id`, `svix-timestamp`, and
    `svix-signature`.
-2. EndVault checks all three headers are present (missing → `400`).
+2. Opaque checks all three headers are present (missing → `400`).
 3. It verifies the signature against the shared `CLERK_WEBHOOK_SECRET`. A valid
    signature proves the request genuinely came from your Clerk app and wasn't
    tampered with.
@@ -52,15 +52,15 @@ Verification uses the **svix** library (Clerk delivers webhooks via svix):
 
 ## The three events
 
-EndVault handles three Clerk event types. Each maps to a precise database action:
+Opaque handles three Clerk event types. Each maps to a precise database action:
 
-| Event          | What EndVault does                                              | Success status |
+| Event          | What Opaque does                                              | Success status |
 | -------------- | -------------------------------------------------------------- | -------------- |
 | `user.created` | Insert a new `users` row (profile only); skip if it exists      | `201`          |
 | `user.updated` | Update the profile fields on the matching row                   | `200`          |
 | `user.deleted` | Delete the `users` row; cascades wipe the user's vault data      | `200`          |
 
-For both `created` and `updated`, EndVault works out the **primary email** (the
+For both `created` and `updated`, Opaque works out the **primary email** (the
 address Clerk marks as primary, falling back to the first on file) and a display
 **name** (`first_name` + `last_name`, or `null` if neither is set). If no email
 can be determined, it responds `400` rather than storing a half-formed row.
@@ -84,7 +84,7 @@ whole sync.
 Deletes the `users` row by `clerk_id`. There's no other cleanup code because the
 database does it: `ON DELETE CASCADE` on the foreign keys automatically removes
 the user's `vault_folders`, `vault_items`, and `vault_audit_log`. One delete,
-everything tied to the user goes with it. If the delete fails, EndVault returns
+everything tied to the user goes with it. If the delete fails, Opaque returns
 `500` — a non-success status tells Clerk/svix to **retry** later.
 
 ## The rule that protects your vault
@@ -130,7 +130,7 @@ fires and the row exists before you ever set up your vault. In **local
 development, Clerk can't reach `localhost`**, so that webhook never arrives and
 the row is missing.
 
-EndVault handles this without breaking the model: the **vault-init route**
+Opaque handles this without breaking the model: the **vault-init route**
 creates the user row on first vault setup, from the authenticated user's own
 Clerk data, using `ON CONFLICT DO NOTHING`. That last clause is what keeps things
 consistent — if the webhook *did* run, init won't clobber it; the webhook remains

@@ -63,11 +63,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "EndVault : Home",
+  title: "Opaque : Home",
   description:
     "Remember just one master password. We lock up the rest in a vault so secure, even we don't have the key to open it.",
+  icons: {
+    icon: "logo/logog.png",
+  },
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{

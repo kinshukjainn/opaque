@@ -15,7 +15,7 @@ import {
   EyeOff,
 } from "lucide-react";
 
-const APP_NAME = "EndVault";
+const APP_NAME = "Opaque";
 
 function getErrorMessage(error: unknown): string {
   if (!error) return "An unexpected error occurred.";

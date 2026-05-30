@@ -131,7 +131,7 @@ naive implementation would (1) read the count, (2) compare it to the limit, then
 (3) insert — but between steps 1 and 3, a second request could slip in and you'd
 exceed the limit. That's a classic race condition.
 
-EndVault avoids it by doing the check, the insert, and the counter bump in **one
+Opaque avoids it by doing the check, the insert, and the counter bump in **one
 atomic SQL statement**:
 
 - Look up the user's `item_count` and the plan's `item_limit` (only if the vault

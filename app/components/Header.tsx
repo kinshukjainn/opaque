@@ -4,7 +4,6 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useUser } from "@clerk/nextjs";
 import {
-  Shield,
   User,
   ArrowUpRight,
   Menu,
@@ -17,6 +16,7 @@ import {
   Activity,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import UserProfileDropdown from "./UserprofileDropdown";
 
 export default function Header() {
@@ -42,18 +42,30 @@ export default function Header() {
     "group flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#A8C7FA] text-[#041E49] text-[15px] font-semibold hover:bg-[#b9d3fc] transition-all whitespace-nowrap shadow-sm transform hover:scale-[1.02] active:scale-95";
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#000000]/80 backdrop-blur-2xl border-b border-[#282A2C] ">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#000000]/80 backdrop-blur-2xl border-b border-[#282A2C]">
       <div className="max-w-[1400px] mx-auto flex h-[72px] items-center justify-between px-4 md:px-6">
         {/* LEFT SECTION: Logo & Nav */}
         <div className="flex h-full flex-1 items-center overflow-hidden gap-2 md:gap-6">
-          {/* Logo Block */}
+          {/* Logo Block - Now fully responsive */}
           <Link
             href="/"
-            className="flex items-center gap-3 px-3 py-2 rounded-full hover:bg-[#1E1F20] transition-colors flex-shrink-0"
+            className="flex items-center gap-1.5 sm:gap-3 px-2 sm:px-3 py-2 rounded-full hover:bg-[#1E1F20] transition-colors shrink-0 z-10"
           >
-            <Shield className="w-7 h-7 text-[#A8C7FA]" />
-            <span className="text-xl font-medium tracking-tight text-[#E2E2E2] whitespace-nowrap">
-              END<span className="text-[#8E918F] font-normal">Vault</span>
+            {/* Shield: hidden on tiny mobile screens to save space, visible sm and up */}
+
+            {/* Custom Logo Image: Using 238x229 aspect ratio but scaling responsively via Tailwind */}
+            <Image
+              src="/logo/logog.png"
+              alt="Opaque Logo"
+              width={238}
+              height={229}
+              className="w-6 h-auto sm:w-7 sm:h-auto object-contain shrink-0"
+              priority
+            />
+
+            {/* Text: Scales down slightly on mobile to prevent layout breaking */}
+            <span className="text-lg sm:text-xl font-bold tracking-tight text-[#E2E2E2] whitespace-nowrap">
+              Opaque
             </span>
           </Link>
 

@@ -1,8 +1,8 @@
-# EndVault
+# Opaque
 
 A zero-knowledge, end-to-end encrypted password vault built on Next.js, Clerk, and Neon.
 
-EndVault is built around one simple promise: the server never sees your secrets. Titles, usernames, passwords, URLs, notes, even the name of the service get encrypted in your browser before they ever leave it. The backend only ever stores opaque ciphertext and iv blobs that it cannot read.
+Opaque is built around one simple promise: the server never sees your secrets. Titles, usernames, passwords, URLs, notes, even the name of the service get encrypted in your browser before they ever leave it. The backend only ever stores opaque ciphertext and iv blobs that it cannot read.
 
 If the database got dumped tomorrow, an attacker would walk away with nothing but noise.
 
@@ -94,8 +94,8 @@ The Clerk `user.deleted` webhook deletes the users row, and Postgres `ON DELETE 
 ### Install
 
 ```bash
-git clone https://github.com/your-username/endvault.git
-cd endvault
+git clone https://github.com/your-username/Opaque.git
+cd Opaque
 npm install
 ```
 
@@ -134,7 +134,7 @@ Point a Clerk webhook at `/api/webhooks/clerk` and subscribe to the `user.delete
 
 ## A note on security
 
-EndVault leans entirely on client-side cryptography. The master password and recovery phrase never reach the server, so they cannot be reset for you. If you lose both, your data is genuinely unrecoverable. That's the tradeoff that makes zero-knowledge actually mean something.
+Opaque leans entirely on client-side cryptography. The master password and recovery phrase never reach the server, so they cannot be reset for you. If you lose both, your data is genuinely unrecoverable. That's the tradeoff that makes zero-knowledge actually mean something.
 
 ## License
 
