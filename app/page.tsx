@@ -157,7 +157,7 @@ export default function Home() {
             {/* Replaced invalid nested <h1> with a clean <span> structure */}
             <motion.h1
               variants={fadeUp}
-              className="mb-6 md:mb-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-tight md:leading-[1.1] tracking-tight text-[#E2E2E2]"
+              className="mb-6 md:mb-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-tight md:leading-[1.1] tracking-tight bg-clip-text text-transparent bg-[linear-gradient(to_right,#4285F4,#EA4335,#FBBC05,#34A853)]"
             >
               Secure your digital life,{" "}
               <span className="relative inline-block text-white font-extrabold tracking-tight">

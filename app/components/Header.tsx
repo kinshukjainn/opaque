@@ -36,8 +36,7 @@ export default function Header() {
   ];
 
   // Material You / Pixel Styled Blocks
-  const signInBlock =
-    "flex items-center gap-2 px-5 py-2.5 rounded-full text-[15px] font-medium text-[#C4C7C5] hover:text-[#E2E2E2] hover:bg-[#1E1F20] transition-all whitespace-nowrap";
+
   const ctaBlock =
     "group flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#A8C7FA] text-[#041E49] text-[15px] font-semibold hover:bg-[#b9d3fc] transition-all whitespace-nowrap shadow-sm transform hover:scale-[1.02] active:scale-95";
 
@@ -81,7 +80,7 @@ export default function Header() {
                   onMouseLeave={() => setHoveredItem(null)}
                   className="relative px-4 py-2 flex items-center gap-2 text-[14px] font-medium text-[#C4C7C5] hover:text-[#E2E2E2] transition-colors whitespace-nowrap z-10"
                 >
-                  <Icon className="w-4 h-4" />
+                  <Icon className="w-4 h-4 " />
                   <span>{item.name}</span>
 
                   {hoveredItem === item.name && (
@@ -119,10 +118,12 @@ export default function Header() {
               </>
             ) : (
               <>
-                <Link href="/verify-regis" className={signInBlock}>
-                  <User className="w-4 h-4" />
-                  <span>Sign In</span>
-                </Link>
+                <div className="google-border-wrap">
+                  <Link href="/verify-regis" className="btn">
+                    <User className="w-4 h-4" />
+                    <span>Sign In</span>
+                  </Link>
+                </div>
                 <Link href="/vault" className={ctaBlock}>
                   <span>Initialize Vault</span>
                   <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />

@@ -15,3 +15,70 @@ body {
   padding: 0;
   font-size: 0.875rem;
 }
+
+/* 1. The Wrapper */
+.google-border-wrap {
+  position: relative;
+  display: inline-flex; /* inline-flex is better for wrapping buttons */
+  padding: 2px; /* The width of your border */
+  border-radius: 9999px; /* Matches the pill-shape of the button */
+  overflow: hidden;
+}
+
+/* 2. The Hidden Animated Gradient Layer */
+.google-border-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* Shorthand for top:0, left:0, right:0, bottom:0 */
+  background: linear-gradient(
+    90deg,
+    #4285f4,
+    #ea4335,
+    #fbbc05,
+    #34a853,
+    #4285f4
+  );
+  background-size: 300% 100%;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0; /* Keeps the gradient in the background */
+}
+
+/* 3. The Hover Trigger */
+.google-border-wrap:hover::before {
+  opacity: 1;
+  animation: gradientFlow 3s linear infinite;
+}
+
+/* 4. The Button Itself */
+.btn {
+  position: relative; /* CRUCIAL: Allows z-index to work */
+  z-index: 10; /* CRUCIAL: Puts button on top of the gradient */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: 9999px; /* Pill shape */
+  font-size: 15px;
+  font-weight: 500;
+  color: #c4c7c5;
+  background-color: #000000; /* Solid black hides the center of the gradient */
+  white-space: nowrap;
+  text-decoration: none; /* Removes underline from Next.js Link */
+  transition: color 0.15s ease;
+}
+
+.btn:hover {
+  color: #e2e2e2;
+}
+
+/* 5. The Animation Keyframes */
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}

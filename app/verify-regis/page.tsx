@@ -283,10 +283,7 @@ export default function AuthPage() {
   return (
     <div className="grid pt-0 lg:pt-16 min-h-screen pt-20 grid-cols-1 lg:grid-cols-2 bg-[#000000] text-[#E2E2E2] selection:bg-[#A8C7FA] selection:text-[#041E49] ">
       {/* LEFT PANEL: Branding & Benefits */}
-      <div className="relative hidden lg:flex flex-col justify-between p-12 xl:p-16 bg-[#131314] rounded-r-[40px] shadow-2xl overflow-hidden my-4 ml-4 border border-[#282A2C]">
-        {/* Background Glow */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#A8C7FA]/5 blur-[100px] rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none" />
-
+      <div className="relative hidden lg:flex flex-col justify-between p-12 xl:p-16 bg-black rounded-r-[40px] rounded-l-[20px]  overflow-hidden my-4 ml-4 border-2 border-white/20 shadow-xl shadow-blue-500/20">
         <div className="relative z-10 flex flex-col gap-10">
           {/* Logo */}
           <div className="flex items-center gap-3">
@@ -300,14 +297,9 @@ export default function AuthPage() {
 
           {/* Value Proposition */}
           <div className="mt-4">
-            <h1 className="text-4xl xl:text-5xl font-semibold text-[#E2E2E2] mb-6 leading-tight max-w-[480px]">
+            <h1 className="text-2xl xl:text-3xl font-semibold mb-6 leading-tight max-w-[480px] bg-clip-text text-transparent bg-[linear-gradient(to_right,#4285F4,#EA4335,#FBBC05,#34A853)]">
               Your passwords, sealed by encryption only you can open.
             </h1>
-            <p className="text-lg text-[#8E918F] max-w-md leading-relaxed">
-              A zero-knowledge password vault. Everything is encrypted on your
-              device before it ever reaches our servers — so no one but you can
-              read it.
-            </p>
           </div>
 
           {/* Benefits List */}
@@ -333,7 +325,7 @@ export default function AuthPage() {
         {/* Dynamic Security Badge */}
         <div className="relative z-10 flex items-center gap-2 mt-auto pt-10">
           <div className="flex items-center gap-2 text-[14px] text-[#C4C7C5] bg-[#1E1F20] border border-[#282A2C] px-5 py-2.5 rounded-full shadow-sm">
-            <LockKeyhole className="w-4 h-4 text-[#A8C7FA]" />
+            <LockKeyhole className="w-5 h-5 text-blue-500" />
             <span>Secured infrastructure by</span>
             <div className="relative flex items-center justify-start w-[50px] h-[20px] overflow-hidden font-medium text-[#E2E2E2]">
               <AnimatePresence mode="popLayout">
