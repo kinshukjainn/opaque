@@ -126,7 +126,7 @@ export default function UserProfileDropdown({
   if (variant === "mobile") {
     return (
       <div
-        className="relative w-full rounded-[28px] bg-[#211F26] overflow-hidden text-[#E6E1E5] font-sans antialiased"
+        className="relative w-full rounded-[28px] bg-[#211F26] overflow-hidden text-[#E6E1E5]  antialiased"
         ref={dropdownRef}
       >
         <button
@@ -182,7 +182,7 @@ export default function UserProfileDropdown({
      DESKTOP — Material 3 Popup (Surface Container High)
      ───────────────────────────────────────────── */
   return (
-    <div className="relative font-sans antialiased" ref={dropdownRef}>
+    <div className="relative  antialiased" ref={dropdownRef}>
       {/* M3 Pill Trigger */}
       <button
         onClick={() => setIsOpen((prev) => !prev)}

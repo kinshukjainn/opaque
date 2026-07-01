@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import {
   Geist,
   Geist_Mono,
+  Open_Sans,
   Plus_Jakarta_Sans,
   Poppins,
   Public_Sans,
@@ -62,6 +63,13 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const openSans = Open_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  display: "swap",
+  variable: "--font-open-sans",
+});
+
 export const metadata: Metadata = {
   title: "Opaque : Home",
   description:
@@ -80,7 +88,7 @@ export default function RootLayout({
       <html
         lang="en"
         data-google-analytics-opt-out=""
-        className={`${geistSans.variable} ${geistMono.variable} ${staatliches.variable}  ${poppins.variable} ${publicSans.variable} ${plusJakarta.variable} ${roboto.variable} ${ubuntu.variable} h-full antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${openSans.variable} ${staatliches.variable}  ${poppins.variable} ${publicSans.variable} ${plusJakarta.variable} ${roboto.variable} ${ubuntu.variable} h-full antialiased`}
       >
         <body className="min-h-full flex flex-col">
           <Header />

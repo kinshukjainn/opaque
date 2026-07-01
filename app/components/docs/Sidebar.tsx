@@ -51,7 +51,7 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search docs"
-          className="w-full rounded-full border border-neutral-800 bg-neutral-900/60 py-3 pl-8 pr-2 text-[15px] text-neutral-200 placeholder:text-neutral-500 outline-none transition-colors focus:border-neutral-600 focus:ring-1 focus:ring-neutral-600"
+          className="w-full rounded-xl border border-neutral-800 bg-neutral-900/10  backdrop-blur-xs py-3 pl-8 pr-2 text-[15px] text-white hover:border-2 hover:border-blue-400 placeholder:text-neutral-500 outline-none "
         />
       </div>
 
@@ -63,7 +63,7 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
             <div key={section.title}>
               <button
                 onClick={() => toggle(section.title)}
-                className="flex w-full items-center justify-between px-2.5 py-1 text-[12px] font-bold  tracking-wider text-white transition-colors hover:text-blue-300 cursor-pointer"
+                className="flex w-full items-center justify-between px-2.5 py-1/2 text-[15px] font-medium  tracking-wider text-white transition-colors  cursor-pointer"
               >
                 {section.title}
                 <svg
@@ -91,10 +91,10 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
                           href={`/docs/${item.slug}`}
                           aria-current={active ? "page" : undefined}
                           onClick={onNavigate}
-                          className={`block rounded-full px-2.5 py-1.5 text-[14px] transition-colors ${
+                          className={`block rounded-full px-2.5 py-1.5 text-[16px] transition-colors ${
                             active
-                              ? "bg-blue-400  font-semibold text-black"
-                              : "text-neutral-200 hover:bg-blue-300/20 hover:text-neutral-100 hover:font-medium"
+                              ? "  font-semibold text-green-500 "
+                              : "text-neutral-200 hover:underline"
                           }`}
                         >
                           {item.title}
@@ -147,20 +147,20 @@ export function MobileDocsNav() {
     <>
       {/* Sticky Mobile Header */}
       <div
-        className="sticky z-40 -mx-4 flex items-center justify-between border-b border-neutral-800/60 bg-neutral-950/80 px-4 py-3 backdrop-blur-md sm:-mx-6 sm:px-6 md:hidden"
+        className="sticky z-40 -mx-4 flex items-center justify-between   bg-neutral-950 px-4 py-3  sm:-mx-6 sm:px-6 md:hidden"
         style={{ top: "var(--header-h)" }}
       >
-        <span className="text-sm font-semibold text-neutral-200">
+        <span className="text-md font-medium text-neutral-200">
           Documentation
         </span>
         <button
           onClick={() => setIsOpen(true)}
-          className="flex h-8 w-8 items-center justify-center rounded-md border border-neutral-800 bg-neutral-900 text-neutral-400 transition-colors hover:bg-neutral-800 hover:text-white"
+          className="flex h-8 w-8 items-center justify-center rounded-full cursor-pointer border border-neutral-800 bg-blue-800 text-neutral-400 transition-colors hover:bg-neutral-800 hover:text-white"
           aria-label="Open documentation menu"
         >
           <svg
             viewBox="0 0 24 24"
-            className="h-4 w-4"
+            className="h-5 w-5"
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
@@ -182,14 +182,14 @@ export function MobileDocsNav() {
         >
           {/* Backdrop */}
           <div
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/10 backdrop-blur-xs "
             onClick={() => setIsOpen(false)}
           />
 
           {/* Drawer Content */}
-          <div className="relative flex w-4/5 max-w-xs flex-col bg-black shadow-2xl">
+          <div className="relative flex w-4/5 max-w-xs flex-col bg-[#161923]  shadow-2xl">
             <div className="flex items-center justify-between border-b border-neutral-800/60 px-4 py-3 sm:px-6">
-              <span className="text-xl font-bold text-white">Menu</span>
+              <span className="text-3xl font-normal text-white">Menu</span>
               <button
                 onClick={() => setIsOpen(false)}
                 className="p-1 bg-[#333] rounded-full cursor-pointer text-neutral-400 hover:text-white"

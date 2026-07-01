@@ -60,13 +60,13 @@ function pickChallenge(): number[] {
 
 // Material You Form Styles
 const inputClass =
-  "w-full px-6 py-4 bg-[#1E1F20] border-2 border-transparent text-[16px] text-[#E2E2E2] placeholder-[#8E918F] focus:border-[#A8C7FA] focus:bg-[#282A2C] focus:outline-none rounded-full transition-all duration-300";
+  "w-full px-6 py-4 bg-gray-900 border-2 border-[#444444] text-[16px] text-[#E2E2E2] placeholder-text-gray-600 outline-none rounded-lg transition-all duration-300";
 const labelClass =
-  "block text-[14px] font-medium text-[#C4C7C5] mb-2 pl-4 text-left w-full";
+  "block text-[18px] font-medium text-white mb-2 pl-4 text-left w-full";
 const primaryBtn =
-  "w-full flex items-center justify-center gap-2 py-4 px-6 font-semibold text-[16px] bg-[#A8C7FA] hover:bg-[#b9d3fc] text-[#041E49] rounded-full shadow-[0_4px_14px_0_rgba(168,199,250,0.2)] cursor-pointer transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed";
+  "w-full flex items-center justify-center gap-2 py-2 px-3 font-semibold text-[19px] bg-green-700  text-white rounded-lg cursor-pointer transition-all  disabled:opacity-50 disabled:cursor-not-allowed";
 const ghostBtn =
-  "w-full text-center text-[15px] font-medium text-[#8E918F] hover:text-[#E2E2E2] hover:bg-[#1E1F20] py-3 rounded-full transition-colors active:bg-[#282A2C]";
+  "w-full text-center text-[15px] font-medium text-[#8E918F] hover:text-[#E2E2E2] hover:bg-[#1E1F20] py-3 rounded-lg transition-colors active:bg-[#282A2C]";
 
 type Step = "password" | "reveal" | "confirm";
 
@@ -145,34 +145,52 @@ export default function SetupScreen() {
   };
 
   return (
-    <div className="min-h-screen pt-20 flex items-center justify-center bg-[#000000] text-[#E2E2E2] px-4 sm:px-6 py-12 selection:bg-[#A8C7FA] selection:text-[#041E49] ">
+    <div className="min-h-screen pt-20 flex items-center justify-center bg-[#161923] text-[#E2E2E2] px-4 sm:px-6 py-12 selection:bg-[#A8C7FA] selection:text-[#041E49] ">
       <motion.div layout className="w-full max-w-[500px]">
         {/* Header */}
         <motion.div
           layout
           className="flex flex-col items-center text-center mb-8"
         >
-          <div className="w-16 h-16 rounded-full bg-[#1E1F20] flex items-center justify-center text-[#A8C7FA] shadow-[0_0_40px_-10px_rgba(168,199,250,0.15)] mb-5">
+          <div className="w-16 h-16 rounded-lg bg-green-700 flex items-center justify-center text-white mb-6">
             {step === "password" ? (
               <KeyRound className="w-7 h-7" />
             ) : (
               <ShieldCheck className="w-7 h-7" />
             )}
           </div>
-          <h1 className="text-3xl font-normal text-[#E2E2E2] tracking-tight mb-2">
+          <h1 className="text-4xl font-normal text-white tracking-tight mb-4">
             Set up your vault
           </h1>
-          <div className="flex items-center gap-2 text-[14px] font-medium text-[#8E918F]">
-            <span className={step === "password" ? "text-[#A8C7FA]" : ""}>
-              1. Password
+          <div className="flex items-center gap-3 mt-3 text-[14px] font-medium text-white">
+            <span
+              className={
+                step === "password"
+                  ? "text-green-500 font-semibold underline"
+                  : ""
+              }
+            >
+              Create your Password
             </span>
-            <span>•</span>
-            <span className={step === "reveal" ? "text-[#A8C7FA]" : ""}>
-              2. Phrase
+            <span> {"|"}</span>
+            <span
+              className={
+                step === "reveal"
+                  ? "text-green-500 font-semibold underline"
+                  : ""
+              }
+            >
+              Seed Phrase
             </span>
-            <span>•</span>
-            <span className={step === "confirm" ? "text-[#A8C7FA]" : ""}>
-              3. Verify
+            <span>{"|"}</span>
+            <span
+              className={
+                step === "confirm"
+                  ? "text-green-500 font-semibold underline"
+                  : ""
+              }
+            >
+              Verify seed phrase
             </span>
           </div>
         </motion.div>
@@ -185,7 +203,7 @@ export default function SetupScreen() {
               initial={{ opacity: 0, scale: 0.95, y: -10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, height: 0, marginBottom: 0 }}
-              className="mb-6 p-4 w-full bg-[#601410] rounded-[24px] text-[14px] text-[#F2B8B5] flex items-start gap-3"
+              className="mb-6 p-4 w-full bg-red-500 rounded-[24px] text-[14px] text-[#F2B8B5] flex items-start gap-3"
             >
               <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5" />
               <span className="leading-relaxed">{error}</span>
@@ -206,14 +224,14 @@ export default function SetupScreen() {
                 className="space-y-6"
               >
                 {/* Material Warning Tonal */}
-                <div className="p-5 rounded-[28px] bg-[#684C00] border border-[#8C6800]/50 flex gap-4">
-                  <ShieldAlert className="w-6 h-6 text-[#F9BC05] shrink-0 mt-0.5" />
-                  <p className="text-[14px] text-[#F9BC05] leading-relaxed">
+                <div className="p-5 rounded-[28px] bg-red-500  flex gap-4">
+                  <ShieldAlert className="w-6 h-6 text-white shrink-0 mt-0.5" />
+                  <p className="text-[14px] text-white leading-relaxed">
                     Your master password encrypts everything and is never sent
                     to our servers. We{" "}
-                    <strong className="font-bold text-[#FFFFFF]">cannot</strong>{" "}
-                    reset it — if you forget it, only your recovery phrase can
-                    get you back in.
+                    <strong className="font-bold text-white">cannot</strong>{" "}
+                    reset it if you forget it, only your recovery phrase can get
+                    you back in.
                   </p>
                 </div>
 
@@ -226,14 +244,14 @@ export default function SetupScreen() {
                         value={pw}
                         autoFocus
                         onChange={(e) => setPw(e.target.value)}
-                        className={`${inputClass} pr-14 ${!showPw && pw ? "tracking-[0.25em] font-mono text-lg py-3.5" : ""}`}
+                        className={`${inputClass} pr-14 ${!showPw && pw ? "tracking-[0.25em]  text-lg py-3.5" : ""}`}
                         placeholder="At least 8 characters"
                       />
                       <button
                         type="button"
                         tabIndex={-1}
                         onClick={() => setShowPw((s) => !s)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full text-[#8E918F] hover:text-[#E2E2E2] hover:bg-[#282A2C] transition-colors"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-lg text-[#8E918F] hover:text-[#E2E2E2] hover:bg-[#282A2C] transition-colors"
                       >
                         {showPw ? (
                           <EyeOff className="w-5 h-5" />
@@ -252,9 +270,9 @@ export default function SetupScreen() {
                           exit={{ opacity: 0, height: 0 }}
                           className="mt-4 px-2"
                         >
-                          <div className="h-1.5 w-full bg-[#1E1F20] rounded-full overflow-hidden">
+                          <div className="h-1.5 w-full bg-[#1E1F20] rounded-lg overflow-hidden">
                             <motion.div
-                              className="h-full rounded-full"
+                              className="h-full rounded-lg"
                               initial={{ width: 0 }}
                               animate={{
                                 width: `${strength.pct}%`,
@@ -288,7 +306,7 @@ export default function SetupScreen() {
                       value={confirmPw}
                       onChange={(e) => setConfirmPw(e.target.value)}
                       onKeyDown={(e) => e.key === "Enter" && createPassword()}
-                      className={`${inputClass} ${!showPw && confirmPw ? "tracking-[0.25em] font-mono text-lg py-3.5" : ""}`}
+                      className={`${inputClass} ${!showPw && confirmPw ? "tracking-[0.25em]  text-lg py-3.5" : ""}`}
                       placeholder="Re-enter your password"
                     />
                   </div>
@@ -339,12 +357,12 @@ export default function SetupScreen() {
                   {words.map((w, i) => (
                     <div
                       key={i}
-                      className="flex items-center gap-3 px-4 py-3 bg-[#131314] border border-[#282A2C] rounded-[24px]"
+                      className="flex items-center gap-3 px-2 py-2  border-2 border-[#444444] rounded-lg"
                     >
-                      <span className="text-[12px] font-medium text-[#8E918F] w-4 text-right select-none">
+                      <span className="text-[15px] font-medium text-white w-4 text-right select-none">
                         {i + 1}
                       </span>
-                      <span className="text-[15px] font-mono font-medium text-[#E2E2E2]">
+                      <span className="text-[16px]  font-medium text-white">
                         {w}
                       </span>
                     </div>
@@ -354,7 +372,7 @@ export default function SetupScreen() {
                 <div className="flex flex-col sm:flex-row gap-3 pt-2">
                   <button
                     onClick={copyPhrase}
-                    className="flex-1 flex items-center justify-center gap-2 py-3.5 px-6 text-[15px] font-medium bg-[#1E1F20] hover:bg-[#282A2C] rounded-full text-[#E2E2E2] transition-colors active:scale-95"
+                    className="flex-1 flex items-center justify-center gap-2 py-2 px-4 text-[15px] font-medium bg-blue-800 rounded-lg text-white "
                   >
                     {copied ? (
                       <Check className="w-5 h-5 text-[#C4EDD0]" />
@@ -365,14 +383,14 @@ export default function SetupScreen() {
                   </button>
                   <button
                     onClick={downloadPhrase}
-                    className="flex-1 flex items-center justify-center gap-2 py-3.5 px-6 text-[15px] font-medium bg-[#1E1F20] hover:bg-[#282A2C] rounded-full text-[#E2E2E2] transition-colors active:scale-95"
+                    className="flex-1 flex items-center justify-center gap-2 py-2 px-4 text-[15px] font-medium bg-blue-800 rounded-lg text-white"
                   >
                     <Download className="w-5 h-5" />
                     Download
                   </button>
                 </div>
 
-                <label className="flex items-center gap-4 cursor-pointer select-none p-4 rounded-[28px] border border-[#282A2C] bg-[#131314] hover:bg-[#1E1F20] transition-colors">
+                <label className="flex items-center gap-4 cursor-pointer select-none p-4 transition-colors">
                   <div className="relative flex items-center justify-center w-6 h-6 shrink-0">
                     <input
                       type="checkbox"
@@ -381,7 +399,7 @@ export default function SetupScreen() {
                       className="appearance-none w-6 h-6 rounded-md border-2 border-[#8E918F] checked:border-[#A8C7FA] checked:bg-[#A8C7FA] transition-colors cursor-pointer"
                     />
                     {acknowledged && (
-                      <Check className="absolute w-4 h-4 text-[#041E49] pointer-events-none" />
+                      <Check className="absolute w-4 h-4 text-white pointer-events-none" />
                     )}
                   </div>
                   <span className="text-[14px] text-[#C4C7C5] leading-snug">
@@ -437,7 +455,7 @@ export default function SetupScreen() {
                         onChange={(e) =>
                           setAnswers((a) => ({ ...a, [i]: e.target.value }))
                         }
-                        className={`${inputClass} font-mono`}
+                        className={`${inputClass} `}
                         placeholder={`Enter word ${i + 1}`}
                       />
                     </div>

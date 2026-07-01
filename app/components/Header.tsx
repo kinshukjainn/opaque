@@ -38,17 +38,17 @@ export default function Header() {
   // Material You / Pixel Styled Blocks
 
   const ctaBlock =
-    "group flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#A8C7FA] text-[#041E49] text-[15px] font-semibold hover:bg-[#b9d3fc] transition-all whitespace-nowrap shadow-sm transform hover:scale-[1.02] active:scale-95";
+    "group flex items-center gap-2 px-6 py-2.5 rounded-full bg-yellow-500 text-black text-[15px] font-bold  transition-all whitespace-nowrap shadow-sm transform hover:scale-[1.02] active:scale-95";
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#000000]/80 backdrop-blur-2xl border-b border-[#282A2C]">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#161923] border-b border-[#282A2C]">
       <div className="max-w-[1400px] mx-auto flex h-[72px] items-center justify-between px-4 md:px-6">
         {/* LEFT SECTION: Logo & Nav */}
         <div className="flex h-full flex-1 items-center overflow-hidden gap-2 md:gap-6">
           {/* Logo Block - Now fully responsive */}
           <Link
             href="/"
-            className="flex items-center gap-1.5 sm:gap-3 px-2 sm:px-3 py-2 rounded-full hover:bg-[#1E1F20] transition-colors shrink-0 z-10"
+            className="flex items-center gap-1.5 sm:gap-3 px-2 sm:px-3 py-2  transition-colors shrink-0 z-10"
           >
             {/* Shield: hidden on tiny mobile screens to save space, visible sm and up */}
 
@@ -63,7 +63,7 @@ export default function Header() {
             />
 
             {/* Text: Scales down slightly on mobile to prevent layout breaking */}
-            <span className="text-lg sm:text-xl font-bold tracking-tight text-[#E2E2E2] whitespace-nowrap">
+            <span className="text-2xl sm:text-3xl font-normal tracking-tight text-white whitespace-nowrap">
               Opaque
             </span>
           </Link>
@@ -78,15 +78,15 @@ export default function Header() {
                   href={item.href}
                   onMouseEnter={() => setHoveredItem(item.name)}
                   onMouseLeave={() => setHoveredItem(null)}
-                  className="relative px-4 py-2 flex items-center gap-2 text-[14px] font-medium text-[#C4C7C5] hover:text-[#E2E2E2] transition-colors whitespace-nowrap z-10"
+                  className="relative px-4 py-2 flex items-center gap-2 text-[14px] font-medium text-white transition-colors  z-10"
                 >
-                  <Icon className="w-4 h-4 " />
+                  <Icon className="w-4 h-4 text-green-500" />
                   <span>{item.name}</span>
 
                   {hoveredItem === item.name && (
                     <motion.div
                       layoutId="header-hover-pill"
-                      className="absolute inset-0 bg-[#1E1F20] rounded-full -z-10"
+                      className="absolute inset-0 border-b-2 border-green-500 -z-10"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
@@ -135,7 +135,7 @@ export default function Header() {
         {/* MOBILE MENU TOGGLE */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="xl:hidden flex items-center justify-center p-2.5 rounded-full bg-transparent hover:bg-[#1E1F20] text-[#C4C7C5] hover:text-[#E2E2E2] transition-colors flex-shrink-0"
+          className="xl:hidden flex items-center justify-center p-2.5 rounded-full cursor-pointer bg-[#161923] text-white transition-colors flex-shrink-0"
         >
           {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
@@ -149,9 +149,9 @@ export default function Header() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.2, 0, 0, 1] }}
-            className="xl:hidden overflow-hidden bg-[#131314] border-b border-[#282A2C] rounded-b-[32px] shadow-2xl absolute top-[72px] left-0 w-full z-40"
+            className="xl:hidden overflow-hidden bg-[#161923]   rounded-b-[32px] border-b-2 border-gray-600 absolute top-[72px] left-0 w-full z-40"
           >
-            <div className="flex flex-col px-4 py-6 space-y-2 max-h-[calc(100vh-72px)] overflow-y-auto">
+            <div className="flex flex-col px-2 py-2 space-y-1 max-h-[calc(100vh-60px)] overflow-y-auto">
               {navItems.map((item) => {
                 const Icon = item.icon;
                 return (
@@ -159,9 +159,9 @@ export default function Header() {
                     key={item.name}
                     href={item.href}
                     onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-4 text-[16px] font-medium text-[#E2E2E2] hover:bg-[#1E1F20] transition-colors p-4 rounded-[20px]"
+                    className="flex items-center gap-3 text-[16px] font-medium text-white hover:border-l-3 border-green-500 transition-colors p-4 "
                   >
-                    <Icon className="w-5 h-5 text-[#A8C7FA]" />
+                    <Icon className="w-5 h-5 text-green-500" />
                     <span>{item.name}</span>
                   </Link>
                 );

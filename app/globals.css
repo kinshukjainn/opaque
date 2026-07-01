@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 body {
-  background: black;
+  background: #161923;
   color: white;
-  font-family: var(--font-plus-jakarta), sans-serif;
+  font-family: var(--font-open-sans), sans-serif;
 }
 
 .heading-font {
@@ -32,10 +32,13 @@ body {
   inset: 0; /* Shorthand for top:0, left:0, right:0, bottom:0 */
   background: linear-gradient(
     90deg,
-    #4285f4,
-    #ea4335,
-    #fbbc05,
-    #34a853,
+    #000000,
+    #643838,
+    #abbced,
+    #8bec75,
+    #dfd5d5,
+    #630303,
+    #1d2b21,
     #4285f4
   );
   background-size: 300% 100%;
@@ -62,15 +65,15 @@ body {
   border-radius: 9999px; /* Pill shape */
   font-size: 15px;
   font-weight: 500;
-  color: #c4c7c5;
-  background-color: #000000; /* Solid black hides the center of the gradient */
+  color: white;
+  background-color: green; /* Solid black hides the center of the gradient */
   white-space: nowrap;
   text-decoration: none; /* Removes underline from Next.js Link */
   transition: color 0.15s ease;
 }
 
 .btn:hover {
-  color: #e2e2e2;
+  color: white;
 }
 
 /* 5. The Animation Keyframes */

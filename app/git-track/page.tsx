@@ -217,10 +217,10 @@ export default function ChangelogTracker() {
       : "N/A";
 
   const inputClass =
-    "bg-zinc-950 text-zinc-200 border border-zinc-800 px-4 py-2 rounded-3xl outline-none focus:border-zinc-600 focus:ring-1 focus:ring-zinc-600 transition-all text-sm w-full sm:w-auto";
+    "bg-blue-300 text-zinc-900 placeholder-gray-800 border border-zinc-800 px-4 py-2 rounded-lg font-medium outline-none  transition-all text-sm w-full sm:w-auto";
 
   return (
-    <div className="min-h-screen bg-black text-zinc-300  selection:bg-zinc-800 selection:text-white pb-32">
+    <div className="min-h-screen bg-[#161923] text-zinc-300  selection:bg-zinc-800 selection:text-white pb-32">
       {/* ── TOP NAVIGATION BAR ── */}
       <div className="sticky top-0 z-10 bg-black/80 backdrop-blur-md border-b border-zinc-800/80 px-6 py-4">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
@@ -237,7 +237,7 @@ export default function ChangelogTracker() {
 
           <Link
             href="/git-track/tree"
-            className="flex items-center gap-1.5 text-xs font-mono text-zinc-400 hover:text-zinc-100 transition-colors uppercase tracking-wider"
+            className="flex items-center gap-1.5 text-xs  text-zinc-400 hover:text-zinc-100 transition-colors  tracking-wider"
           >
             <GitBranch className="w-3.5 h-3.5" />
             <span>View Tree</span>
@@ -248,9 +248,9 @@ export default function ChangelogTracker() {
       <div className="max-w-5xl mx-auto px-6 pt-12 space-y-8">
         {/* ── HEADER ── */}
         <header>
-          <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-zinc-100 flex items-center gap-3">
+          <h1 className="text-4xl md:text-5xl font-medium tracking-tight text-zinc-100 flex items-center gap-3">
             <FaGithub className="w-8 h-8 text-zinc-400" />
-            Repository History
+            Repository logs
           </h1>
           <p className="text-zinc-400 mt-2 text-sm max-w-2xl">
             Tracking recent architecture changes, bug fixes, and feature
@@ -259,12 +259,12 @@ export default function ChangelogTracker() {
         </header>
 
         {/* ── META INFO CARD ── */}
-        <div className="bg-zinc-900/20 border border-zinc-800/80 shadow-xl shadow-black/20 rounded-3xl p-5 md:p-6 backdrop-blur-sm">
+        <div className="  p-5 md:p-6 ">
           <div className="grid grid-cols-1 sm:grid-cols-[140px_1fr] gap-y-4 sm:gap-x-4 text-sm">
             <div className="text-green-500 font-medium flex items-center gap-2">
               <GitBranch className="w-4 h-4" /> Branch
             </div>
-            <div className="text-white font-mono text-xs bg-blue-800 w-fit px-2 py-0.5 rounded-full border-2 border-blue-400">
+            <div className="text-white  text-xs bg-blue-800 w-fit px-2 py-0.5 rounded-full border-2 border-blue-400">
               {GITHUB_CONFIG.branch}
             </div>
 
@@ -298,7 +298,7 @@ export default function ChangelogTracker() {
           </h2>
           <button
             onClick={() => setShowFilters(!showFilters)}
-            className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-zinc-400 hover:text-zinc-100 transition-colors bg-transparent border-none cursor-pointer p-0"
+            className="flex items-center gap-2 text-xs   tracking-wider text-zinc-400 hover:text-zinc-100 transition-colors bg-transparent border-none cursor-pointer p-0"
           >
             <Filter className="w-3.5 h-3.5" />
             {showFilters ? "Hide Filters" : "Show Filters"}
@@ -309,11 +309,11 @@ export default function ChangelogTracker() {
           <div className=" mb-6 animate-in slide-in-from-top-2 fade-in duration-200">
             <div className="flex flex-col sm:flex-row flex-wrap gap-4 items-start sm:items-end">
               <label className="flex flex-col gap-1.5 w-full sm:w-auto">
-                <span className="text-zinc-400 text-xs font-semibold uppercase tracking-wider">
+                <span className="text-zinc-100 text-xs font-semibold  tracking-wider">
                   Search
                 </span>
                 <div className="relative">
-                  <Search className="absolute left-3 top-2.5 w-4 h-4 text-zinc-500" />
+                  <Search className="absolute left-3 top-2.5 w-4 h-4 text-black" />
                   <input
                     type="text"
                     placeholder="Search messages or SHA..."
@@ -325,7 +325,7 @@ export default function ChangelogTracker() {
               </label>
 
               <label className="flex flex-col gap-1.5 w-full sm:w-auto">
-                <span className="text-zinc-400 text-xs font-semibold uppercase tracking-wider">
+                <span className="text-zinc-100 text-xs font-semibold  tracking-wider">
                   Author
                 </span>
                 <div className="relative">
@@ -346,7 +346,7 @@ export default function ChangelogTracker() {
               </label>
 
               <label className="flex flex-col gap-1.5 w-full sm:w-auto">
-                <span className="text-zinc-400 text-xs font-semibold uppercase tracking-wider">
+                <span className="text-zinc-100 text-xs font-semibold  tracking-wider">
                   Type
                 </span>
                 <select
@@ -368,7 +368,7 @@ export default function ChangelogTracker() {
                   setAuthorFilter("all");
                   setTypeFilter("all");
                 }}
-                className="h-[38px] px-5 bg-zinc-100 text-black text-sm font-medium rounded-full cursor-pointer  hover:bg-white transition-colors w-full sm:w-auto mt-2 sm:mt-0"
+                className="h-[38px] px-5 bg-green-400 text-black text-sm font-medium rounded-md cursor-pointer  hover:bg-white transition-colors w-full sm:w-auto mt-2 sm:mt-0"
               >
                 Clear
               </button>
@@ -389,7 +389,7 @@ export default function ChangelogTracker() {
         {error && (
           <div className="p-5 border border-red-900/50 bg-red-950/20 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-red-200">
             <div className="flex flex-col gap-1">
-              <span className="text-sm font-bold text-red-400 uppercase tracking-wider">
+              <span className="text-sm font-bold text-red-400  tracking-wider">
                 Connection Error
               </span>
               <span className="text-sm">{error}</span>
@@ -426,7 +426,7 @@ export default function ChangelogTracker() {
                 >
                   {/* Left: Time & Author */}
                   <div className="flex items-center gap-3 shrink-0 md:w-[180px]">
-                    <span className="text-zinc-500 text-xs font-mono w-[65px] shrink-0 text-right">
+                    <span className="text-zinc-500 text-xs  w-[65px] shrink-0 text-right">
                       {timeAgo(commit.commit.author.date)}
                     </span>
                     <div className="w-1.5 h-1.5 rounded-full bg-zinc-700 shrink-0 hidden md:block" />
@@ -437,7 +437,7 @@ export default function ChangelogTracker() {
 
                   {/* Middle: Commit Message & Tag */}
                   <div className="flex-1 min-w-0 flex items-center gap-2">
-                    <span className="text-zinc-100 text-sm font-mono truncate">
+                    <span className="text-zinc-100 text-sm  truncate">
                       {title}
                     </span>
                     {index === 0 && (

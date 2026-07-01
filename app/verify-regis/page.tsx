@@ -37,15 +37,15 @@ function BenefitItem({
   description: string;
 }) {
   return (
-    <div className="flex items-start gap-5 p-4 rounded-[28px] hover:bg-[#1E1F20] transition-colors border border-transparent hover:border-[#282A2C]">
-      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-[#1E1F20] flex items-center justify-center text-[#A8C7FA] shadow-sm">
+    <div className="flex items-start gap-3 p-1  transition-colors">
+      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-green-400 flex items-center justify-center text-black shadow-sm">
         {icon}
       </div>
       <div>
-        <h3 className="text-[#E2E2E2] font-medium text-[16px] mb-1.5">
+        <h3 className="text-[#E2E2E2] font-semibold text-[20px] mb-1.5">
           {title}
         </h3>
-        <p className="text-[#8E918F] text-[14px] leading-relaxed">
+        <p className="text-zinc-200 text-[17px] font-normal leading-relaxed">
           {description}
         </p>
       </div>
@@ -273,23 +273,24 @@ export default function AuthPage() {
 
   // Material You Styling Variables
   const inputClass =
-    "w-full px-6 py-4 bg-[#1E1F20] border-2 border-transparent text-[16px] text-[#E2E2E2] placeholder-[#8E918F] focus:bg-[#282A2C] focus:border-[#A8C7FA] focus:outline-none rounded-full transition-all duration-300";
-  const labelClass = "block text-[14px] font-medium text-[#C4C7C5] mb-2 pl-4";
+    "w-full px-6 py-3 bg-gray-900 border-2 border-[#444444] text-[16px] text-white placeholder-[#8E918F] outline-none rounded-xl ";
+  const labelClass = "block text-[16px] font-medium text-white mb-2 pl-4";
   const primaryButtonClass =
-    "w-full flex items-center justify-center gap-2 py-4 px-6 font-semibold text-[16px] bg-[#A8C7FA] hover:bg-[#b9d3fc] text-[#041E49] rounded-full shadow-[0_4px_14px_0_rgba(168,199,250,0.2)] cursor-pointer transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100";
+    "w-full flex items-center justify-center gap-2 py-4 px-6 font-semibold text-[18px] bg-blue-400 hover:bg-blue-500 text-black rounded-lg  cursor-pointer transition-all  disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100";
   const secondaryButtonClass =
-    "w-full flex items-center justify-center gap-2 py-4 px-6 font-medium text-[15px] cursor-pointer bg-[#1E1F20] hover:bg-[#282A2C] text-[#E2E2E2] rounded-full transition-all active:scale-95 disabled:opacity-50";
+    "w-full flex items-center justify-center gap-2 py-2 px-3  font-medium text-[17px] cursor-pointer bg-green-700 text-white rounded-lg transition-all active:scale-95 disabled:opacity-50";
 
   return (
-    <div className="grid pt-0 lg:pt-16 min-h-screen pt-20 grid-cols-1 lg:grid-cols-2 bg-[#000000] text-[#E2E2E2] selection:bg-[#A8C7FA] selection:text-[#041E49] ">
+    <div className="grid pt-0 lg:pt-16 min-h-screen pt-20 grid-cols-1 lg:grid-cols-2 bg-[#161923] text-[#E2E2E2] selection:bg-[#A8C7FA] selection:text-[#041E49] ">
       {/* LEFT PANEL: Branding & Benefits */}
-      <div className="relative hidden lg:flex flex-col justify-between p-12 xl:p-16 bg-black rounded-r-[40px] rounded-l-[20px]  overflow-hidden my-4 ml-4 border-2 border-white/20 shadow-xl shadow-blue-500/20">
+      <div className="relative hidden lg:flex flex-col justify-between p-12 xl:p-16 bg-[#161923]  overflow-hidden my-4 ml-4 ">
         <div className="relative z-10 flex flex-col gap-10">
           {/* Logo */}
           <div className="flex items-center gap-3">
             <span className="text-2xl font-medium tracking-tight text-[#E2E2E2] flex items-center flex-wrap gap-3">
               {APP_NAME}
-              <span className="text-[12px] font-medium px-4 py-1.5 bg-[#1E1F20] text-[#A8C7FA] border border-[#282A2C] rounded-full">
+              <span className="text-gray-600">{"/"}</span>
+              <span className="text-[16px] font-medium px-4 py-1.5  text-[#A8C7FA] border border-[#282A2C] rounded-full">
                 Authentication
               </span>
             </span>
@@ -297,7 +298,7 @@ export default function AuthPage() {
 
           {/* Value Proposition */}
           <div className="mt-4">
-            <h1 className="text-2xl xl:text-3xl font-semibold mb-6 leading-tight max-w-[480px] bg-clip-text text-transparent bg-[linear-gradient(to_right,#4285F4,#EA4335,#FBBC05,#34A853)]">
+            <h1 className="text-3xl xl:text-4xl font-semibold mb-6 leading-tight max-w-[480px] ">
               Your passwords, sealed by encryption only you can open.
             </h1>
           </div>
@@ -324,10 +325,12 @@ export default function AuthPage() {
 
         {/* Dynamic Security Badge */}
         <div className="relative z-10 flex items-center gap-2 mt-auto pt-10">
-          <div className="flex items-center gap-2 text-[14px] text-[#C4C7C5] bg-[#1E1F20] border border-[#282A2C] px-5 py-2.5 rounded-full shadow-sm">
-            <LockKeyhole className="w-5 h-5 text-blue-500" />
-            <span>Secured infrastructure by</span>
-            <div className="relative flex items-center justify-start w-[50px] h-[20px] overflow-hidden font-medium text-[#E2E2E2]">
+          <div className="flex items-center gap-2 text-[16px] text-[#C4C7C5] bg-yellow-500 border-2 border-black px-5 py-2.5 rounded-full">
+            <LockKeyhole className="w-6 h-6 text-black" />
+            <span className="text-black font-medium">
+              Secured infrastructure by
+            </span>
+            <div className="relative flex items-center justify-start w-[50px] h-[20px] overflow-hidden font-bold text-black">
               <AnimatePresence mode="popLayout">
                 <motion.span
                   key={providers[index]}
@@ -346,14 +349,15 @@ export default function AuthPage() {
       </div>
 
       {/* RIGHT PANEL: Authentication Form */}
-      <div className="flex flex-col justify-center items-center w-full px-6 py-12 lg:px-12 bg-[#000000]">
+      <div className="flex flex-col justify-center items-center w-full px-6 py-12 lg:px-12 bg-[#161923]">
         <div className="w-full max-w-[420px]">
           {/* Mobile Logo */}
           <div className="lg:hidden flex items-center justify-center gap-3 mb-12">
-            <span className="text-2xl font-medium tracking-tight text-[#E2E2E2] flex items-center gap-3">
+            <span className="text-3xl font-medium tracking-tight text-[#E2E2E2] flex items-center gap-3">
               {APP_NAME}
-              <span className="text-[12px] font-medium px-4 py-1.5 bg-[#1E1F20] text-[#A8C7FA] border border-[#282A2C] rounded-full">
-                Auth
+              <span className="text-gray-600">{"/"}</span>
+              <span className="text-[17px] font-medium px-4 py-1.5  text-[#A8C7FA] border border-[#282A2C] rounded-full">
+                Authentication
               </span>
             </span>
           </div>
@@ -362,13 +366,13 @@ export default function AuthPage() {
           <motion.div layout className="mb-10 text-center sm:text-left">
             <motion.h2
               layout
-              className="text-3xl font-bold text-[#E2E2E2] mb-3"
+              className="text-5xl font-normal text-[#E2E2E2] mb-3"
             >
               {heading}
             </motion.h2>
             <motion.p
               layout
-              className="text-[15px] text-[#8E918F] leading-relaxed"
+              className="text-[17px] text-green-400 leading-relaxed"
             >
               {subtext}
             </motion.p>
@@ -382,12 +386,12 @@ export default function AuthPage() {
                 initial={{ opacity: 0, scale: 0.95, y: -10 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, height: 0, marginBottom: 0 }}
-                className="mb-6 p-4 bg-[#601410] rounded-[24px] flex items-start gap-3"
+                className="mb-6 p-3  rounded-full flex items-start gap-3"
               >
-                <div className="mt-0.5 text-[#F2B8B5] flex-shrink-0">
-                  <Sparkles className="w-5 h-5" />
+                <div className="mt-0.5 text-green-400 flex-shrink-0">
+                  <Sparkles className="w-6 h-6" />
                 </div>
-                <p className="text-[14px] font-medium text-[#F2B8B5] leading-snug">
+                <p className="text-[15px] font-medium text-white leading-snug">
                   {authError}
                 </p>
               </motion.div>
@@ -423,7 +427,7 @@ export default function AuthPage() {
                       onKeyDown={(e) =>
                         e.key === "Enter" && canSubmit && handleSubmit()
                       }
-                      className={`${inputClass} text-center text-3xl tracking-[0.5em] py-5 font-mono`}
+                      className={`${inputClass} text-center text-3xl tracking-[0.5em] py-5 `}
                     />
                   </div>
 
@@ -518,7 +522,7 @@ export default function AuthPage() {
                         onKeyDown={(e) =>
                           e.key === "Enter" && canSubmit && handleSubmit()
                         }
-                        className={`${inputClass} pr-14 ${!showPassword && password ? "tracking-[0.25em] font-mono text-lg" : ""}`}
+                        className={`${inputClass} pr-14 ${!showPassword && password ? "tracking-[0.25em]  text-lg" : ""}`}
                         placeholder={
                           !showPassword ? "••••••••" : "Your password"
                         }
@@ -564,10 +568,8 @@ export default function AuthPage() {
                     </button>
 
                     <div className="relative flex items-center justify-center py-2">
-                      <div className="absolute inset-0 flex items-center">
-                        <div className="w-full border-t border-[#282A2C]"></div>
-                      </div>
-                      <div className="relative bg-[#000000] px-4 text-[13px] font-medium text-[#8E918F] uppercase tracking-wider">
+                      <div className="absolute inset-0 flex items-center"></div>
+                      <div className="relative   text-[19px] font-medium bg-gray-900 p-2 rounded-lg border border-[#444444] text-white  tracking-wider">
                         or
                       </div>
                     </div>

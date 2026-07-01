@@ -34,7 +34,7 @@ const components: Components = {
   ),
   h2: (p) => (
     <h2
-      className="mt-10 scroll-mt-28 border-b border-neutral-800 pb-2 text-xl font-semibold text-white md:mt-12 md:text-2xl"
+      className="mt-10 scroll-mt-28 border-b border-neutral-800 pb-2 text-2xl font-semibold text-white md:mt-12 md:text-2xl"
       {...omitNode(p)}
     />
   ),
@@ -46,7 +46,7 @@ const components: Components = {
   ),
   p: (p) => (
     <p
-      className="mt-4 break-words text-[15px] leading-7 text-neutral-300"
+      className="mt-4 break-words text-[18px] leading-7 text-neutral-300"
       {...omitNode(p)}
     />
   ),
@@ -58,13 +58,13 @@ const components: Components = {
   ),
   ul: (p) => (
     <ul
-      className="mt-4 list-disc space-y-2 pl-6 text-[15px] leading-7 text-neutral-300 marker:text-neutral-600"
+      className="mt-4 list-disc space-y-2 pl-6 text-[18px] leading-7 text-neutral-300 marker:text-neutral-600"
       {...omitNode(p)}
     />
   ),
   ol: (p) => (
     <ol
-      className="mt-4 list-decimal space-y-2 pl-6 text-[15px] leading-7 text-neutral-300 marker:text-neutral-500"
+      className="mt-4 list-decimal space-y-2 pl-6 text-[18px] leading-7 text-neutral-300 marker:text-neutral-500"
       {...omitNode(p)}
     />
   ),
@@ -81,7 +81,7 @@ const components: Components = {
   hr: () => <hr className="my-10 border-neutral-800" />,
   pre: (p) => (
     <pre
-      className="mt-5 max-w-full overflow-x-auto rounded-xl border border-neutral-800 bg-neutral-900 p-4 text-sm leading-relaxed"
+      className="mt-5 max-w-full overflow-x-auto rounded-xl border border-neutral-800 bg-neutral-900 p-4 text-[18px] leading-relaxed"
       {...omitNode(p)}
     />
   ),
@@ -95,7 +95,7 @@ const components: Components = {
       );
     return (
       <code
-        className="break-words rounded-md bg-neutral-800 px-1.5 py-0.5 text-[0.85em] text-neutral-200"
+        className="break-words rounded-md bg-neutral-800 px-1.5 py-0.5 text-[16px] text-neutral-200"
         {...omitNode(rest)}
       >
         {children}
@@ -104,7 +104,7 @@ const components: Components = {
   },
   table: (p) => (
     <div className="my-6 block w-full max-w-full overflow-x-auto rounded-lg border border-neutral-800">
-      <table className="w-full border-collapse text-sm" {...omitNode(p)} />
+      <table className="w-full border-collapse text-[18px]" {...omitNode(p)} />
     </div>
   ),
   thead: (p) => <thead className="bg-neutral-900" {...omitNode(p)} />,

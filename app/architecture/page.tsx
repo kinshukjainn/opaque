@@ -18,18 +18,18 @@ import {
 
 export default function ArchitectureDocs() {
   return (
-    <div className="min-h-screen bg-[#000000] text-[#E2E2E2] selection:bg-[#A8C7FA] selection:text-[#041E49] py-24 px-4 sm:px-6 ">
-      <div className="max-w-5xl mx-auto space-y-24">
-        {/* Header */}
-        <header className="space-y-6 text-center md:text-left">
-          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[#282A2C] bg-[#1E1F20] text-[14px] font-medium text-[#C4C7C5] mb-2 shadow-sm">
-            <Shield className="w-4 h-4 text-[#A8C7FA]" />
+    <div className="w-full max-w-5xl pt-10  mx-auto p-4 sm:p-6 text-[#F3F4F6]  selection:bg-[#0060df] selection:text-white">
+      <div className="space-y-16 pt-10 pb-20">
+        {/* ── HEADER ── */}
+        <header className="space-y-4 pt-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-[#2e3447] bg-[#1e2230] text-[13px] font-medium text-[#a0a6b8]">
+            <Shield className="w-4 h-4 text-[#0060df]" />
             System Architecture
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#E2E2E2]">
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-white">
             Zero-Knowledge Design
           </h1>
-          <p className="text-lg md:text-xl text-[#8E918F] max-w-2xl leading-relaxed mx-auto md:mx-0">
+          <p className="text-[19px] text-[#a0a6b8] max-w-3xl leading-relaxed">
             The core philosophy of this application relies on a strict
             separation between authentication (identity) and decryption
             (access). The server acts solely as a gatekeeper and never as the
@@ -37,13 +37,13 @@ export default function ArchitectureDocs() {
           </p>
         </header>
 
-        {/* Section 1: The Two Layers */}
-        <section className="space-y-10">
+        {/* ── SECTION 1: THE TWO LAYERS ── */}
+        <section className="space-y-6">
           <div>
-            <h2 className="text-3xl font-normal text-[#E2E2E2] mb-3">
+            <h2 className="text-2xl font-semibold text-white mb-2">
               The Dual Trust Boundary
             </h2>
-            <p className="text-[#8E918F] text-lg max-w-3xl leading-relaxed">
+            <p className="text-[#a0a6b8] text-[17px] max-w-3xl leading-relaxed">
               Internalizing that these layers are entirely independent is what
               stops insecure design. The server can confirm Layer 1 all day, but
               it has no way to ever observe Layer 2.
@@ -51,34 +51,38 @@ export default function ArchitectureDocs() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-            <div className="p-8 md:p-10 rounded-[32px] border border-[#282A2C] bg-[#131314] hover:bg-[#1E1F20] transition-colors">
-              <div className="w-14 h-14 rounded-full bg-[#1E1F20] flex items-center justify-center mb-6 shadow-sm">
-                <UserCheck className="w-6 h-6 text-[#A8C7FA]" />
+            <div className="p-6 md:p-8 rounded-lg border border-[#2e3447] bg-[#1e2230]">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-[#161923] border border-[#2e3447] flex items-center justify-center">
+                  <UserCheck className="w-5 h-5 text-[#0060df]" />
+                </div>
+                <h3 className="text-[18px] font-semibold text-white">
+                  Layer 1: Clerk Session
+                </h3>
               </div>
-              <h3 className="text-xl font-medium text-[#E2E2E2] mb-2">
-                Layer 1: Clerk Session
-              </h3>
-              <p className="text-[12px] font-mono font-semibold text-[#8E918F] mb-5 uppercase tracking-wider bg-[#000000] inline-block px-3 py-1 rounded-full border border-[#282A2C]">
+              <div className="text-[12px] font-medium text-[#a0a6b8] mb-4  tracking-wide bg-[#161923] inline-block px-2.5 py-1 rounded-lg border border-[#2e3447]">
                 &quot;Is this person logged in?&quot;
-              </p>
-              <p className="text-[15px] text-[#C4C7C5] leading-relaxed">
+              </div>
+              <p className="text-[19px] text-[#F3F4F6] leading-relaxed">
                 Handled by Clerk. This dictates if the user can make HTTP
                 requests to your server. The server verifies the JWT and knows
                 the user&apos;s identity, plan tier, and account limits.
               </p>
             </div>
 
-            <div className="p-8 md:p-10 rounded-[32px] border border-[#282A2C] bg-[#131314] hover:bg-[#1E1F20] transition-colors">
-              <div className="w-14 h-14 rounded-full bg-[#1E1F20] flex items-center justify-center mb-6 shadow-sm">
-                <Key className="w-6 h-6 text-[#F9BC05]" />
+            <div className="p-6 md:p-8 rounded-lg border border-[#2e3447] bg-[#1e2230]">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-[#161923] border border-[#2e3447] flex items-center justify-center">
+                  <Key className="w-5 h-5 text-[#eab308]" />
+                </div>
+                <h3 className="text-[18px] font-semibold text-white">
+                  Layer 2: Vault Unlock
+                </h3>
               </div>
-              <h3 className="text-xl font-medium text-[#E2E2E2] mb-2">
-                Layer 2: Vault Unlock
-              </h3>
-              <p className="text-[12px] font-mono font-semibold text-[#8E918F] mb-5 uppercase tracking-wider bg-[#000000] inline-block px-3 py-1 rounded-full border border-[#282A2C]">
+              <div className="text-[12px] font-medium text-[#a0a6b8] mb-4  tracking-wide bg-[#161923] inline-block px-2.5 py-1 rounded-lg border border-[#2e3447]">
                 &quot;Is the vault decrypted right now?&quot;
-              </p>
-              <p className="text-[15px] text-[#C4C7C5] leading-relaxed">
+              </div>
+              <p className="text-[19px] text-[#F3F4F6] leading-relaxed">
                 Handled locally in the browser. The Vault Key exists purely in
                 volatile memory, derived from the Master Password. A logged-in
                 Clerk user with a locked vault can do nothing with their data.
@@ -87,23 +91,23 @@ export default function ArchitectureDocs() {
           </div>
         </section>
 
-        {/* Section 2: User Lifecycle (State Machine) */}
-        <section className="space-y-10 border-t border-[#282A2C] pt-20">
+        {/* ── SECTION 2: USER LIFECYCLE ── */}
+        <section className="space-y-6 pt-10 border-t border-[#2e3447]">
           <div>
-            <h2 className="text-3xl font-normal text-[#E2E2E2] mb-3">
+            <h2 className="text-2xl font-semibold text-white mb-2">
               User Lifecycle (State Machine)
             </h2>
-            <p className="text-[#8E918F] text-lg max-w-3xl leading-relaxed">
+            <p className="text-[#a0a6b8] text-[17px] max-w-3xl leading-relaxed">
               Because a Clerk user exists before the vault does, the application
               gates access based on the{" "}
-              <code className="text-[#A8C7FA] bg-[#041E49] px-2 py-0.5 rounded-md text-sm border border-[#1a386b]">
+              <code className="text-[#0060df] bg-[#0060df]/10 px-1.5 py-0.5 rounded-lg text-[13px] border border-[#0060df]/20 ">
                 vault_initialized
               </code>{" "}
               database flag.
             </p>
           </div>
 
-          <div className="flex flex-col lg:flex-row items-center gap-4 bg-[#131314] border border-[#282A2C] rounded-[40px] p-8 md:p-12 overflow-x-auto">
+          <div className="flex flex-col lg:flex-row items-center gap-4 bg-[#1e2230] border border-[#2e3447] rounded-xl p-6 md:p-8 overflow-x-auto">
             <StateNode title="Anonymous" desc="No Session" />
             <Arrow />
             <StateNode
@@ -112,9 +116,9 @@ export default function ArchitectureDocs() {
               highlight
             />
             <Arrow label="Setup Flow" />
-            <div className="flex flex-col gap-5 p-6 border border-[#282A2C] rounded-[32px] bg-[#000000]">
+            <div className="flex flex-col gap-4 p-5 border border-[#2e3447] rounded-xl bg-[#161923]">
               <StateNode title="Vault Locked" desc="Key NOT in memory" />
-              <div className="flex items-center justify-center gap-2 text-[12px] text-[#8E918F] font-mono font-medium">
+              <div className="flex items-center justify-center gap-2 text-[12px] text-[#6b7280] font-medium  tracking-wide">
                 <span>Unlock</span>
                 <ArrowRight className="w-3.5 h-3.5" />
                 <span>Auto-Lock</span>
@@ -128,29 +132,29 @@ export default function ArchitectureDocs() {
           </div>
         </section>
 
-        {/* Section 3: Server Visibility (Can vs Cannot See) */}
-        <section className="space-y-10 border-t border-[#282A2C] pt-20">
+        {/* ── SECTION 3: SERVER VISIBILITY ── */}
+        <section className="space-y-6 pt-10 border-t border-[#2e3447]">
           <div>
-            <h2 className="text-3xl font-normal text-[#E2E2E2] mb-3">
+            <h2 className="text-2xl font-semibold text-white mb-2">
               Server Visibility Spec
             </h2>
-            <p className="text-[#8E918F] text-lg max-w-3xl leading-relaxed">
+            <p className="text-[#a0a6b8] text-[17px] max-w-3xl leading-relaxed">
               Exactly what the Postgres database and your Node/Next.js backend
               can and cannot observe.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-            <div className="bg-[#131314] p-8 md:p-10 rounded-[32px] border border-[#282A2C]">
-              <div className="flex items-center gap-4 mb-8">
-                <div className="w-12 h-12 rounded-full bg-[#0F5223] flex items-center justify-center text-[#C4EDD0]">
-                  <Eye className="w-6 h-6" />
+            <div className="bg-[#1e2230] p-6 md:p-8 rounded-lg border border-[#2e3447]">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-10 h-10 rounded-lg bg-[#22c55e]/10 border border-[#22c55e]/20 flex items-center justify-center text-[#22c55e]">
+                  <Eye className="w-5 h-5" />
                 </div>
-                <h3 className="text-xl font-medium text-[#E2E2E2]">
+                <h3 className="text-[18px] font-semibold text-white">
                   Server Can See
                 </h3>
               </div>
-              <ul className="space-y-4 text-[15px] text-[#C4C7C5]">
+              <ul className="space-y-3 text-[19px] text-[#F3F4F6]">
                 <ListItem>User Identity (via Clerk JWT)</ListItem>
                 <ListItem>Total item count (for plan limits)</ListItem>
                 <ListItem>When items were created/updated</ListItem>
@@ -160,16 +164,16 @@ export default function ArchitectureDocs() {
               </ul>
             </div>
 
-            <div className="bg-[#131314] p-8 md:p-10 rounded-[32px] border border-[#282A2C]">
-              <div className="flex items-center gap-4 mb-8">
-                <div className="w-12 h-12 rounded-full bg-[#601410] flex items-center justify-center text-[#F2B8B5]">
-                  <EyeOff className="w-6 h-6" />
+            <div className="bg-[#1e2230] p-6 md:p-8 rounded-lg border border-[#2e3447]">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-10 h-10 rounded-lg bg-[#ef4444]/10 border border-[#ef4444]/20 flex items-center justify-center text-[#ef4444]">
+                  <EyeOff className="w-5 h-5" />
                 </div>
-                <h3 className="text-xl font-medium text-[#E2E2E2]">
+                <h3 className="text-[18px] font-semibold text-white">
                   Server Cannot See
                 </h3>
               </div>
-              <ul className="space-y-4 text-[15px] text-[#C4C7C5]">
+              <ul className="space-y-3 text-[19px] text-[#F3F4F6]">
                 <ListItem>Item Titles or Usernames</ListItem>
                 <ListItem>Passwords or URLs</ListItem>
                 <ListItem>Secure Notes or Folder Names</ListItem>
@@ -181,13 +185,13 @@ export default function ArchitectureDocs() {
           </div>
         </section>
 
-        {/* Section 4: Core Operational Flows */}
-        <section className="space-y-10 border-t border-[#282A2C] pt-20">
+        {/* ── SECTION 4: CORE FLOWS ── */}
+        <section className="space-y-6 pt-10 border-t border-[#2e3447]">
           <div>
-            <h2 className="text-3xl font-normal text-[#E2E2E2] mb-3">
+            <h2 className="text-2xl font-semibold text-white mb-2">
               Core Operational Flows
             </h2>
-            <p className="text-[#8E918F] text-lg max-w-3xl leading-relaxed">
+            <p className="text-[#a0a6b8] text-[17px] max-w-3xl leading-relaxed">
               How the cryptographic primitives map to user actions.
             </p>
           </div>
@@ -243,19 +247,23 @@ function StateNode({
 }) {
   return (
     <div
-      className={`min-w-[180px] p-5 rounded-[28px] border text-center transition-colors shadow-sm ${
+      className={`min-w-[160px] p-4 rounded-lg border text-center ${
         highlight
-          ? "border-[#A8C7FA] bg-[#A8C7FA]/10"
-          : "border-[#282A2C] bg-[#1E1F20]"
+          ? "border-[#0060df] bg-[#0060df]/10"
+          : "border-[#2e3447] bg-[#161923]"
       }`}
     >
       <div
-        className={`text-[15px] font-medium ${highlight ? "text-[#A8C7FA]" : "text-[#E2E2E2]"}`}
+        className={`text-[19px] font-semibold ${
+          highlight ? "text-[#0060df]" : "text-white"
+        }`}
       >
         {title}
       </div>
       <div
-        className={`text-[13px] mt-1.5 ${highlight ? "text-[#a8c7fa]/70" : "text-[#8E918F]"}`}
+        className={`text-[12px] mt-1 ${
+          highlight ? "text-[#0060df]/80" : "text-[#6b7280]"
+        }`}
       >
         {desc}
       </div>
@@ -265,13 +273,13 @@ function StateNode({
 
 function Arrow({ label }: { label?: string }) {
   return (
-    <div className="flex flex-col items-center px-4 py-2">
+    <div className="flex flex-col items-center px-2 py-2">
       {label && (
-        <span className="text-[11px] text-[#8E918F] font-mono font-medium mb-2 uppercase tracking-wider">
+        <span className="text-[11px] text-[#6b7280] font-medium mb-1.5  tracking-wide">
           {label}
         </span>
       )}
-      <ArrowRight className="w-5 h-5 text-[#8E918F]" />
+      <ArrowRight className="w-5 h-5 text-[#6b7280]" />
     </div>
   );
 }
@@ -279,7 +287,7 @@ function Arrow({ label }: { label?: string }) {
 function ListItem({ children }: { children: React.ReactNode }) {
   return (
     <li className="flex items-start gap-3">
-      <div className="w-1.5 h-1.5 rounded-full bg-[#8E918F] mt-2 shrink-0" />
+      <div className="w-1.5 h-1.5 rounded-xl bg-[#6b7280] mt-2 shrink-0" />
       <span>{children}</span>
     </li>
   );
@@ -295,15 +303,17 @@ function FlowCard({
   desc: string;
 }) {
   return (
-    <div className="p-6 md:p-8 rounded-[32px] border border-[#282A2C] bg-[#131314] hover:bg-[#1E1F20] transition-colors group">
-      <div className="w-12 h-12 rounded-full bg-[#1E1F20] group-hover:bg-[#282A2C] flex items-center justify-center text-[#A8C7FA] mb-5 transition-colors">
-        {React.cloneElement(
-          icon as React.ReactElement<{ className?: string }>,
-          { className: "w-5 h-5" },
-        )}
+    <div className="p-6 rounded-lg border border-[#2e3447] bg-[#1e2230]">
+      <div className="flex items-center gap-3 mb-3">
+        <div className="text-[#0060df]">
+          {React.cloneElement(
+            icon as React.ReactElement<{ className?: string }>,
+            { className: "w-5 h-5" },
+          )}
+        </div>
+        <h3 className="text-[19px] font-semibold text-white">{title}</h3>
       </div>
-      <h3 className="text-[17px] font-medium text-[#E2E2E2] mb-3">{title}</h3>
-      <p className="text-[14px] text-[#8E918F] leading-relaxed">{desc}</p>
+      <p className="text-[19px] text-[#a0a6b8] leading-relaxed">{desc}</p>
     </div>
   );
 }

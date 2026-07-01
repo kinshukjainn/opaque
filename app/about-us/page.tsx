@@ -10,7 +10,7 @@ import {
   FaTwitter,
   FaInstagram,
 } from "react-icons/fa";
-import { Shield, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export default function AboutUs() {
   /* ── Links Data ── */
@@ -63,37 +63,44 @@ export default function AboutUs() {
   ];
 
   return (
-    <main className="min-h-screen bg-[#000000] text-[#E5E5E5] py-16 px-4 sm:px-6 font-sans antialiased selection:bg-[#333333] selection:text-white">
+    <main className="min-h-screen bg-[#161923] text-[#E5E5E5] pt-20  py-16 px-4 sm:px-6  antialiased selection:bg-[#333333] selection:text-white">
       <div className="max-w-4xl mx-auto space-y-6">
         {/* ================= PROJECT SECTION ================= */}
-        <section className="bg-[#141414] rounded-[32px] p-6 sm:p-10 transition-shadow">
+        <section className="bg-[#161923] rounded-[32px] pt-20  p-6 sm:p-10 transition-shadow">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 mb-6">
             {/* Tonal Icon Container */}
-            <div className="w-16 h-16 bg-[#262626] rounded-[20px] flex shrink-0 items-center justify-center text-[#FFFFFF]">
-              <Shield className="w-8 h-8" strokeWidth={2} />
+            <div className="w-14 h-14 bg-green-700 rounded-full flex shrink-0 items-center justify-center text-[#FFFFFF]">
+              <Image
+                src="/logo/logog.png"
+                alt="Opaque Logo"
+                width={308}
+                height={309}
+                className="w-8 h-auto sm:w-10 sm:h-auto object-contain shrink-0"
+                priority
+              />
             </div>
             <div>
-              <h1 className="text-[28px] sm:text-[32px] font-normal text-[#FFFFFF] tracking-[0.01em] leading-tight">
+              <h1 className="text-[32px] sm:text-[36px] font-medium text-[#FFFFFF] tracking-[0.01em] leading-tight">
                 About Opaque
               </h1>
-              <p className="text-[14px] font-medium text-[#A3A3A3] tracking-[0.02em] mt-1 uppercase">
+              <p className="text-[14px] font-medium text-gray-100 tracking-[0.02em] mt-1 ">
                 Zero-Knowledge Password Manager
               </p>
             </div>
           </div>
 
-          <p className="text-[16px] text-[#A3A3A3] tracking-[0.02em] leading-relaxed mb-8 max-w-[70ch]">
-            Opaque is a modern, end-to-end encrypted password vault engineered
-            for absolute privacy. By strictly separating authentication from
-            decryption, your master key never leaves your browser&apos;s local
-            memory. Say goodbye to cloud vulnerabilities and hello to a private
-            ecosystem where the server remains a blind gatekeeper—never a
-            reader.
+          <p className="text-[16px] text-gray-200 tracking-[0.02em] leading-relaxed mb-8 max-w-[70ch]">
+            <span className="font-bold">Opaque</span> is a modern, end-to-end
+            encrypted password vault engineered for absolute privacy. By
+            strictly separating authentication from decryption, your master key
+            never leaves your browser&apos;s local memory. Say goodbye to cloud
+            vulnerabilities and hello to a private ecosystem where the server
+            remains a blind gatekeeper—never a reader.
           </p>
 
           {/* Nested Surface Container (High) */}
-          <div className="bg-[#1E1E1E] p-6 rounded-[24px]">
-            <p className="text-[15px] text-[#A3A3A3] mb-6 leading-relaxed">
+          <div className="bg-[#161923] p-6 rounded-[24px]">
+            <p className="text-[15px] text-gray-200 mb-6 leading-relaxed">
               <strong className="text-[#FFFFFF] font-medium">
                 Proudly Open Source
               </strong>{" "}
@@ -107,7 +114,7 @@ export default function AboutUs() {
               href="https://github.com/cloudkinshuk/Opaque"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex w-fit items-center justify-center gap-3 h-12 px-6 font-medium text-[15px] tracking-[0.01em] bg-[#FFFFFF] text-[#000000] rounded-full hover:bg-[#E5E5E5] active:bg-[#CCCCCC] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFFFF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E1E1E]"
+              className="inline-flex w-fit items-center justify-center gap-3 py-2 px-4 font-semibold text-[15px] tracking-[0.01em] bg-black  text-white rounded-full"
             >
               <FaGithub className="w-[18px] h-[18px]" />
               View Source on GitHub
@@ -116,7 +123,7 @@ export default function AboutUs() {
         </section>
 
         {/* ================= DEVELOPER SECTION ================= */}
-        <section className="flex flex-col md:flex-row gap-8 items-start bg-[#141414] rounded-[32px] p-6 sm:p-10">
+        <section className="flex flex-col md:flex-row gap-8 items-start bg-[#161923] rounded-[32px] p-6 sm:p-10">
           {/* Avatar - Solid M3 borderless style */}
           <div className="flex-shrink-0 relative w-[120px] h-[120px] md:w-[140px] md:h-[140px] rounded-full overflow-hidden bg-[#262626]">
             <Image
@@ -132,10 +139,10 @@ export default function AboutUs() {
           {/* Bio & Socials */}
           <div className="space-y-6 w-full">
             <div>
-              <h2 className="text-[24px] font-normal text-[#FFFFFF] tracking-[0.01em] leading-tight">
+              <h2 className="text-[28px] font-normal text-[#FFFFFF] tracking-[0.01em] leading-tight">
                 Hi, I am Kinshuk Jain
               </h2>
-              <p className="text-[14px] font-medium text-[#A3A3A3] tracking-[0.02em] mt-1 uppercase">
+              <p className="text-[14px] font-medium text-green-500 tracking-[0.02em] mt-2">
                 Lead Developer & Creator
               </p>
             </div>
@@ -143,7 +150,7 @@ export default function AboutUs() {
             {/* M3 Outline Variant Divider */}
             <div className="border-t border-[#333333] w-full"></div>
 
-            <p className="text-[16px] text-[#A3A3A3] tracking-[0.02em] leading-relaxed max-w-[65ch]">
+            <p className="text-[16px] text-gray-200 tracking-[0.02em] leading-relaxed max-w-[65ch]">
               I am the lead developer and creator behind Opaque. I specialize in
               building robust tools, platforms, and web applications focused on
               great user experiences and modern architectures. When I am not
@@ -160,7 +167,7 @@ export default function AboutUs() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="flex items-center justify-center w-12 h-12 bg-[#262626] text-[#A3A3A3] rounded-full hover:bg-[#333333] hover:text-[#FFFFFF] active:bg-[#404040] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFFFF]"
+                  className="flex items-center justify-center w-12 h-12 bg-green-500 text-gray-900 rounded-full   transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFFFF]"
                 >
                   {social.icon}
                 </a>
@@ -185,11 +192,11 @@ export default function AboutUs() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-col p-6 bg-[#141414] hover:bg-[#1E1E1E] active:bg-[#262626] transition-colors rounded-[28px] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFFFF]"
+                className="group flex flex-col p-6 bg-[#161923]  active:bg-[#262626] transition-colors rounded-[28px] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFFFF]"
               >
                 <div className="flex items-center gap-4 mb-4">
                   {/* Tonal Icon Box */}
-                  <div className="w-[48px] h-[48px] flex items-center justify-center bg-[#262626] text-[#FFFFFF] rounded-[16px] group-hover:bg-[#FFFFFF] group-hover:text-[#000000] transition-colors">
+                  <div className="w-[48px] h-[48px] flex items-center justify-center  text-[#FFFFFF] rounded-[16px] group-hover:bg-[#FFFFFF] group-hover:text-[#000000] transition-colors">
                     {link.icon}
                   </div>
                   <h4 className="text-[18px] font-medium text-[#FFFFFF] tracking-[0.01em]">
@@ -197,7 +204,7 @@ export default function AboutUs() {
                   </h4>
                 </div>
 
-                <p className="text-[15px] text-[#A3A3A3] tracking-[0.02em] leading-relaxed mb-6 flex-1">
+                <p className="text-[15px] text-gray-200 tracking-[0.02em] leading-relaxed mb-6 flex-1">
                   {link.description}
                 </p>
 

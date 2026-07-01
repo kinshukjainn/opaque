@@ -12,6 +12,7 @@ const config: Config = {
       fontFamily: {
         // Add your custom font here
         ubuntu: "var(--font-ubuntu) , sans-serif",
+        openSans: "var(--font-open-sans) , sans-serif",
         staatliches: "var(--font-staatliches) , sans-serif",
         geist: "var(--font-geist-mono) , monospaced",
         roboto: "var(--font-roboto) , sans-serif",

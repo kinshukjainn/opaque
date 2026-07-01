@@ -14,8 +14,8 @@ import {
   Zap,
   Unlock,
   Activity,
-  KeyRound,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { Show, useUser } from "@clerk/nextjs";
 
@@ -40,7 +40,7 @@ export default function Home() {
   };
 
   return (
-    <main className="relative min-h-screen bg-[#000000] text-[#E2E2E2] selection:bg-[#A8C7FA] selection:text-[#041E49] overflow-x-hidden pb-20 md:pb-32">
+    <main className="relative min-h-screen bg-[#161923] text-[#E2E2E2] selection:bg-[#A8C7FA] selection:text-[#041E49] overflow-x-hidden pb-20 md:pb-32">
       {/* Background Glow - Adaptive height based on viewport */}
       <div className="absolute top-0 left-0 w-full h-[50vh] min-h-[400px] md:h-[600px] bg-[radial-gradient(ellipse_100%_80%_at_50%_-20%,rgba(168,199,250,0.08),transparent)] pointer-events-none -z-10" />
 
@@ -56,16 +56,27 @@ export default function Home() {
             className="flex flex-col items-center w-full"
           >
             <motion.div variants={fadeUp} className="mb-6">
-              <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#1E1F20] flex items-center justify-center text-[#A8C7FA] shadow-[0_0_40px_-10px_rgba(168,199,250,0.2)]">
-                <KeyRound className="w-8 h-8 md:w-10 md:h-10" />
+              <div className="w-16 h-16 md:w-20 md:h-20 rounded-lg  flex items-center justify-center text-[#A8C7FA] ">
+                <Image
+                  src="/logo/logog.png"
+                  alt="Opaque Logo"
+                  width={238}
+                  height={229}
+                  className="w-15 h-auto sm:w-15 sm:h-auto object-contain shrink-0"
+                  priority
+                />
               </div>
             </motion.div>
 
             <motion.h1
               variants={fadeUp}
-              className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#E2E2E2] mb-4 px-2"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4 px-2"
             >
-              Welcome back, {user?.firstName || "Secure User"}.
+              Welcome back,{" "}
+              <span className="text-green-500 font-normal">
+                {user?.firstName || "Secure User"}
+              </span>{" "}
+              .
             </motion.h1>
 
             <motion.p
@@ -78,14 +89,14 @@ export default function Home() {
 
             <motion.div
               variants={fadeUp}
-              className="w-full max-w-sm mb-12 md:mb-16 px-4"
+              className="w-maxs  max-w-sm mb-12 md:mb-16 px-4"
             >
               <Link
                 href="/vault"
-                className="group w-full py-3.5 md:py-4 px-8 flex items-center justify-center gap-3 rounded-full bg-[#A8C7FA] text-[#041E49] font-semibold hover:bg-[#b9d3fc] transition-all shadow-[0_4px_20px_-5px_rgba(168,199,250,0.4)] transform hover:scale-[1.02] active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#A8C7FA] focus:ring-offset-2 focus:ring-offset-[#000000]"
+                className="group w-full py-2 md:py-2 px-4 flex items-center justify-center gap-3 rounded-lg bg-green-400 text-black font-bold "
               >
-                <Unlock className="w-5 h-5 text-[#041E49]" />
-                Unlock Vault
+                <Unlock className="w-5 h-5 text-black" />
+                Open Vault
               </Link>
             </motion.div>
 
@@ -98,7 +109,7 @@ export default function Home() {
                 variants={fadeUp}
                 className="p-4 md:p-5 rounded-[24px] md:rounded-[28px] bg-[#131314] hover:bg-[#1E1F20] transition-colors flex items-center gap-4 text-left border border-[#282A2C]/50"
               >
-                <div className="p-3 md:p-3.5 rounded-full bg-[#1E1F20] text-[#C4EDD0]">
+                <div className="p-3 md:p-3.5 rounded-lg bg-[#1E1F20] text-[#C4EDD0]">
                   <Activity className="w-5 h-5 md:w-6 md:h-6" />
                 </div>
                 <div>
@@ -115,7 +126,7 @@ export default function Home() {
                 variants={fadeUp}
                 className="p-4 md:p-5 rounded-[24px] md:rounded-[28px] bg-[#131314] hover:bg-[#1E1F20] transition-colors flex items-center gap-4 text-left border border-[#282A2C]/50"
               >
-                <div className="p-3 md:p-3.5 rounded-full bg-[#1E1F20] text-[#EADDFF]">
+                <div className="p-3 md:p-3.5 rounded-lg bg-[#1E1F20] text-[#EADDFF]">
                   <Code2 className="w-5 h-5 md:w-6 md:h-6" />
                 </div>
                 <div>
@@ -147,9 +158,9 @@ export default function Home() {
             <motion.a
               variants={fadeUp}
               href="/docs/zero-knowledge-model"
-              className="group mb-6 md:mb-8 inline-flex items-center gap-2 px-4 py-1.5 md:px-5 md:py-2 rounded-full border border-[#282A2C] bg-[#131314] text-[12px] md:text-[13px] font-medium text-[#C4C7C5] hover:text-[#E2E2E2] hover:bg-[#1E1F20] transition-all shadow-sm max-w-full overflow-hidden"
+              className="group mb-6 md:mb-8 inline-flex items-center gap-2 px-4 py-1.5 md:px-5 md:py-2 rounded-full  bg-[#ff9100] text-[14px] md:text-[15px] font-semibold text-black transition-all shadow-sm max-w-full overflow-hidden"
             >
-              <Shield className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#A8C7FA] flex-shrink-0" />
+              <Shield className="w-4 h-4 md:w-5 md:h-5 text-black flex-shrink-0" />
               <span className="truncate">End-to-End Encrypted</span>
               <ArrowRight className="w-3 h-3 md:w-3.5 md:h-3.5 flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
             </motion.a>
@@ -157,10 +168,10 @@ export default function Home() {
             {/* Replaced invalid nested <h1> with a clean <span> structure */}
             <motion.h1
               variants={fadeUp}
-              className="mb-6 md:mb-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-tight md:leading-[1.1] tracking-tight bg-clip-text text-transparent bg-[linear-gradient(to_right,#4285F4,#EA4335,#FBBC05,#34A853)]"
+              className="mb-6 md:mb-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-tight md:leading-[1.1] tracking-tight "
             >
               Secure your digital life,{" "}
-              <span className="relative inline-block text-white font-extrabold tracking-tight">
+              <span className="relative inline-block text-green-500 font-extrabold tracking-tight">
                 {/* Invisible Ghost for layout spacing */}
                 <span className="opacity-0 pointer-events-none">
                   invisibly.
@@ -186,7 +197,7 @@ export default function Home() {
 
             <motion.p
               variants={fadeUp}
-              className="text-base sm:text-lg md:text-xl text-[#8E918F] max-w-2xl mb-10 md:mb-12 tracking-tight px-2"
+              className="text-base sm:text-lg md:text-xl text-white max-w-2xl mb-10 md:mb-12 tracking-tight px-2"
             >
               Opaque locks your credentials behind true zero-knowledge
               encryption. No trackers, no plaintext, no compromises.
@@ -198,14 +209,14 @@ export default function Home() {
             >
               <Link
                 href="/vault"
-                className="py-3.5 md:py-4 px-6 md:px-8 flex items-center justify-center gap-2 rounded-full bg-[#A8C7FA] text-[#041E49] font-semibold text-[15px] md:text-[16px] hover:bg-[#b9d3fc] transition-all transform hover:scale-[1.02] active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#A8C7FA] focus:ring-offset-2 focus:ring-offset-[#000000] w-full sm:w-auto"
+                className="py-3 md:py-2 px-4 md:px-5 flex items-center justify-center gap-2 rounded-lg bg-green-700 text-white font-semibold text-[15px] md:text-[16px]  transition-all transform  active:scale-95 focus:outline-none w-full sm:w-auto"
               >
                 Get Started Free{" "}
                 <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
               </Link>
               <Link
                 href="#architecture"
-                className="py-3.5 md:py-4 px-6 md:px-8 flex items-center justify-center rounded-full bg-[#131314] text-[#E2E2E2] font-medium text-[15px] md:text-[16px] hover:bg-[#1E1F20] border border-[#282A2C] transition-colors w-full sm:w-auto"
+                className="py-3.5 md:py-4 px-6 md:px-8 flex items-center justify-center rounded-lg bg-[#131314] text-[#E2E2E2] font-medium text-[15px] md:text-[16px] hover:bg-[#1E1F20] border border-[#282A2C] transition-colors w-full sm:w-auto"
               >
                 How it works
               </Link>
@@ -217,14 +228,14 @@ export default function Home() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, ...springTransition }}
-            className="mt-16 md:mt-20 w-full max-w-4xl mx-auto rounded-[24px] md:rounded-[32px] bg-[#131314] border border-[#282A2C] shadow-2xl overflow-hidden"
+            className="mt-16 md:mt-20 w-full max-w-4xl mx-auto rounded-[24px] md:rounded-[32px] bg-[#131314] border border-[#282A2C] shadow-lg shadow-white overflow-hidden"
           >
             {/* Mockup Header */}
             <div className="h-12 md:h-14 border-b border-[#282A2C] flex items-center px-4 md:px-6 gap-2 bg-[#131314] overflow-x-auto">
-              <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#F2B8B5] flex-shrink-0" />
-              <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#F9BC05] flex-shrink-0" />
-              <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#C4EDD0] flex-shrink-0" />
-              <div className="ml-2 md:ml-4 px-3 py-1 md:px-4 md:py-1.5 bg-[#1E1F20] rounded-full text-[10px] md:text-[12px] font-mono text-[#8E918F] flex items-center gap-2 whitespace-nowrap">
+              <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-lg bg-[#F2B8B5] flex-shrink-0" />
+              <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-lg bg-[#F9BC05] flex-shrink-0" />
+              <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-lg bg-[#C4EDD0] flex-shrink-0" />
+              <div className="ml-2 md:ml-4 px-3 py-1 md:px-4 md:py-1.5 bg-[#1E1F20] rounded-lg text-[10px] md:text-[12px]  text-[#8E918F] flex items-center gap-2 whitespace-nowrap">
                 <Lock className="w-3 h-3 md:w-3.5 md:h-3.5 text-[#A8C7FA]" />
                 vault.encrypted.session
               </div>
@@ -233,7 +244,7 @@ export default function Home() {
             {/* Mockup Body */}
             <div className="p-4 md:p-6 grid grid-cols-1 lg:grid-cols-3 gap-6 text-left">
               <div className="lg:col-span-2 space-y-4">
-                <div className="h-6 md:h-8 w-1/2 md:w-1/3 bg-[#1E1F20] rounded-full mb-4 md:mb-6" />
+                <div className="h-6 md:h-8 w-1/2 md:w-1/3 bg-[#1E1F20] rounded-lg mb-4 md:mb-6" />
                 <div className="space-y-3">
                   {[1, 2, 3].map((i) => (
                     <div
@@ -241,16 +252,16 @@ export default function Home() {
                       className="flex items-center justify-between p-3 md:p-4 rounded-[20px] md:rounded-[24px] bg-[#1E1F20]"
                     >
                       <div className="flex items-center gap-3 md:gap-4 flex-1">
-                        <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#282A2C] flex items-center justify-center flex-shrink-0">
+                        <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-[#282A2C] flex items-center justify-center flex-shrink-0">
                           <Key className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#A8C7FA]" />
                         </div>
                         <div className="space-y-2 flex-1 w-full max-w-[200px]">
                           {/* Replaced hard pixel widths with percentages for fluidity */}
-                          <div className="h-2.5 md:h-3.5 w-[60%] bg-[#C4C7C5] rounded-full" />
-                          <div className="h-2 md:h-2.5 w-[80%] bg-[#8E918F] rounded-full" />
+                          <div className="h-2.5 md:h-3.5 w-[60%] bg-[#C4C7C5] rounded-lg" />
+                          <div className="h-2 md:h-2.5 w-[80%] bg-[#8E918F] rounded-lg" />
                         </div>
                       </div>
-                      <div className="hidden sm:block font-mono text-[10px] md:text-[11px] text-[#8E918F] bg-[#131314] px-3 py-1 rounded-full border border-[#282A2C] flex-shrink-0">
+                      <div className="hidden sm:block  text-[10px] md:text-[11px] text-[#8E918F] bg-[#131314] px-3 py-1 rounded-lg border border-[#282A2C] flex-shrink-0">
                         aes-256-gcm
                       </div>
                     </div>
@@ -263,7 +274,7 @@ export default function Home() {
                 <div className="text-[11px] md:text-[12px] font-medium text-[#8E918F] uppercase tracking-wider mb-2 md:mb-4 pl-1 md:pl-2">
                   What we see (Server)
                 </div>
-                <div className="font-mono text-[11px] md:text-[12px] text-[#C4C7C5] leading-relaxed break-all bg-[#000000] p-4 md:p-5 rounded-[20px] md:rounded-[24px] border border-[#282A2C] overflow-x-auto">
+                <div className=" text-[11px] md:text-[12px] text-[#C4C7C5] leading-relaxed break-all bg-[#000000] p-4 md:p-5 rounded-[20px] md:rounded-[24px] border border-[#282A2C] overflow-x-auto">
                   <span className="text-[#8E918F]">{"{"}</span>
                   <br />
                   &nbsp;&nbsp;&quot;id&quot;: &quot;uuid-v4&quot;,
@@ -286,8 +297,8 @@ export default function Home() {
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
             <div className="flex flex-col items-center sm:items-start text-center sm:text-left space-y-3 md:space-y-4">
-              <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#1E1F20] flex items-center justify-center flex-shrink-0">
-                <Zap className="w-6 h-6 md:w-7 md:h-7 text-[#ff9100]" />
+              <div className="w-12 h-12 md:w-14 md:h-14 rounded-lg bg-green-500 flex items-center justify-center flex-shrink-0">
+                <Zap className="w-7 h-7 md:w-7 md:h-7 text-white" />
               </div>
               <h3 className="text-[18px] md:text-[20px] font-semibold text-[#E2E2E2]">
                 Effortless Logins
@@ -299,8 +310,8 @@ export default function Home() {
               </p>
             </div>
             <div className="flex flex-col items-center sm:items-start text-center sm:text-left space-y-3 md:space-y-4">
-              <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#1E1F20] flex items-center justify-center flex-shrink-0">
-                <Shield className="w-6 h-6 md:w-7 md:h-7 text-[#ff9100]" />
+              <div className="w-12 h-12 md:w-14 md:h-14 rounded-lg bg-green-500 flex items-center justify-center flex-shrink-0">
+                <Shield className="w-7 h-7 md:w-7 md:h-7 text-white" />
               </div>
               <h3 className="text-[18px] md:text-[20px] font-semibold text-[#E2E2E2]">
                 Bulletproof Privacy
@@ -311,8 +322,8 @@ export default function Home() {
               </p>
             </div>
             <div className="flex flex-col items-center sm:items-start text-center sm:text-left space-y-3 md:space-y-4 sm:col-span-2 lg:col-span-1 sm:max-w-md sm:mx-auto lg:max-w-none">
-              <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#1E1F20] flex items-center justify-center flex-shrink-0">
-                <Globe className="w-6 h-6 md:w-7 md:h-7 text-[#ff9100]" />
+              <div className="w-12 h-12 md:w-14 md:h-14 rounded-lg bg-green-500 flex items-center justify-center flex-shrink-0">
+                <Globe className="w-7 h-7 md:w-7 md:h-7 text-white" />
               </div>
               <h3 className="text-[18px] md:text-[20px] font-semibold text-[#E2E2E2]">
                 Access Anywhere
@@ -350,9 +361,9 @@ export default function Home() {
             {/* Bento Box 1 - Client Side Crypto (Large) */}
             <motion.div
               variants={fadeUp}
-              className="md:col-span-2 lg:col-span-2 lg:row-span-1 p-6 md:p-8 rounded-[28px] md:rounded-[32px] bg-[#131314] hover:bg-[#1E1F20] border border-[#282A2C] transition-colors relative overflow-hidden group"
+              className="md:col-span-2 lg:col-span-2 lg:row-span-1 p-6 md:p-8 rounded-md md:rounded-md bg-gray-900 border border-gray-600 transition-colors relative overflow-hidden group"
             >
-              <div className="absolute top-0 right-0 w-48 h-48 md:w-64 md:h-64 bg-[#A8C7FA]/5 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2" />
+              <div className="absolute top-0 right-0 w-48 h-48 md:w-64 md:h-64 bg-[#A8C7FA]/5 blur-3xl rounded-lg translate-x-1/2 -translate-y-1/2" />
               <Code2 className="w-7 h-7 md:w-8 md:h-8 text-[#A8C7FA] mb-5 md:mb-6" />
               <h3 className="text-lg md:text-xl font-medium text-[#E2E2E2] mb-2 md:mb-3">
                 Local Decryption (Browser-side)
@@ -363,10 +374,10 @@ export default function Home() {
                 directly in your browser memory. Your raw password never touches
                 the network.
               </p>
-              <div className="font-mono text-[11px] md:text-[13px] text-[#C4C7C5] bg-[#000000] p-3 md:p-4 rounded-xl md:rounded-full border border-[#282A2C] inline-flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 overflow-x-auto max-w-full">
-                <span className="text-[#8E918F]">deriveKey</span>
-                <span className="text-[#A8C7FA] hidden sm:inline">→</span>
-                <span className="text-[#A8C7FA] sm:hidden">↓</span>
+              <div className=" text-[11px] md:text-[13px] text-[#C4C7C5] bg-gray-800 p-3 md:p-4 rounded-lg md:rounded-lg border border-[#282A2C] inline-flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 overflow-x-auto max-w-full">
+                <span className="text-green-500 font-semibold">deriveKey</span>
+                <span className="text-white hidden sm:inline">→</span>
+                <span className="text-white sm:hidden">↓</span>
                 <span className="whitespace-nowrap">
                   Argon2id(password, salt)
                 </span>
@@ -376,7 +387,7 @@ export default function Home() {
             {/* Bento Box 2 - Postgres Atomic (Tall) */}
             <motion.div
               variants={fadeUp}
-              className="md:col-span-1 lg:col-span-1 lg:row-span-2 p-6 md:p-8 rounded-[28px] md:rounded-[32px] bg-[#131314] hover:bg-[#1E1F20] border border-[#282A2C] transition-colors flex flex-col"
+              className="md:col-span-1 lg:col-span-1 lg:row-span-2 p-6 md:p-8 rounded-md md:rounded-[32px] bg-gray-900  border border-gray-600 transition-colors flex flex-col"
             >
               <Database className="w-7 h-7 md:w-8 md:h-8 text-[#C4EDD0] mb-5 md:mb-6" />
               <h3 className="text-lg md:text-xl font-medium text-[#E2E2E2] mb-2 md:mb-3">
@@ -390,11 +401,11 @@ export default function Home() {
               <div className="mt-6 md:mt-8 pt-6 md:pt-8 border-t border-[#282A2C]">
                 <div className="flex items-center justify-between text-[12px] md:text-[13px] text-[#8E918F] mb-2 md:mb-3">
                   <span>Row count</span>
-                  <span className="font-mono">{"<"}</span>
+                  <span className="">{"<"}</span>
                   <span>User limit</span>
                 </div>
-                <div className="w-full bg-[#000000] h-2 md:h-2.5 rounded-full overflow-hidden border border-[#282A2C]">
-                  <div className="bg-[#C4EDD0] w-1/3 h-full rounded-full" />
+                <div className="w-full bg-gray-800 h-2 md:h-2.5 rounded-lg overflow-hidden border border-[#282A2C]">
+                  <div className="bg-[#C4EDD0] w-1/3 h-full rounded-lg" />
                 </div>
               </div>
             </motion.div>
@@ -402,7 +413,7 @@ export default function Home() {
             {/* Bento Box 3 - Auth */}
             <motion.div
               variants={fadeUp}
-              className="md:col-span-1 lg:col-span-1 p-6 md:p-8 rounded-[28px] md:rounded-[32px] bg-[#131314] hover:bg-[#1E1F20] border border-[#282A2C] transition-colors"
+              className="md:col-span-1 lg:col-span-1 p-6 md:p-8 rounded-md md:rounded-[32px] bg-gray-900 border border-gray-600 transition-colors"
             >
               <Fingerprint className="w-7 h-7 md:w-8 md:h-8 text-[#EADDFF] mb-5 md:mb-6" />
               <h3 className="text-lg md:text-xl font-medium text-[#E2E2E2] mb-2 md:mb-3">
@@ -418,7 +429,7 @@ export default function Home() {
             {/* Bento Box 4 - Zero Server Knowledge */}
             <motion.div
               variants={fadeUp}
-              className="md:col-span-1 lg:col-span-1 p-6 md:p-8 rounded-[28px] md:rounded-[32px] bg-[#131314] hover:bg-[#1E1F20] border border-[#282A2C] transition-colors"
+              className="md:col-span-1 lg:col-span-1 p-6 md:p-8 rounded-md bg-gray-900  border border-gray-600 transition-colors"
             >
               <Server className="w-7 h-7 md:w-8 md:h-8 text-[#C4C7C5] mb-5 md:mb-6" />
               <h3 className="text-lg md:text-xl font-medium text-[#E2E2E2] mb-2 md:mb-3">

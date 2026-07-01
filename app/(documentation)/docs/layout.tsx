@@ -11,7 +11,7 @@ export default function DocsLayout({
 }) {
   return (
     <div
-      className="min-h-screen bg-neutral-950 text-neutral-200"
+      className="min-h-screen bg-[#161923] text-neutral-200"
       style={
         {
           "--header-h": HEADER_HEIGHT,
