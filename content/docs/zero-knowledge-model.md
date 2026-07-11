@@ -162,26 +162,39 @@ Honest security docs draw this line clearly.
 
 ## For developers
 
-Encryption uses the browser's Web Crypto API. The exact primitives live in the
-client crypto module, but the shape is:
+Everything below lives in `lib/crypto.ts`, runs **in the browser only**, and is
+built on the native Web Crypto API (`crypto.subtle`). The server never imports
+this module.
+
+Concretely: the Vault Key is a random **256-bit AES-GCM** key; item payloads and
+both wrapped copies of the Vault Key are AES-GCM ciphertexts with a fresh
+12-byte IV each time; and the wrapping keys are derived with
+**PBKDF2-SHA-256 at 600,000 iterations** by default (OWASP's guidance).
+`kdf_algo` and `kdf_params` are stored per user and versioned, so upgrading the
+KDF later (e.g. to Argon2id) means changing a single function —
+`deriveWrappingKey` — with no up-front migration of stored data.
 
 ```ts
-// Derive a key from the master password. The salt and params (iterations,
-// memory cost, etc.) are stored server-side and are NOT secret.
-const passwordKey = await deriveKey(masterPassword, kdf_salt, kdf_params);
+// Derive a wrapping key from the master password (PBKDF2-SHA-256).
+// The salt and iteration count come from the server and are NOT secret.
+const passwordKey = await deriveWrappingKey(
+  masterPassword,
+  kdf_salt,
+  kdf_params.iterations,
+);
 
 // Unwrap the Vault Key — the only key that touches item data.
-const vaultKey = await unwrapKey(
-  wrapped_vault_key,
-  wrapped_vault_key_iv,
+// Throws if the password is wrong (the AES-GCM auth tag fails).
+const vaultKey = await unwrapVaultKey(
+  { ciphertext: wrapped_vault_key, iv: wrapped_vault_key_iv },
   passwordKey,
 );
 
-// Encrypt an item before it ever leaves the browser.
-const { ciphertext, iv } = await encrypt(JSON.stringify(secret), vaultKey);
+// Encrypt an item before it ever leaves the browser (fresh IV every call).
+const { ciphertext, iv } = await encryptJSON(secret, vaultKey);
 
 // Decrypt on the way back in.
-const secret = JSON.parse(await decrypt(item.ciphertext, item.iv, vaultKey));
+const secret = await decryptJSON<VaultSecret>(item.ciphertext, item.iv, vaultKey);
 ```
 
 A few consequences of this model that are easy to overlook:
@@ -192,9 +205,13 @@ A few consequences of this model that are easy to overlook:
 - **Search must be client-side.** Because the server can't read titles or
   usernames, fuzzy search (via Fuse.js) runs in the browser over the *decrypted*
   items after unlock. There is no server-side search and there can't be one.
-- **Recovery phrases use BIP39.** The mnemonic is generated and converted to a
-  recovery key in the browser; the server only ever sees the resulting
-  `recovery_wrapped_key`.
+- **A wrong password fails loudly, not silently.** Unwrapping with the wrong
+  key throws (AES-GCM authentication), so "wrong master password" is detected
+  without the server ever checking a password.
+- **Recovery phrases use BIP39.** The mnemonic is 12 English words (128 bits),
+  generated in the browser with `@scure/bip39` and turned into a recovery key
+  using a separate `recoverySalt` stored inside `kdf_params`. The server only
+  ever sees the resulting `recovery_wrapped_key`.
 - **Never log plaintext.** Any future feature that handles secrets must keep the
   encrypt/decrypt boundary inside the browser. The moment a secret reaches the
   server in readable form, the zero-knowledge guarantee is broken.

@@ -18,6 +18,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import UserProfileDropdown from "./UserprofileDropdown";
+import { TiCloudStorage } from "react-icons/ti";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -38,7 +39,7 @@ export default function Header() {
   // Material You / Pixel Styled Blocks
 
   const ctaBlock =
-    "group flex items-center gap-2 px-6 py-2.5 rounded-full bg-yellow-500 text-black text-[15px] font-bold  transition-all whitespace-nowrap shadow-sm transform hover:scale-[1.02] active:scale-95";
+    "group flex items-center gap-2 px-6 py-2.5 rounded-lg bg-yellow-500 text-black text-[15px] font-bold  transition-all whitespace-nowrap shadow-sm transform hover:scale-[1.02] active:scale-95";
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#161923] border-b border-[#282A2C]">
@@ -124,10 +125,12 @@ export default function Header() {
                     <span>Sign In</span>
                   </Link>
                 </div>
-                <Link href="/vault" className={ctaBlock}>
-                  <span>Initialize Vault</span>
-                  <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </Link>
+                <div className="kosha-border-wrap">
+                  <Link href="/verify-regis" className="koshabtn">
+                    <User className="w-4 h-4" />
+                    <span>Open Kosha</span>
+                  </Link>
+                </div>
               </>
             ))}
         </div>
@@ -135,7 +138,7 @@ export default function Header() {
         {/* MOBILE MENU TOGGLE */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="xl:hidden flex items-center justify-center p-2.5 rounded-full cursor-pointer bg-[#161923] text-white transition-colors flex-shrink-0"
+          className="xl:hidden flex items-center justify-center p-2.5 rounded-lg cursor-pointer bg-[#161923] text-white transition-colors flex-shrink-0"
         >
           {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
@@ -181,7 +184,7 @@ export default function Header() {
                     <Link
                       href="/vault"
                       onClick={() => setIsOpen(false)}
-                      className="flex items-center justify-center gap-2 w-full p-4 bg-[#A8C7FA] text-[#041E49] text-[16px] font-semibold rounded-full transition-transform active:scale-95"
+                      className="flex items-center justify-center gap-2 w-full p-4 bg-[#A8C7FA] text-[#041E49] text-[16px] font-semibold rounded-lg transition-transform active:scale-95"
                     >
                       <span>Open Vault</span>
                       <ArrowUpRight className="w-5 h-5" />
@@ -192,19 +195,18 @@ export default function Header() {
                     <Link
                       href="/verify-regis"
                       onClick={() => setIsOpen(false)}
-                      className="flex items-center justify-center gap-2 w-full p-4 text-[16px] font-medium text-[#E2E2E2] bg-[#1E1F20] hover:bg-[#282A2C] rounded-full transition-colors"
+                      className="flex items-center justify-center gap-2 w-full p-2 text-[19px] font-medium text-white bg-green-700  rounded-full transition-colors"
                     >
                       <User className="w-5 h-5" />
                       <span>Sign In</span>
                     </Link>
-                    <Link
-                      href="/vault"
-                      onClick={() => setIsOpen(false)}
-                      className="flex items-center justify-center gap-2 w-full p-4 bg-[#A8C7FA] text-[#041E49] text-[16px] font-semibold rounded-full transition-transform active:scale-95"
+                    <a
+                      href="https://kosha.cloudkinshuk.in"
+                      className="flex items-center justify-center gap-2 w-full p-2 text-[19px] font-medium text-white bg-blue-700  rounded-full transition-colors"
                     >
-                      <span>Initialize Vault</span>
-                      <ArrowUpRight className="w-5 h-5" />
-                    </Link>
+                      <TiCloudStorage className="w-5 h-5" />
+                      <span>Open Kosha</span>
+                    </a>
                   </div>
                 ))}
             </div>

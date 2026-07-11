@@ -276,7 +276,7 @@ export default function AuthPage() {
     "w-full px-6 py-3 bg-gray-900 border-2 border-[#444444] text-[16px] text-white placeholder-[#8E918F] outline-none rounded-xl ";
   const labelClass = "block text-[16px] font-medium text-white mb-2 pl-4";
   const primaryButtonClass =
-    "w-full flex items-center justify-center gap-2 py-4 px-6 font-semibold text-[18px] bg-blue-400 hover:bg-blue-500 text-black rounded-lg  cursor-pointer transition-all  disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100";
+    "w-full flex items-center justify-center gap-2 py-4 px-6 font-semibold text-[18px] bg-slate-400 hover:bg-slate-500 text-black rounded-lg  cursor-pointer transition-all  disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100";
   const secondaryButtonClass =
     "w-full flex items-center justify-center gap-2 py-2 px-3  font-medium text-[17px] cursor-pointer bg-green-700 text-white rounded-lg transition-all active:scale-95 disabled:opacity-50";
 
@@ -552,7 +552,7 @@ export default function AuthPage() {
                     className="pt-1"
                   />
 
-                  <div className="pt-4 space-y-5">
+                  <div className="pt-2 space-y-2">
                     <button
                       onClick={handleSubmit}
                       disabled={loading || !canSubmit}

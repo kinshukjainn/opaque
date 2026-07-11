@@ -1,5 +1,4 @@
 @import "tailwindcss";
-
 body {
   background: #161923;
   color: white;
@@ -16,20 +15,27 @@ body {
   font-size: 0.875rem;
 }
 
-/* 1. The Wrapper */
-.google-border-wrap {
+/* 1. Shared Wrapper Styles */
+.google-border-wrap,
+.kosha-border-wrap {
   position: relative;
-  display: inline-flex; /* inline-flex is better for wrapping buttons */
-  padding: 2px; /* The width of your border */
-  border-radius: 9999px; /* Matches the pill-shape of the button */
+  display: inline-flex;
+  padding: 2px; /* Thickness of the gradient border */
+  border-radius: 9999px;
   overflow: hidden;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.05
+  ); /* Subtle default outline before hover */
 }
 
-/* 2. The Hidden Animated Gradient Layer */
+/* 2. Google Gradient Layer */
 .google-border-wrap::before {
   content: "";
   position: absolute;
-  inset: 0; /* Shorthand for top:0, left:0, right:0, bottom:0 */
+  inset: 0;
   background: linear-gradient(
     90deg,
     #000000,
@@ -44,44 +50,85 @@ body {
   background-size: 300% 100%;
   opacity: 0;
   transition: opacity 0.4s ease;
-  z-index: 0; /* Keeps the gradient in the background */
+  z-index: 0;
 }
 
-/* 3. The Hover Trigger */
-.google-border-wrap:hover::before {
+/* 3. Kosha Gradient Layer */
+.kosha-border-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    #000000,
+    #e81010,
+    #dfe2eb,
+    #2bea00,
+    #dfd5d5,
+    #f10a0a,
+    #09f44c,
+    #03204f
+  );
+  background-size: 300% 100%;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+
+/* 4. The Hover Triggers */
+.google-border-wrap:hover::before,
+.kosha-border-wrap:hover::before {
   opacity: 1;
-  animation: gradientFlow 3s linear infinite;
+  animation: gradientFlow 3s ease-in-out infinite;
 }
 
-/* 4. The Button Itself */
-.btn {
-  position: relative; /* CRUCIAL: Allows z-index to work */
-  z-index: 10; /* CRUCIAL: Puts button on top of the gradient */
+/* 5. Shared Button Styles */
+.btn,
+.koshabtn {
+  position: relative;
+  z-index: 10; /* Keeps button text above the gradient */
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   padding: 0.625rem 1.25rem;
-  border-radius: 9999px; /* Pill shape */
+  border-radius: 9999px;
   font-size: 15px;
   font-weight: 500;
   color: white;
-  background-color: green; /* Solid black hides the center of the gradient */
   white-space: nowrap;
-  text-decoration: none; /* Removes underline from Next.js Link */
-  transition: color 0.15s ease;
+  text-decoration: none;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+  width: 100%;
 }
 
-.btn:hover {
+/* Base Colors (Matched to your mobile menu styling) */
+.btn {
+  background-color: #15803d; /* Tailwind green-700 */
+}
+
+.koshabtn {
+  background-color: #1d4ed8; /* Tailwind blue-700 */
+}
+
+/* Hover State: Darkens the button so the glowing border pops */
+.btn:hover,
+.koshabtn:hover {
+  background-color: #161923; /* Matches your header background */
   color: white;
 }
 
-/* 5. The Animation Keyframes */
+/* 6. The Animation Keyframes */
 @keyframes gradientFlow {
   0% {
     background-position: 0% 50%;
   }
-  100% {
+  50% {
     background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%; /* Smoothly loops back to start */
   }
 }

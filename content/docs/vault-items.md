@@ -73,6 +73,9 @@ organizing label, with logins carrying the extra structured fields. The encrypte
 payload simply stores whatever fields are present, so types can be enriched later
 without changing how storage works.
 
+An item's type is chosen at creation and never changes afterwards — the update
+route doesn't touch it.
+
 ## The `service` field and display names
 
 Beyond its type, a login usually belongs to a recognizable **service** (Gmail,
@@ -114,15 +117,25 @@ entirely client-side.
 ### Update
 
 Editing works like creating: the browser re-encrypts the full secret into a new
-`ciphertext`/`iv` and sends it to the per-item endpoint. Toggling **favorite** is
-also an update — the favorite flag is metadata, but the item is saved through the
-same path so its encrypted payload stays consistent.
+`ciphertext`/`iv` and sends it to the per-item endpoint
+(`PATCH /api/vault/items/[id]`). Toggling **favorite** is also an update — the
+favorite flag is metadata, but the item is saved through the same path so its
+encrypted payload stays consistent. Moving an item into or out of a folder works
+the same way.
+
+One rule matters here: **an update replaces the item's whole state.** The route
+resets `favorite` and `folderId` to their defaults (`false` / `null`) when they
+are omitted, so the client always sends the complete current state — new
+ciphertext + IV plus the item's favorite flag and folder placement — every time.
 
 ### Delete
 
 Deleting removes the row by id. The UI asks for a quick confirmation first
 (a "Delete / No" prompt) to prevent accidental loss, then calls the per-item
-delete endpoint and drops the item from the list.
+delete endpoint and drops the item from the list. On the server, the row delete
+and the `item_count` decrement happen in **one atomic statement** — the mirror
+image of the create — with the counter clamped at zero so it can never drift or
+go negative.
 
 ## Plan limits and the atomic insert
 
@@ -144,6 +157,9 @@ matches no rows, the statement returns nothing, and the API responds with a
 clear `403`. Because it's a single statement, there's no window for two
 concurrent requests to both "win," and no need for a multi-step transaction held
 open across the network.
+
+Delete works the same way in reverse: the row removal and the counter decrement
+share a single statement, so `item_count` stays exact in both directions.
 
 > Gotcha: this query joins the `plans` table to read `item_limit`. If `plans`
 > has no matching row, the lookup finds nothing and item creation fails. Seed the
@@ -198,7 +214,9 @@ Creating an item, end to end:
 
 ```ts
 // In the browser: encrypt, then send only ciphertext + non-secret labels.
-const { ciphertext, iv } = await encrypt(JSON.stringify(secret), vaultKey);
+// encryptJSON (lib/crypto.ts) stringifies the secret and AES-GCM-encrypts it
+// with a fresh random IV.
+const { ciphertext, iv } = await encryptJSON(secret, vaultKey);
 
 const res = await fetch("/api/vault/items", {
   method: "POST",
@@ -211,14 +229,32 @@ const { item } = await res.json();
 setItems((prev) => [{ ...item, secret }, ...prev]);
 ```
 
+Updating an item (including a favorite toggle or folder move):
+
+```ts
+// PATCH replaces the whole state — send everything, every time.
+const { ciphertext, iv } = await encryptJSON(secret, vaultKey);
+
+await fetch(`/api/vault/items/${id}`, {
+  method: "PATCH",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ ciphertext, iv, favorite, folderId }),
+});
+```
+
 A few rules that follow from the model:
 
 - **Never send a plaintext field.** Title, password, URL, notes — all of it goes
   inside `ciphertext`. The request body should only ever carry the blob, the
-  IV, the type, and folder placement.
-- **Fresh IV every time.** Each create or update produces a new random IV.
-  Reusing an IV with the same key is unsafe.
-- **Validate `type` server-side.** The API only accepts the four known types.
+  IV, the type, the favorite flag, and folder placement.
+- **Fresh IV every time.** Each create or update produces a new random IV
+  (`encryptJSON` does this automatically). Reusing an IV with the same key is
+  unsafe.
+- **Updates replace, they don't merge.** The `PATCH` route falls back to
+  defaults for omitted `favorite`/`folderId`, so always send the item's full
+  current state.
+- **Validate `type` server-side.** The API only accepts the four known types on
+  create; `type` is immutable afterwards.
 - **The server never decrypts.** It validates ownership and shape, enforces the
   limit, and stores blobs — nothing more.
 
