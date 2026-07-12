@@ -90,7 +90,7 @@ export default function RootLayout({
         data-google-analytics-opt-out=""
         className={`${geistSans.variable} ${geistMono.variable} ${openSans.variable} ${staatliches.variable}  ${poppins.variable} ${publicSans.variable} ${plusJakarta.variable} ${roboto.variable} ${ubuntu.variable} h-full antialiased`}
       >
-        <body className="min-h-full flex flex-col">
+        <body suppressHydrationWarning className="min-h-full flex flex-col">
           <Header />
           {children}
           <Footer />
