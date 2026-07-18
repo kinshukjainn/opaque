@@ -276,7 +276,7 @@ export default function AuthPage() {
     "w-full px-6 py-3 bg-gray-900 border-2 border-[#444444] text-[16px] text-white placeholder-[#8E918F] outline-none rounded-xl ";
   const labelClass = "block text-[16px] font-medium text-white mb-2 pl-4";
   const primaryButtonClass =
-    "w-full flex items-center justify-center gap-2 py-4 px-6 font-semibold text-[18px] bg-slate-400 hover:bg-slate-500 text-black rounded-lg  cursor-pointer transition-all  disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100";
+    "w-full flex items-center justify-center gap-2 py-2 px-5 font-semibold text-[18px] bg-slate-400 hover:bg-slate-500 text-black rounded-2xl  cursor-pointer transition-all  disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100";
   const secondaryButtonClass =
     "w-full flex items-center justify-center gap-2 py-2 px-3  font-medium text-[17px] cursor-pointer bg-green-700 text-white rounded-lg transition-all active:scale-95 disabled:opacity-50";
 
@@ -413,7 +413,7 @@ export default function AuthPage() {
                   <div>
                     <label className={labelClass}>Security Code</label>
                     <input
-                      type="text"
+                      type="password"
                       inputMode="numeric"
                       placeholder="000000"
                       value={pendingMfa ? mfaCode : verificationCode}
@@ -440,7 +440,7 @@ export default function AuthPage() {
                       {loading ? (
                         <FaSpinner className="animate-spin w-5 h-5" />
                       ) : (
-                        "Verify & Continue"
+                        "Verify"
                       )}
                     </button>
 
@@ -452,7 +452,7 @@ export default function AuthPage() {
                         setMfaCode("");
                         setAuthError(null);
                       }}
-                      className="w-full text-center text-[14px] font-medium text-[#8E918F] hover:text-[#E2E2E2] hover:bg-[#1E1F20] py-3 rounded-full transition-colors active:bg-[#282A2C]"
+                      className="w-full text-center text-[16px] font-semibold text-black bg-green-400 py-2 rounded-2xl cursor-pointer transition-colors active:bg-[#282A2C]"
                     >
                       Cancel and go back
                     </button>

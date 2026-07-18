@@ -19,13 +19,12 @@ export default function UserProfileDropdown({
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  /* ── Material Design 3 (Pixel) List Item Classes ── */
-  // Hover/Active states simulate M3 state layers (8-12% opacity on top of surface)
+  /* ── Opaque Styled Menu Items ── */
   const menuItemClass =
-    "group w-full flex items-center cursor-pointer gap-4 py-4 px-4 text-[15px] tracking-[0.01em] font-medium text-[#E6E1E5] hover:bg-white/[0.08] active:bg-white/[0.12] transition-colors duration-200 outline-none focus-visible:bg-white/[0.12]";
+    "group w-full flex items-center gap-3 py-3 px-3 text-[14px] font-medium text-white hover:bg-[#242836] transition-all duration-200 outline-none active:scale-[0.98] rounded-xl cursor-pointer";
 
   const dangerMenuItemClass =
-    "group w-full flex items-center cursor-pointer gap-4 py-4 px-4 text-[15px] tracking-[0.01em] font-medium text-[#F2B8B5] hover:bg-[#F2B8B5]/[0.08] active:bg-[#F2B8B5]/[0.12] transition-colors duration-200 outline-none focus-visible:bg-[#F2B8B5]/[0.12]";
+    "group w-full flex items-center gap-3 py-3 px-3 text-[14px] font-medium text-red-500 hover:bg-red-500/10 transition-all duration-200 outline-none active:scale-[0.98] rounded-xl cursor-pointer";
 
   /* ── Outside click (desktop) ── */
   useEffect(() => {
@@ -54,7 +53,7 @@ export default function UserProfileDropdown({
   if (!user) return null;
 
   const displayName =
-    user.fullName || user.firstName || user.username || "Google User";
+    user.fullName || user.firstName || user.username || "Opaque User";
   const email = user.primaryEmailAddress?.emailAddress || "";
   const avatarUrl = user.imageUrl;
 
@@ -78,8 +77,7 @@ export default function UserProfileDropdown({
   };
 
   /* ── Avatar ── */
-  const renderAvatar = (size: number, showStatus = false) => {
-    const dotSize = Math.max(12, Math.round(size * 0.3));
+  const renderAvatar = (size: number) => {
     return (
       <div className="relative shrink-0">
         {avatarUrl ? (
@@ -89,31 +87,20 @@ export default function UserProfileDropdown({
             width={size}
             height={size}
             unoptimized
-            className="object-cover rounded-full bg-[#36343B]"
+            className="object-cover rounded-full border border-[#282A2C] bg-[#161923]"
             style={{ width: size, height: size }}
             referrerPolicy="no-referrer"
           />
         ) : (
           <span
-            className="bg-[#4F378B] text-[#EADDFF] font-medium flex items-center justify-center rounded-full"
+            className="bg-[#242836] border border-[#282A2C] text-white font-semibold flex items-center justify-center rounded-full"
             style={{
               width: size,
               height: size,
-              fontSize: size < 32 ? 13 : 18,
+              fontSize: size < 32 ? 12 : 16,
             }}
           >
             {initials}
-          </span>
-        )}
-        {showStatus && (
-          <span
-            className="absolute bottom-0 right-0 flex items-center justify-center"
-            style={{ width: dotSize, height: dotSize }}
-          >
-            <span
-              className="relative inline-flex rounded-full bg-[#A8C7FA] ring-[3px] ring-[#211F26]"
-              style={{ width: dotSize, height: dotSize }}
-            />
           </span>
         )}
       </div>
@@ -121,34 +108,34 @@ export default function UserProfileDropdown({
   };
 
   /* ─────────────────────────────────────────────
-     MOBILE — Material 3 Expanding Card (Surface Container)
+     MOBILE — Integrated seamlessly into the Header's Grid Tile Container
      ───────────────────────────────────────────── */
   if (variant === "mobile") {
     return (
       <div
-        className="relative w-full rounded-[28px] bg-[#211F26] overflow-hidden text-[#E6E1E5]  antialiased"
+        className="relative w-full bg-transparent antialiased"
         ref={dropdownRef}
       >
         <button
           onClick={() => setIsOpen((prev) => !prev)}
-          className="w-full flex items-center gap-4 p-4 hover:bg-white/[0.08] active:bg-white/[0.12] transition-colors duration-200 cursor-pointer outline-none"
+          className="w-full flex items-center gap-3 transition-colors duration-200 cursor-pointer outline-none active:scale-[0.98]"
           aria-expanded={isOpen}
           aria-haspopup="true"
         >
-          {renderAvatar(52, false)}
+          {renderAvatar(42)}
           <div className="min-w-0 flex-1 text-left flex flex-col justify-center">
-            <p className="text-[16px] font-normal tracking-[0.03em] truncate">
+            <p className="text-[15px] font-semibold text-white truncate">
               {displayName}
             </p>
             {email && (
-              <p className="text-[14px] text-[#CAC4D0] tracking-[0.01em] truncate mt-0.5">
+              <p className="text-[12px] text-gray-400 font-medium truncate mt-0.5">
                 {email}
               </p>
             )}
           </div>
-          <div className="w-12 h-12 flex items-center justify-center shrink-0 rounded-full">
+          <div className="w-8 h-8 flex items-center justify-center shrink-0 rounded-full bg-[#161923] border border-[#282A2C]">
             <FiChevronDown
-              className={`w-6 h-6 text-[#CAC4D0] transition-transform duration-300 ${
+              className={`w-4 h-4 text-green-500 transition-transform duration-300 ${
                 isOpen ? "rotate-180" : ""
               }`}
             />
@@ -157,20 +144,19 @@ export default function UserProfileDropdown({
 
         <div
           className={`overflow-hidden transition-all duration-300 ease-in-out ${
-            isOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
+            isOpen ? "max-h-64 opacity-100 mt-3" : "max-h-0 opacity-0 mt-0"
           }`}
         >
-          {/* M3 Outline Variant Divider */}
-          <div className="mx-4 h-[1px] bg-[#49454F]" />
-          <div className="flex flex-col py-2">
+          <div className="h-px bg-[#282A2C] w-full mb-2" />
+          <div className="flex flex-col gap-1">
             <button onClick={handleManage} className={menuItemClass}>
-              <FiSettings className="w-[22px] h-[22px] shrink-0 text-[#CAC4D0] group-hover:text-[#E6E1E5] transition-colors" />
-              <span>Google Account settings</span>
+              <FiSettings className="w-[18px] h-[18px] shrink-0 text-green-500" />
+              <span>Account Settings</span>
             </button>
 
             <button onClick={handleSignOut} className={dangerMenuItemClass}>
-              <FiLogOut className="w-[22px] h-[22px] shrink-0" />
-              <span>Sign out of this device</span>
+              <FiLogOut className="w-[18px] h-[18px] shrink-0" />
+              <span>Sign out</span>
             </button>
           </div>
         </div>
@@ -179,24 +165,22 @@ export default function UserProfileDropdown({
   }
 
   /* ─────────────────────────────────────────────
-     DESKTOP — Material 3 Popup (Surface Container High)
+     DESKTOP — Floating Opaque Styled Panel
      ───────────────────────────────────────────── */
   return (
-    <div className="relative  antialiased" ref={dropdownRef}>
-      {/* M3 Pill Trigger */}
+    <div className="relative antialiased" ref={dropdownRef}>
+      {/* Opaque Pill Trigger */}
       <button
         onClick={() => setIsOpen((prev) => !prev)}
-        className={`flex items-center gap-2 pl-2 pr-3 py-2 rounded-full transition-colors duration-200 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#A8C7FA] focus-visible:ring-offset-2 focus-visible:ring-offset-[#141218] ${
-          isOpen
-            ? "bg-[#36343B]" // Surface Container Highest
-            : "bg-[#211F26] hover:bg-[#2B2930] active:bg-[#36343B]" // Surface Container
+        className={`flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-full border border-[#282A2C] transition-all duration-200 cursor-pointer outline-none active:scale-95 ${
+          isOpen ? "bg-[#242836]" : "bg-[#1C1F2B] hover:bg-[#242836]"
         }`}
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
-        {renderAvatar(32, false)}
+        {renderAvatar(28)}
         <FiChevronDown
-          className={`w-4 h-4 text-[#CAC4D0] transition-transform duration-300 ${
+          className={`w-4 h-4 text-green-500 transition-transform duration-300 ${
             isOpen ? "rotate-180" : ""
           }`}
         />
@@ -204,45 +188,46 @@ export default function UserProfileDropdown({
 
       {/* Dropdown panel */}
       <div
-        className={`absolute right-0 top-[calc(100%+12px)] w-[340px] origin-top-right transition-all duration-200 ease-out z-50 ${
+        className={`absolute right-0 top-[calc(100%+12px)] w-[300px] origin-top-right transition-all duration-200 ease-out z-50 ${
           isOpen
             ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
             : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
         }`}
       >
-        <div className="relative rounded-[28px] bg-[#2B2930] shadow-[0_4px_16px_rgba(0,0,0,0.3)] flex flex-col py-3 overflow-hidden">
-          {/* User Info Header */}
-          <div className="relative flex items-center gap-4 px-5 pb-4 pt-2">
-            {renderAvatar(56, false)}
+        <div className="relative rounded-2xl bg-[#161923] border border-[#282A2C] shadow-2xl flex flex-col p-2 overflow-hidden">
+          {/* User Info Header Card */}
+          <div className="flex items-center gap-3 p-3 mb-2 rounded-xl bg-[#1C1F2B] border border-[#282A2C]">
+            {renderAvatar(48)}
             <div className="min-w-0 flex-1 flex flex-col justify-center">
-              <p className="text-[16px] font-normal text-[#E6E1E5] tracking-[0.03em] truncate">
+              <p className="text-[15px] font-semibold text-white truncate">
                 {displayName}
               </p>
               {email && (
-                <p className="text-[14px] text-[#CAC4D0] tracking-[0.01em] truncate mt-0.5">
+                <p className="text-[12px] text-gray-400 font-medium truncate mt-0.5">
                   {email}
                 </p>
               )}
-              {/* Material Primary Badge */}
-              <div className="inline-flex items-center gap-1.5 mt-3 pl-2 pr-2.5 py-1 rounded-lg bg-[#0842A0] self-start">
-                <span className="text-[12px] font-medium text-[#D3E3FD] tracking-wide">
+              {/* Neon Green Active Status */}
+              <div className="inline-flex items-center gap-1.5 mt-2 px-2 py-0.5 rounded-md bg-green-500/10 border border-green-500/20 self-start">
+                <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                <span className="text-[10px] font-bold text-green-500 tracking-wider uppercase">
                   Active
                 </span>
               </div>
             </div>
           </div>
 
-          <div className="h-[1px] bg-[#49454F] my-2" />
+          <div className="h-px bg-[#282A2C] w-full my-1" />
 
           {/* Action Buttons */}
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-1 mt-1">
             <button onClick={handleManage} className={menuItemClass}>
-              <FiSettings className="w-[22px] h-[22px] shrink-0 text-[#CAC4D0] group-hover:text-[#E6E1E5] transition-colors" />
-              <span className="flex-1 text-left">Google Account settings</span>
+              <FiSettings className="w-[18px] h-[18px] shrink-0 text-green-500" />
+              <span className="flex-1 text-left">Account Settings</span>
             </button>
 
             <button onClick={handleSignOut} className={dangerMenuItemClass}>
-              <FiLogOut className="w-[22px] h-[22px] shrink-0" />
+              <FiLogOut className="w-[18px] h-[18px] shrink-0" />
               <span className="flex-1 text-left">Sign out of this device</span>
             </button>
           </div>

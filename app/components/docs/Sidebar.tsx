@@ -51,7 +51,7 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search docs"
-          className="w-full rounded-xl border border-neutral-800 bg-neutral-900/10  backdrop-blur-xs py-3 pl-8 pr-2 text-[15px] text-white hover:border-2 hover:border-blue-400 placeholder:text-neutral-500 outline-none "
+          className="w-full rounded-xl border border-neutral-800 bg-neutral-900/10  backdrop-blur-xs py-3 pl-8 pr-2 text-[15px] text-white  outline-none "
         />
       </div>
 
@@ -147,22 +147,22 @@ export function MobileDocsNav() {
     <>
       {/* Sticky Mobile Header */}
       <div
-        className="sticky z-40 -mx-4 flex items-center justify-between   bg-neutral-950 px-4 py-3  sm:-mx-6 sm:px-6 md:hidden"
+        className="sticky z-40 -mx-4 flex items-center justify-between   bg-[#191623] border-b border-[#444444] px-4 py-3  sm:-mx-6 sm:px-6 md:hidden"
         style={{ top: "var(--header-h)" }}
       >
-        <span className="text-md font-medium text-neutral-200">
-          Documentation
+        <span className="text-lg font-medium text-neutral-100">
+          Opaque Documentation/Blogs
         </span>
         <button
           onClick={() => setIsOpen(true)}
-          className="flex h-8 w-8 items-center justify-center rounded-full cursor-pointer border border-neutral-800 bg-blue-800 text-neutral-400 transition-colors hover:bg-neutral-800 hover:text-white"
+          className="flex h-10 w-10 items-center justify-center rounded-xl cursor-pointer  bg-green-800 text-neutral-100 transition-colors  hover:text-white"
           aria-label="Open documentation menu"
         >
           <svg
             viewBox="0 0 24 24"
             className="h-5 w-5"
             fill="none"
-            stroke="currentColor"
+            stroke="white"
             strokeWidth="2"
           >
             <path
@@ -192,13 +192,13 @@ export function MobileDocsNav() {
               <span className="text-3xl font-normal text-white">Menu</span>
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-1 bg-[#333] rounded-full cursor-pointer text-neutral-400 hover:text-white"
+                className="p-2 bg-green-800 rounded-xl cursor-pointer text-neutral-100 hover:text-white"
               >
                 <svg
                   viewBox="0 0 24 24"
                   className="h-5 w-5"
                   fill="none"
-                  stroke="currentColor"
+                  stroke="white"
                   strokeWidth="2"
                 >
                   <path

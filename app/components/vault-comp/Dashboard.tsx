@@ -69,10 +69,10 @@ const BLANK: FormState = {
 
 // Utilitarian, flat CSS classes
 const inputClass =
-  "w-full px-3 py-2 bg-[#1C1B22] border border-[#2B2A33] text-[14px] text-[#FBFBFE] placeholder-[#737373] focus:border-[#0060DF] focus:outline-none rounded transition-colors";
-const labelClass = "block text-[13px] font-medium text-[#AEADC8] mb-1.5";
+  "w-full px-3 py-2 bg-[#1C1B22] border-2 border-[#444444] text-[14px] text-[#FBFBFE] placeholder-[#737373] focus:outline-none rounded-xl transition-colors";
+const labelClass = "block text-[15px] font-medium text-white mb-1.5";
 const primaryBtn =
-  "w-full flex items-center justify-center gap-2 py-2 px-4 font-medium text-[14px] bg-[#0060DF] hover:bg-[#003EAA] text-white rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed";
+  "w-full flex items-center justify-center gap-2 py-2 px-4 font-medium text-[14px] bg-blue-800 text-white rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed";
 
 // Ultra-fast transition settings
 const fastFade = {
@@ -96,10 +96,10 @@ function ServiceChip({
   service: ServiceId;
   label: string;
 }) {
-  const color = SERVICE_MAP[service]?.color ?? "#42414D";
+  const color = SERVICE_MAP[service]?.color ?? "white";
   return (
     <div
-      className="w-10 h-10 rounded flex items-center justify-center text-[16px] font-bold text-white flex-shrink-0"
+      className="w-10 h-10 rounded-2xl flex items-center justify-center text-[16px] font-bold text-black flex-shrink-0"
       style={{ background: color }}
     >
       {(label || "?").charAt(0).toUpperCase()}
@@ -250,31 +250,31 @@ export default function Dashboard() {
       <header className="sticky top-0 z-20 pt-10 bg-[#161923] border-b border-[#2B2A33]">
         <div className="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-3 w-full md:w-auto md:flex-1">
-            <div className="flex items-center justify-center w-12 h-12 bg-green-700 rounded border border-[#2B2A33] text-white flex-shrink-0 hidden sm:flex">
-              <KeyRound className="w-10 h-10" />
+            <div className="flex items-center justify-center w-12 h-12 bg-green-700 rounded-2xl border border-[#2B2A33] text-white flex-shrink-0 hidden sm:flex">
+              <KeyRound className="w-7 h-7" />
             </div>
 
             <div className="relative flex-1 md:max-w-md">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#737373]" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-green-500" />
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search..."
-                className="w-full pl-9 pr-3 py-3  border border-[#444444] text-[17px] text-white placeholder-gray-600  focus:outline-none rounded-lg transition-colors"
+                className="w-full pl-9 pr-3 py-2 border-2 border-[#444444] text-[17px] text-white placeholder-gray-600  focus:outline-none rounded-2xl transition-colors"
               />
             </div>
 
             <button
               onClick={lock}
               title="Lock vault"
-              className="p-2 bg-[#1C1B22] hover:bg-[#2B2A33] border border-[#2B2A33] text-[#AEADC8] rounded transition-colors flex-shrink-0"
+              className="px-2 py-2 bg-red-500 cursor-pointer text-white rounded-xl transition-colors flex-shrink-0"
             >
-              <Lock className="w-4 h-4" />
+              <Lock className="w-6 h-6" />
             </button>
 
             <button
               onClick={openAdd}
-              className="p-2 bg-[#0060DF] hover:bg-[#003EAA] text-white rounded transition-colors flex-shrink-0 flex md:hidden items-center justify-center"
+              className="px-3 py-3 bg-[#0060DF] cursor-pointer text-white rounded-xl transition-colors flex-shrink-0 flex md:hidden items-center justify-center"
             >
               <Plus className="w-4 h-4" />
             </button>
@@ -289,10 +289,10 @@ export default function Dashboard() {
                 <button
                   key={f.key}
                   onClick={() => setFilter(f.key)}
-                  className={`px-3 py-1.5 text-[13px] font-medium rounded whitespace-nowrap transition-colors flex-shrink-0 border ${
+                  className={`px-3 py-1.5 text-[15px] font-medium rounded-xl whitespace-nowrap transition-colors  cursor-pointer flex-shrink-0 border ${
                     filter === f.key
-                      ? "bg-[#2B2A33] text-white border-[#42414D]"
-                      : "bg-transparent text-[#AEADC8] border-transparent hover:bg-[#1C1B22]"
+                      ? "bg-green-500/20 text-white border-green-400"
+                      : "bg-transparent text-[#AEADC8] border-transparent hover:text-white "
                   }`}
                 >
                   {f.label}
@@ -303,10 +303,10 @@ export default function Dashboard() {
             {/* Desktop Add Button */}
             <button
               onClick={openAdd}
-              className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-[#0060DF] hover:bg-[#003EAA] text-white text-[13px] font-medium rounded transition-colors flex-shrink-0"
+              className="hidden md:flex items-center gap-2 px-3 py-2 bg-[#0060DF] cursor-pointer text-white text-[15px] font-medium rounded-xl transition-colors flex-shrink-0"
             >
-              <Plus className="w-4 h-4" />
-              New Item
+              <Plus className="w-5 h-5" />
+              Add Credentials
             </button>
           </div>
         </div>
@@ -315,9 +315,9 @@ export default function Dashboard() {
       {/* Main Content List */}
       <main className="max-w-6xl mx-auto px-4 py-6">
         {visible.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 text-center text-[#737373]">
-            <KeyRound className="w-8 h-8 mb-4 opacity-50" />
-            <p className="text-[14px] font-medium">No items found</p>
+          <div className="flex flex-col items-center justify-center py-20 text-center text-green-500">
+            <KeyRound className="w-13 h-13 mb-4 opacity-50" />
+            <p className="text-[17px] font-medium text-white">No items found</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -327,14 +327,14 @@ export default function Dashboard() {
               return (
                 <div
                   key={item.id}
-                  className="flex flex-col p-4 bg-[#1C1B22] border border-[#2B2A33] hover:border-[#42414D] rounded-md transition-colors"
+                  className="flex flex-col p-4 bg-gray-900 border border-[#444444]  rounded-2xl transition-colors"
                 >
                   <div className="flex items-start gap-3 w-full">
                     <ServiceChip service={item.secret.service} label={name} />
 
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2 justify-between">
-                        <span className="text-[15px] font-medium text-[#FBFBFE] truncate block">
+                        <span className="text-[15px] font-medium text-white truncate block">
                           {name}
                         </span>
                         {item.favorite && (
@@ -354,7 +354,7 @@ export default function Dashboard() {
                     {isRevealed && item.secret.password && (
                       <motion.div
                         {...fastFade}
-                        className="mt-3 p-2 bg-[#0C0C0D] border border-[#2B2A33] rounded"
+                        className="mt-3 px-4 py-2  w-max border-2 border-[#444444] rounded-xl"
                       >
                         <span
                           className="text-[14px]  text-
@@ -379,9 +379,9 @@ export default function Dashboard() {
                         }
                       >
                         {copied === `${item.id}:u` ? (
-                          <Check className="w-3.5 h-3.5 text-green-500" />
+                          <Check className="w-4 h-4 text-green-500" />
                         ) : (
-                          <Copy className="w-3.5 h-3.5" />
+                          <Copy className="w-4 h-4" />
                         )}
                       </IconBtn>
                     )}
@@ -397,9 +397,9 @@ export default function Dashboard() {
                           }
                         >
                           {isRevealed ? (
-                            <EyeOff className="w-3.5 h-3.5" />
+                            <EyeOff className="w-4 h-4" />
                           ) : (
-                            <Eye className="w-3.5 h-3.5" />
+                            <Eye className="w-4 h-4" />
                           )}
                         </IconBtn>
                         <IconBtn
@@ -413,9 +413,9 @@ export default function Dashboard() {
                           }
                         >
                           {copied === `${item.id}:p` ? (
-                            <Check className="w-3.5 h-3.5 text-green-500" />
+                            <Check className="w-4 h-4 text-green-500" />
                           ) : (
-                            <Copy className="w-3.5 h-3.5" />
+                            <Copy className="w-4 h-4" />
                           )}
                         </IconBtn>
                       </>
@@ -425,24 +425,24 @@ export default function Dashboard() {
 
                     <IconBtn title="Favorite" onClick={() => toggleFav(item)}>
                       <Star
-                        className={`w-3.5 h-3.5 ${item.favorite ? "text-[#FFE900] fill-[#FFE900]" : ""}`}
+                        className={`w-4 h-4 ${item.favorite ? "text-[#FFE900] fill-[#FFE900]" : ""}`}
                       />
                     </IconBtn>
                     <IconBtn title="Edit" onClick={() => openEdit(item)}>
-                      <Pencil className="w-3.5 h-3.5" />
+                      <Pencil className="w-4 h-4" />
                     </IconBtn>
 
                     {confirmDel === item.id ? (
                       <div className="flex items-center gap-1 ml-2">
                         <button
                           onClick={() => remove(item.id)}
-                          className="text-[12px] font-medium px-2 py-1 rounded bg-[#E22850] text-white"
+                          className="text-[12px] font-medium cursor-pointer px-2 py-1 rounded-full bg-red-500 text-white"
                         >
                           Confirm
                         </button>
                         <button
                           onClick={() => setConfirmDel(null)}
-                          className="text-[12px] font-medium px-2 py-1 rounded bg-[#2B2A33] text-white"
+                          className="text-[12px] font-medium px-2 py-1 cursor-pointer rounded-full bg-[#2B2A33] text-white"
                         >
                           Cancel
                         </button>
@@ -452,7 +452,7 @@ export default function Dashboard() {
                         title="Delete"
                         onClick={() => setConfirmDel(item.id)}
                       >
-                        <Trash2 className="w-3.5 h-3.5 hover:text-[#E22850]" />
+                        <Trash2 className="w-4 h-4 hover:text-[#E22850]" />
                       </IconBtn>
                     )}
                   </div>
@@ -478,9 +478,9 @@ export default function Dashboard() {
 
             <motion.div
               {...fastFade}
-              className="relative w-full max-w-[480px] bg-[#1C1B22] border border-[#2B2A33] rounded-md shadow-2xl flex flex-col max-h-[90vh]"
+              className="relative w-full max-w-[480px] bg-[#1C1B22] border border-[#2B2A33] rounded-3xl shadow-2xl flex flex-col max-h-[90vh]"
             >
-              <div className="flex items-center justify-between p-4 border-b border-[#2B2A33]">
+              <div className="flex items-center justify-between p-4 rounded-xl border-b border-[#2B2A33]">
                 <h2 className="text-[16px] font-medium text-[#FBFBFE]">
                   {form.id ? "Edit Item" : "New Item"}
                 </h2>
@@ -614,9 +614,9 @@ export default function Dashboard() {
                             }))
                           }
                           title="Generate Password"
-                          className="px-3 bg-[#2B2A33] hover:bg-[#42414D] border border-[#2B2A33] rounded text-white flex items-center justify-center transition-colors"
+                          className="px-3 bg-blue-800  rounded-xl text-white flex items-center justify-center transition-colors"
                         >
-                          <RefreshCw className="w-4 h-4" />
+                          <RefreshCw className="w-5 h-5" />
                         </button>
                       </div>
                     </div>
@@ -662,17 +662,30 @@ export default function Dashboard() {
           </div>
         )}
       </AnimatePresence>
-
       {/* Utilitarian Global Toast */}
       <AnimatePresence>
         {toastMessage && (
           <motion.div
-            {...fastFade}
-            className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none"
+            // 1. Smooth, "Heavy" Spring Animation
+            initial={{ opacity: 0, y: 50, scale: 0.85 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 30, scale: 0.9 }}
+            transition={{
+              type: "spring",
+              stiffness: 350,
+              damping: 25,
+              mass: 1.2, // Adds a slight feeling of "weight"
+            }}
+            // 2. Robust Centering Wrapper (Prevents transform conflicts)
+            className="fixed bottom-6 left-0 right-0 z-50 mx-auto flex justify-center pointer-events-none px-4 sm:px-6"
           >
-            <div className="bg-[#1C1B22] text-[#FBFBFE] px-4 py-2 flex items-center gap-2 rounded border border-[#2B2A33] shadow-lg text-[13px] font-medium">
-              <Check className="w-4 h-4 text-[#0060DF]" />
-              {toastMessage}
+            {/* 3. Responsive Toast Container */}
+            <div className="bg-[#1C1B22] text-[#FBFBFE] px-5 py-3 sm:px-6 sm:py-3.5 flex items-center gap-3 rounded-full border border-[#2B2A33] shadow-2xl text-[15px] sm:text-[16px] font-medium w-full sm:w-auto max-w-[420px]">
+              <Check
+                className="w-5 h-5 sm:w-6 sm:h-6 text-white flex-shrink-0"
+                strokeWidth={2.5}
+              />
+              <span className="truncate">{toastMessage}</span>
             </div>
           </motion.div>
         )}
@@ -694,7 +707,7 @@ function IconBtn({
     <button
       title={title}
       onClick={onClick}
-      className="p-1.5 rounded text-[#737373] hover:text-[#FBFBFE] hover:bg-[#2B2A33] transition-colors flex items-center justify-center"
+      className="p-1.5 rounded-lg cursor-pointer text-green-500  hover:bg-[#2B2A33] transition-colors flex items-center justify-center"
     >
       {children}
     </button>

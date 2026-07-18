@@ -64,9 +64,9 @@ const inputClass =
 const labelClass =
   "block text-[18px] font-medium text-white mb-2 pl-4 text-left w-full";
 const primaryBtn =
-  "w-full flex items-center justify-center gap-2 py-2 px-3 font-semibold text-[19px] bg-green-700  text-white rounded-lg cursor-pointer transition-all  disabled:opacity-50 disabled:cursor-not-allowed";
+  "w-full flex items-center justify-center gap-2 py-2 px-3 font-semibold text-[17px] bg-green-400  text-black rounded-lg cursor-pointer transition-all  disabled:opacity-50 disabled:cursor-not-allowed";
 const ghostBtn =
-  "w-full text-center text-[15px] font-medium text-[#8E918F] hover:text-[#E2E2E2] hover:bg-[#1E1F20] py-3 rounded-lg transition-colors active:bg-[#282A2C]";
+  "w-full text-center text-[17px] font-semibold cursor-pointer text-black bg-green-400 py-2 rounded-lg transition-colors active:bg-[#282A2C]";
 
 type Step = "password" | "reveal" | "confirm";
 
@@ -152,7 +152,7 @@ export default function SetupScreen() {
           layout
           className="flex flex-col items-center text-center mb-8"
         >
-          <div className="w-16 h-16 rounded-lg bg-green-700 flex items-center justify-center text-white mb-6">
+          <div className="w-16 h-16 rounded-3xl bg-green-700 flex items-center justify-center text-white mb-6">
             {step === "password" ? (
               <KeyRound className="w-7 h-7" />
             ) : (
@@ -162,11 +162,11 @@ export default function SetupScreen() {
           <h1 className="text-4xl font-normal text-white tracking-tight mb-4">
             Set up your vault
           </h1>
-          <div className="flex items-center gap-3 mt-3 text-[14px] font-medium text-white">
+          <div className="flex items-center gap-3 mt-3 text-[14px] font-medium text-gray-500">
             <span
               className={
                 step === "password"
-                  ? "text-green-500 font-semibold underline"
+                  ? "text-green-500 font-semibold p-2 border-2 border-green-500 rounded-xl "
                   : ""
               }
             >
@@ -176,7 +176,7 @@ export default function SetupScreen() {
             <span
               className={
                 step === "reveal"
-                  ? "text-green-500 font-semibold underline"
+                  ? "text-green-500 font-semibold p-2 border-2 border-green-500 rounded-xl"
                   : ""
               }
             >
@@ -186,7 +186,7 @@ export default function SetupScreen() {
             <span
               className={
                 step === "confirm"
-                  ? "text-green-500 font-semibold underline"
+                  ? "text-green-500 font-semibold p-2 border-2 border-green-500 rounded-xl"
                   : ""
               }
             >
@@ -321,7 +321,7 @@ export default function SetupScreen() {
                     {loading ? (
                       <FaSpinner className="animate-spin w-5 h-5" />
                     ) : (
-                      "Continue"
+                      "Go to Seed phrase"
                     )}
                     {!loading && <ArrowRight className="w-5 h-5" />}
                   </button>
@@ -341,12 +341,12 @@ export default function SetupScreen() {
               >
                 <p className="text-[15px] text-[#8E918F] leading-relaxed text-center">
                   This is your{" "}
-                  <strong className="text-[#E2E2E2] font-semibold">
+                  <strong className="text-green-500 font-semibold">
                     recovery phrase
                   </strong>{" "}
                   — the only way back in if you forget your master password.
                   Write it down and store it somewhere safe. It will{" "}
-                  <strong className="text-[#E2E2E2] font-semibold">
+                  <strong className="text-green-500 font-semibold">
                     never be shown again
                   </strong>
                   .
@@ -372,7 +372,7 @@ export default function SetupScreen() {
                 <div className="flex flex-col sm:flex-row gap-3 pt-2">
                   <button
                     onClick={copyPhrase}
-                    className="flex-1 flex items-center justify-center gap-2 py-2 px-4 text-[15px] font-medium bg-blue-800 rounded-lg text-white "
+                    className="flex-1 flex items-center justify-center gap-2 py-2 px-4 text-[15px] font-medium bg-black cursor-pointer rounded-xl text-white "
                   >
                     {copied ? (
                       <Check className="w-5 h-5 text-[#C4EDD0]" />
@@ -383,7 +383,7 @@ export default function SetupScreen() {
                   </button>
                   <button
                     onClick={downloadPhrase}
-                    className="flex-1 flex items-center justify-center gap-2 py-2 px-4 text-[15px] font-medium bg-blue-800 rounded-lg text-white"
+                    className="flex-1 flex items-center justify-center gap-2 cursor-pointer py-2 px-4 text-[15px] font-medium bg-black rounded-xl text-white"
                   >
                     <Download className="w-5 h-5" />
                     Download
@@ -391,15 +391,15 @@ export default function SetupScreen() {
                 </div>
 
                 <label className="flex items-center gap-4 cursor-pointer select-none p-4 transition-colors">
-                  <div className="relative flex items-center justify-center w-6 h-6 shrink-0">
+                  <div className="relative flex items-center justify-center w-8 h-8 shrink-0">
                     <input
                       type="checkbox"
                       checked={acknowledged}
                       onChange={(e) => setAcknowledged(e.target.checked)}
-                      className="appearance-none w-6 h-6 rounded-md border-2 border-[#8E918F] checked:border-[#A8C7FA] checked:bg-[#A8C7FA] transition-colors cursor-pointer"
+                      className="appearance-none w-8 h-8 rounded-lg  border-2 border-white bg-white checked:bg-black checked:border-none transition-colors cursor-pointer"
                     />
                     {acknowledged && (
-                      <Check className="absolute w-4 h-4 text-white pointer-events-none" />
+                      <Check className="absolute w-6 h-6 text-white pointer-events-none" />
                     )}
                   </div>
                   <span className="text-[14px] text-[#C4C7C5] leading-snug">
