@@ -209,14 +209,14 @@ export default function Home() {
             >
               <Link
                 href="/vault"
-                className="py-3 md:py-2 px-4 md:px-5 flex items-center justify-center gap-2 rounded-lg bg-green-700 text-white font-semibold text-[15px] md:text-[16px]  transition-all transform  active:scale-95 focus:outline-none w-full sm:w-auto"
+                className="py-3 md:py-2 px-4 md:px-5 flex items-center justify-center gap-2 rounded-2xl bg-green-700 text-white font-semibold text-[15px] md:text-[16px]  transition-all transform  active:scale-95 focus:outline-none w-full sm:w-auto"
               >
                 Get Started Free{" "}
                 <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
               </Link>
               <Link
                 href="#architecture"
-                className="py-3.5 md:py-4 px-6 md:px-8 flex items-center justify-center rounded-lg bg-[#131314] text-[#E2E2E2] font-medium text-[15px] md:text-[16px] hover:bg-[#1E1F20] border border-[#282A2C] transition-colors w-full sm:w-auto"
+                className="py-3.5 md:py-4 px-6 md:px-8 flex items-center justify-center rounded-2xl bg-[#131314] text-[#E2E2E2] font-medium text-[15px] md:text-[16px] hover:bg-[#1E1F20] border border-[#282A2C] transition-colors w-full sm:w-auto"
               >
                 How it works
               </Link>
@@ -249,7 +249,7 @@ export default function Home() {
                   {[1, 2, 3].map((i) => (
                     <div
                       key={i}
-                      className="flex items-center justify-between p-3 md:p-4 rounded-[20px] md:rounded-[24px] bg-[#1E1F20]"
+                      className="flex items-center justify-between p-3 md:p-4 rounded-[24px] md:rounded-[24px] bg-[#1E1F20]"
                     >
                       <div className="flex items-center gap-3 md:gap-4 flex-1">
                         <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-[#282A2C] flex items-center justify-center flex-shrink-0">
@@ -297,7 +297,7 @@ export default function Home() {
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
             <div className="flex flex-col items-center sm:items-start text-center sm:text-left space-y-3 md:space-y-4">
-              <div className="w-12 h-12 md:w-14 md:h-14 rounded-lg bg-green-500 flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 md:w-14 md:h-14 rounded-3xl bg-green-500 flex items-center justify-center flex-shrink-0">
                 <Zap className="w-7 h-7 md:w-7 md:h-7 text-white" />
               </div>
               <h3 className="text-[18px] md:text-[20px] font-semibold text-[#E2E2E2]">
@@ -310,7 +310,7 @@ export default function Home() {
               </p>
             </div>
             <div className="flex flex-col items-center sm:items-start text-center sm:text-left space-y-3 md:space-y-4">
-              <div className="w-12 h-12 md:w-14 md:h-14 rounded-lg bg-green-500 flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 md:w-14 md:h-14 rounded-3xl bg-green-500 flex items-center justify-center flex-shrink-0">
                 <Shield className="w-7 h-7 md:w-7 md:h-7 text-white" />
               </div>
               <h3 className="text-[18px] md:text-[20px] font-semibold text-[#E2E2E2]">
@@ -322,7 +322,7 @@ export default function Home() {
               </p>
             </div>
             <div className="flex flex-col items-center sm:items-start text-center sm:text-left space-y-3 md:space-y-4 sm:col-span-2 lg:col-span-1 sm:max-w-md sm:mx-auto lg:max-w-none">
-              <div className="w-12 h-12 md:w-14 md:h-14 rounded-lg bg-green-500 flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 md:w-14 md:h-14 rounded-3xl bg-green-500 flex items-center justify-center flex-shrink-0">
                 <Globe className="w-7 h-7 md:w-7 md:h-7 text-white" />
               </div>
               <h3 className="text-[18px] md:text-[20px] font-semibold text-[#E2E2E2]">
