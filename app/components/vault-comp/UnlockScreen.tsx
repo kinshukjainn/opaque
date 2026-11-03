@@ -1,33 +1,26 @@
 "use client";
 
-// ============================================================
-//  components/vault/UnlockScreen.tsx
-// ------------------------------------------------------------
-//  Rendered by VaultGate when isInitialized && !isUnlocked.
-//  Two modes:
-//    "unlock"  → enter master password → v.unlock(pw)
-//    "recover" → enter 12-word phrase + new master password →
-//                v.unlockWithRecovery(phrase, newPw)
-//  On success the provider flips isUnlocked and the gate swaps
-//  this screen out for the Dashboard.
-// ============================================================
-
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaSpinner } from "react-icons/fa";
-import { LockKeyhole, Eye, EyeOff, ShieldCheck } from "lucide-react";
+import {
+  LockKeyhole,
+  Eye,
+  EyeOff,
+  ShieldCheck,
+  AlertTriangle,
+  ArrowRight,
+} from "lucide-react";
 import { useClerk } from "@clerk/nextjs";
 import { useVault } from "./VaultProvider";
 
-// Theme-aware styles matching the project's design system
-const inputClass =
-  "w-full px-4 py-3 bg-gray-50 dark:bg-[#141414] border border-gray-200 dark:border-transparent focus:border-blue-500 dark:focus:border-blue-500 text-[16px] text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-[#5f6368] outline-none rounded-2xl transition-colors duration-200 shadow-sm dark:shadow-none";
-const labelClass =
-  "block text-[15px] font-bold text-gray-800 dark:text-white mb-1.5 text-left w-full";
-const primaryBtn =
-  "w-full flex items-center justify-center gap-2 py-3 px-6 font-bold text-[16px] bg-blue-600 hover:bg-blue-700 dark:bg-blue-800 dark:hover:bg-blue-700 text-white rounded-full cursor-pointer transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-md active:scale-[0.98]";
-const ghostBtn =
-  "w-full text-center text-[14px] font-bold text-gray-500 dark:text-[#8E918F] cursor-pointer hover:text-gray-900 dark:hover:text-[#E2E2E2] py-2 transition-colors disabled:opacity-50";
+// Material 3 Expressive Spring Physics
+const m3SpatialSpring = {
+  type: "spring" as const,
+  stiffness: 420,
+  damping: 32,
+  mass: 0.9,
+};
 
 export default function UnlockScreen() {
   const { unlock, unlockWithRecovery } = useVault();
@@ -52,7 +45,7 @@ export default function UnlockScreen() {
     setError(null);
     setLoading(true);
     try {
-      await unlock(pw); // on success the gate unmounts this screen
+      await unlock(pw);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not unlock.");
       setLoading(false);
@@ -84,60 +77,87 @@ export default function UnlockScreen() {
     setError(null);
   };
 
-  // Ultra-minimal fade animation settings
-  const fadeAnim = {
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
-    exit: { opacity: 0 },
-    transition: { duration: 0.2 },
-  };
+  // Borderless M3 Styling Variables
+  const inputClass =
+    "w-full px-5 py-4 bg-gray-100 dark:bg-[#1A1A1A] border-none focus:ring-4 focus:ring-[#EADDFF] dark:focus:ring-[#4A3C68] transition-all text-[16px] text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 outline-none rounded-[20px] font-medium";
+  const labelClass =
+    "block text-[14px] font-semibold text-gray-700 dark:text-gray-300 mb-2 pl-2 tracking-wide";
+
+  const primaryBtn =
+    "w-full flex items-center justify-center gap-2 py-4 px-6 font-semibold text-[16px] bg-black hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-200 text-white dark:text-black rounded-[24px] hover:rounded-[16px] active:rounded-[12px] cursor-pointer transition-[border-radius,background-color,transform] duration-200 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98] border-none";
+
+  const ghostBtn =
+    "w-full text-center text-[15px] font-semibold py-3 cursor-pointer text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors border-none";
 
   return (
-    <div className="min-h-screen pt-20 flex items-center justify-center bg-white dark:bg-black text-gray-900 dark:text-[#E2E2E2] px-6 py-12 selection:bg-blue-200 dark:selection:bg-[#A8C7FA] selection:text-blue-900 dark:selection:text-[#041E49] transition-colors duration-300">
-      <div className="w-full max-w-[380px] flex flex-col items-center text-center">
-        {/* Minimal Header */}
-        <div className="flex flex-col items-center mb-8">
-          <div className="mb-4 text-gray-900 dark:text-white">
+    <div className="min-h-screen pt-24 flex items-center justify-center bg-white dark:bg-[#050505] text-[#111318] dark:text-[#E2E2E9] px-4 sm:px-6 py-12 selection:bg-[#EADDFF] selection:text-[#21005D] dark:selection:bg-[#4A3C68] dark:selection:text-[#EADDFF]">
+      {/* Massive Borderless Unlock Card */}
+      <motion.div
+        layout
+        className="w-full max-w-[480px] bg-white dark:bg-[#0A0A0A] rounded-[40px] p-6 sm:p-10 md:p-12 border-none"
+      >
+        {/* Header */}
+        <motion.div
+          layout
+          className="flex flex-col items-center text-center mb-8"
+        >
+          <div className="w-16 h-16 flex items-center justify-center rounded-[20px] bg-[#EADDFF] dark:bg-[#4A3C68] text-[#21005D] dark:text-[#EADDFF] mb-6">
             {mode === "unlock" ? (
               loading ? (
-                <FaSpinner className="w-6 h-6 animate-spin text-blue-600 dark:text-blue-400" />
+                <FaSpinner className="w-8 h-8 animate-spin" />
               ) : (
-                <LockKeyhole className="w-8 h-8 text-blue-600 dark:text-white" />
+                <LockKeyhole className="w-8 h-8" />
               )
             ) : (
-              <ShieldCheck className="w-8 h-8 text-blue-600 dark:text-white" />
+              <ShieldCheck className="w-8 h-8" />
             )}
           </div>
-          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+          <motion.h1
+            layout
+            className="text-3xl sm:text-4xl font-extrabold text-black dark:text-white tracking-tight mb-3"
+          >
             {mode === "unlock" ? "Unlock Vault" : "Vault Recovery"}
-          </h1>
-          <p className="text-[14px] font-medium text-gray-500 dark:text-[#8E918F] mt-1.5">
+          </motion.h1>
+          <motion.p
+            layout
+            className="text-[15px] font-medium text-gray-500 dark:text-gray-400 leading-relaxed"
+          >
             {mode === "unlock"
-              ? "Enter your master password"
-              : "Set a new master password"}
-          </p>
-        </div>
+              ? "Enter your master password to access your secure data."
+              : "Enter your 12-word phrase and set a new master password."}
+          </motion.p>
+        </motion.div>
 
-        {/* Flat Error Message */}
+        {/* Fluid Error Message */}
         <AnimatePresence>
           {error && (
             <motion.div
-              {...fadeAnim}
-              className="mb-6 p-3.5 w-full border border-red-300 dark:border-[#4A2525] bg-red-50 dark:bg-[#2A1616] text-[14px] font-semibold text-red-700 dark:text-[#F2B8B5] rounded-xl shadow-sm"
+              layout
+              initial={{ opacity: 0, scale: 0.95, y: -10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, height: 0, marginBottom: 0 }}
+              transition={m3SpatialSpring}
+              className="mb-6 p-4 bg-[#FCE8E6] dark:bg-[#3B1212] rounded-[20px] flex items-start gap-3 border-none"
             >
-              {error}
+              <AlertTriangle className="w-5 h-5 text-[#8C1D18] dark:text-[#F2B8B5] shrink-0 mt-0.5" />
+              <span className="text-[14px] font-semibold text-[#8C1D18] dark:text-[#F2B8B5] leading-relaxed">
+                {error}
+              </span>
             </motion.div>
           )}
         </AnimatePresence>
 
         {/* Form Area */}
-        <div className="w-full">
+        <motion.div layout className="w-full">
           <AnimatePresence mode="wait">
             {mode === "unlock" ? (
               <motion.div
                 key="unlock"
-                {...fadeAnim}
-                className="space-y-6 w-full flex flex-col items-center"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={m3SpatialSpring}
+                className="space-y-6 w-full"
               >
                 <div className="relative w-full">
                   <input
@@ -146,33 +166,33 @@ export default function UnlockScreen() {
                     autoFocus
                     onChange={(e) => setPw(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && pw && doUnlock()}
-                    className={`${inputClass} pr-12 ${!showPw && pw ? "tracking-[0.25em] text-lg font-bold" : ""}`}
-                    placeholder="Master password"
+                    className={`${inputClass} pr-14 ${!showPw && pw ? "tracking-[0.25em] text-lg font-bold" : ""}`}
+                    placeholder="Enter master password"
                   />
                   <button
                     type="button"
                     tabIndex={-1}
                     onClick={() => setShowPw((s) => !s)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-[#8E918F] hover:text-gray-900 dark:hover:text-[#E2E2E2] transition-colors p-2"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full text-gray-500 hover:text-black dark:hover:text-white hover:bg-white dark:hover:bg-[#333] transition-colors"
                   >
                     {showPw ? (
-                      <EyeOff className="w-4 h-4" />
+                      <EyeOff className="w-5 h-5" />
                     ) : (
-                      <Eye className="w-4 h-4" />
+                      <Eye className="w-5 h-5" />
                     )}
                   </button>
                 </div>
 
-                <div className="w-full space-y-3 pt-2">
+                <div className="w-full space-y-2 pt-2">
                   <button
                     onClick={doUnlock}
                     disabled={loading || !pw}
                     className={primaryBtn}
                   >
                     {loading ? (
-                      <FaSpinner className="animate-spin w-4 h-4" />
+                      <FaSpinner className="animate-spin w-5 h-5" />
                     ) : (
-                      "Unlock vault"
+                      "Unlock Vault"
                     )}
                   </button>
 
@@ -187,7 +207,10 @@ export default function UnlockScreen() {
             ) : (
               <motion.div
                 key="recover"
-                {...fadeAnim}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={m3SpatialSpring}
                 className="space-y-5 w-full text-left"
               >
                 <div>
@@ -197,10 +220,10 @@ export default function UnlockScreen() {
                     autoFocus
                     onChange={(e) => setPhrase(e.target.value)}
                     rows={3}
-                    className={`${inputClass} text-[13px] leading-relaxed resize-none`}
-                    placeholder="Enter your 12 words, separated by spaces"
+                    className={`${inputClass} text-[14px] leading-relaxed resize-none font-mono`}
+                    placeholder="Enter your 12 words, separated by spaces..."
                   />
-                  <p className="text-[12px] font-semibold text-gray-500 dark:text-[#8E918F] mt-1.5 text-right">
+                  <p className="text-[12px] font-bold text-gray-500 dark:text-gray-400 mt-2 text-right pr-2">
                     {wordCount} / 12 words
                   </p>
                 </div>
@@ -211,7 +234,7 @@ export default function UnlockScreen() {
                     type="password"
                     value={newPw}
                     onChange={(e) => setNewPw(e.target.value)}
-                    className={`${inputClass} tracking-widest`}
+                    className={`${inputClass} tracking-[0.25em] text-lg font-bold`}
                     placeholder="••••••••"
                   />
                 </div>
@@ -223,21 +246,23 @@ export default function UnlockScreen() {
                     value={confirmPw}
                     onChange={(e) => setConfirmPw(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && doRecover()}
-                    className={`${inputClass} tracking-widest`}
+                    className={`${inputClass} tracking-[0.25em] text-lg font-bold`}
                     placeholder="••••••••"
                   />
                 </div>
 
-                <div className="w-full space-y-3 pt-4">
+                <div className="w-full space-y-2 pt-4">
                   <button
                     onClick={doRecover}
                     disabled={loading}
                     className={primaryBtn}
                   >
                     {loading ? (
-                      <FaSpinner className="animate-spin w-4 h-4" />
+                      <FaSpinner className="animate-spin w-5 h-5" />
                     ) : (
-                      "Recover & Unlock"
+                      <>
+                        Recover & Unlock <ArrowRight className="w-5 h-5 ml-1" />
+                      </>
                     )}
                   </button>
 
@@ -251,19 +276,19 @@ export default function UnlockScreen() {
               </motion.div>
             )}
           </AnimatePresence>
-        </div>
+        </motion.div>
 
         {/* Footer Actions */}
-        <div className="mt-10 text-center w-full">
-          <div className="h-px w-full bg-gray-200 dark:bg-[#2A2D35] mb-6 transition-colors" />
+        <motion.div layout className="mt-10 text-center w-full">
+          <div className="h-px w-full bg-gray-100 dark:bg-[#1A1A1A] mb-6 transition-colors border-none" />
           <button
             onClick={handleSignOut}
-            className="text-[13px] font-semibold text-gray-500 dark:text-[#5f6368] hover:text-gray-900 dark:hover:text-[#8E918F] transition-colors"
+            className="text-[14px] font-semibold text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
           >
             Not you? Sign out
           </button>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </div>
   );
 }

@@ -17,6 +17,20 @@ import {
 
 const APP_NAME = "Opaque";
 
+// Material 3 Expressive Spring Physics
+const m3SpatialSpring = {
+  type: "spring" as const,
+  stiffness: 420,
+  damping: 32,
+  mass: 0.9,
+};
+
+const m3FastSpring = {
+  type: "spring" as const,
+  stiffness: 550,
+  damping: 35,
+};
+
 function getErrorMessage(error: unknown): string {
   if (!error) return "An unexpected error occurred.";
   const e = error as { errors?: { longMessage?: string }[]; message?: string };
@@ -37,15 +51,15 @@ function BenefitItem({
   description: string;
 }) {
   return (
-    <div className="flex items-start gap-4 p-2 transition-colors">
-      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-green-100 dark:bg-green-400 flex items-center justify-center text-green-700 dark:text-black shadow-sm">
+    <div className="flex items-start gap-4 transition-colors">
+      <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-[16px] bg-white/40 dark:bg-black/20 text-[#001D36] dark:text-[#D3E4FF]">
         {icon}
       </div>
       <div>
-        <h3 className="text-gray-900 dark:text-[#E2E2E2] font-bold text-[19px] mb-1.5">
+        <h3 className="text-[#001D36] dark:text-[#D3E4FF] font-bold text-[17px] mb-1.5 tracking-tight">
           {title}
         </h3>
-        <p className="text-gray-600 dark:text-zinc-300 text-[16px] font-medium leading-relaxed">
+        <p className="text-[#001D36]/70 dark:text-[#D3E4FF]/70 text-[15px] font-medium leading-relaxed">
           {description}
         </p>
       </div>
@@ -271,349 +285,355 @@ export default function AuthPage() {
         ? !!(email && password && firstName && lastName)
         : !!(email && password);
 
-  // Material You / Professional Styling Variables
+  // Borderless M3 Styling Variables
   const inputClass =
-    "w-full px-5 py-3.5 bg-gray-50 dark:bg-[#121212] border border-gray-200 dark:border-transparent focus:border-blue-500 dark:focus:border-[#282A2C] transition-colors text-[16px] text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-[#8E918F] outline-none rounded-2xl shadow-sm dark:shadow-none font-medium";
+    "w-full px-5 py-4 bg-gray-100 dark:bg-[#1A1A1A] focus:bg-white dark:focus:bg-[#222] border-none focus:ring-4 focus:ring-[#D3E4FF] dark:focus:ring-[#204473] transition-all text-[16px] text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 outline-none rounded-[20px] font-medium";
   const labelClass =
-    "block text-[15px] font-bold text-gray-800 dark:text-white mb-2 pl-2 tracking-wide";
+    "block text-[14px] font-semibold text-gray-700 dark:text-gray-300 mb-2 pl-2 tracking-wide";
 
   const primaryButtonClass =
-    "w-full flex items-center justify-center gap-2 py-3.5 px-5 font-bold text-[17px] bg-blue-600 hover:bg-blue-700 dark:bg-blue-800 dark:hover:bg-blue-700 text-white rounded-2xl cursor-pointer transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 shadow-md active:scale-[0.98]";
+    "w-full flex items-center justify-center gap-2 py-4 px-6 font-semibold text-[16px] bg-black hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-200 text-white dark:text-black rounded-[24px] hover:rounded-[16px] active:rounded-[12px] cursor-pointer transition-[border-radius,background-color,transform] duration-200 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98] border-none";
 
   const secondaryButtonClass =
-    "w-full flex items-center justify-center gap-2 py-3.5 px-5 font-semibold text-[16px] cursor-pointer bg-white hover:bg-gray-50 dark:bg-[#1a1a1a] dark:hover:bg-[#252525] text-gray-800 dark:text-white border border-gray-200 dark:border-transparent rounded-2xl transition-all active:scale-[0.98] disabled:opacity-50 shadow-sm";
+    "w-full flex items-center justify-center gap-2 py-4 px-6 font-semibold text-[16px] cursor-pointer bg-gray-100 hover:bg-gray-200 dark:bg-[#1A1A1A] dark:hover:bg-[#252525] text-black dark:text-white rounded-[24px] hover:rounded-[16px] active:rounded-[12px] transition-[border-radius,background-color,transform] duration-200 active:scale-[0.98] disabled:opacity-50 border-none";
 
   return (
-    <div className="grid min-h-screen pt-[72px] grid-cols-1 lg:grid-cols-2 bg-white dark:bg-black text-gray-900 dark:text-[#E2E2E2] selection:bg-blue-200 dark:selection:bg-[#A8C7FA] selection:text-blue-900 dark:selection:text-[#041E49] transition-colors duration-300">
-      {/* LEFT PANEL: Branding & Benefits */}
-      <div className="relative hidden lg:flex flex-col justify-between rounded-3xl border border-gray-200 dark:border-transparent shadow-xl dark:shadow-md shadow-blue-100/50 dark:shadow-blue-400/10 p-12 xl:p-16 bg-gray-50 dark:bg-[#101010] overflow-hidden my-4 ml-4 transition-colors duration-300">
-        <div className="relative z-10 flex flex-col gap-10">
-          {/* Logo */}
-          <div className="flex items-center gap-3">
-            <span className="text-2xl font-bold tracking-tight text-gray-900 dark:text-[#E2E2E2] flex items-center flex-wrap gap-3">
-              {APP_NAME}
-              <span className="text-gray-300 dark:text-gray-700">/</span>
-              <span className="text-[14px] font-bold px-4 py-1.5 text-blue-700 dark:text-[#A8C7FA] bg-blue-100 dark:bg-transparent border border-blue-200 dark:border-[#282A2C] rounded-full uppercase tracking-wider">
-                Authentication
+    <div className="min-h-screen bg-white dark:bg-[#050505] flex items-center justify-center p-4 sm:p-6 lg:p-8 selection:bg-[#D3E4FF] selection:text-[#001D36] dark:selection:bg-[#204473] dark:selection:text-[#D3E4FF]">
+      {/* Massive Borderless Split Card */}
+      <div className="w-full max-w-[1400px] min-h-[800px] pt-15  grid grid-cols-1 lg:grid-cols-2 bg-white dark:bg-[#0A0A0A] rounded-[40px] overflow-hidden border-none">
+        {/* LEFT PANEL: Branding & Benefits (Tonal Surface) */}
+        <div className="relative hidden lg:flex flex-col justify-between p-12 xl:p-16 bg-[#D3E4FF] dark:bg-[#001D36] border-none overflow-hidden">
+          <div className="relative z-10 flex flex-col gap-12">
+            {/* Logo */}
+            <div className="flex items-center gap-3">
+              <span className="text-2xl font-bold tracking-tight text-[#001D36] dark:text-[#D3E4FF] flex items-center gap-3">
+                {APP_NAME}
+                <span className="text-[#001D36]/30 dark:text-[#D3E4FF]/30">
+                  /
+                </span>
+                <span className="text-[13px] font-bold px-3 py-1 text-white bg-black dark:text-black dark:bg-white rounded-full uppercase tracking-wider">
+                  Authentication
+                </span>
               </span>
-            </span>
+            </div>
+
+            {/* Value Proposition */}
+            <div>
+              <h1 className="text-4xl xl:text-5xl font-extrabold mb-6 leading-[1.1] tracking-tight text-[#001D36] dark:text-[#D3E4FF]">
+                Your passwords, sealed by encryption only you can open.
+              </h1>
+            </div>
+
+            {/* Benefits List */}
+            <div className="space-y-8 mt-4 max-w-md">
+              <BenefitItem
+                icon={<ShieldCheck className="w-6 h-6" />}
+                title="Zero-Knowledge Encryption"
+                description="Your secrets are encrypted in your browser with AES-256. We store only ciphertext — even we can never read them."
+              />
+              <BenefitItem
+                icon={<KeyRound className="w-6 h-6" />}
+                title="One Master Password"
+                description="Unlock everything with a single master password, backed by a 12-word recovery phrase that only you hold."
+              />
+              <BenefitItem
+                icon={<Zap className="w-6 h-6" />}
+                title="Built-in Generator"
+                description="Create strong, unique passwords for every account in one click — no more reusing the same password."
+              />
+            </div>
           </div>
 
-          {/* Value Proposition */}
-          <div className="mt-4">
-            <h1 className="text-3xl xl:text-4xl font-extrabold mb-6 leading-tight max-w-[480px] text-gray-900 dark:text-white">
-              Your passwords, sealed by encryption only you can open.
-            </h1>
-          </div>
-
-          {/* Benefits List */}
-          <div className="space-y-4 mt-2 max-w-md -ml-2">
-            <BenefitItem
-              icon={<ShieldCheck className="w-6 h-6" />}
-              title="Zero-Knowledge Encryption"
-              description="Your secrets are encrypted in your browser with AES-256. We store only ciphertext — even we can never read them."
-            />
-            <BenefitItem
-              icon={<KeyRound className="w-6 h-6" />}
-              title="One Master Password"
-              description="Unlock everything with a single master password, backed by a 12-word recovery phrase that only you hold."
-            />
-            <BenefitItem
-              icon={<Zap className="w-6 h-6" />}
-              title="Built-in Generator"
-              description="Create strong, unique passwords for every account in one click — no more reusing the same password."
-            />
-          </div>
-        </div>
-
-        {/* Dynamic Security Badge */}
-        <div className="relative z-10 flex items-center gap-2 mt-auto pt-10">
-          <div className="flex items-center gap-3 text-[15px] bg-yellow-400 dark:bg-yellow-500 border-2 border-black px-6 py-3 rounded-full shadow-md">
-            <LockKeyhole className="w-5 h-5 text-black" />
-            <span className="text-black font-bold tracking-wide">
-              Secured infrastructure by
-            </span>
-            <div className="relative flex items-center justify-start w-[50px] h-[20px] overflow-hidden font-extrabold text-black">
-              <AnimatePresence mode="popLayout">
-                <motion.span
-                  key={providers[index]}
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -20, opacity: 0 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                  className="absolute left-0"
-                >
-                  {providers[index]}
-                </motion.span>
-              </AnimatePresence>
+          {/* Dynamic Security Badge */}
+          <div className="relative z-10 flex items-center gap-2 mt-auto pt-12">
+            <div className="flex items-center gap-3 text-[14px] bg-white/60 dark:bg-black/40 backdrop-blur-md px-4 py-2.5 rounded-full border-none">
+              <LockKeyhole className="w-4 h-4 text-[#001D36] dark:text-[#D3E4FF]" />
+              <span className="text-[#001D36] dark:text-[#D3E4FF] font-semibold tracking-wide">
+                Secured by
+              </span>
+              <div className="relative flex items-center justify-start w-[50px] h-[20px] overflow-hidden font-extrabold text-[#001D36] dark:text-[#D3E4FF]">
+                <AnimatePresence mode="popLayout">
+                  <motion.span
+                    key={providers[index]}
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -20, opacity: 0 }}
+                    transition={m3FastSpring}
+                    className="absolute left-0"
+                  >
+                    {providers[index]}
+                  </motion.span>
+                </AnimatePresence>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* RIGHT PANEL: Authentication Form */}
-      <div className="flex flex-col justify-center items-center w-full px-6 py-12 lg:px-12 bg-white dark:bg-black transition-colors duration-300">
-        <div className="w-full max-w-[420px]">
-          {/* Mobile Logo */}
-          <div className="lg:hidden flex items-center justify-center gap-3 mb-10">
-            <span className="text-3xl font-bold tracking-tight text-gray-900 dark:text-[#E2E2E2] flex items-center gap-3">
-              {APP_NAME}
-              <span className="text-gray-300 dark:text-gray-700">/</span>
-              <span className="text-[14px] font-bold px-4 py-1 text-blue-700 dark:text-[#A8C7FA] bg-blue-50 dark:bg-transparent border border-blue-200 dark:border-[#282A2C] rounded-full uppercase tracking-wider">
-                Auth
+        {/* RIGHT PANEL: Authentication Form (Pure B&W) */}
+        <div className="flex flex-col justify-center items-center p-6 sm:p-12 lg:p-16 xl:p-24 bg-white dark:bg-[#0A0A0A] border-none">
+          <div className="w-full max-w-[420px]">
+            {/* Mobile Logo */}
+            <div className="lg:hidden flex items-center justify-center gap-3 mb-10">
+              <span className="text-3xl font-bold tracking-tight text-black dark:text-white flex items-center gap-3">
+                {APP_NAME}
+                <span className="text-gray-300 dark:text-gray-700">/</span>
+                <span className="text-[12px] font-bold px-3 py-1 text-white bg-black dark:text-black dark:bg-white rounded-full uppercase tracking-wider">
+                  Auth
+                </span>
               </span>
-            </span>
-          </div>
+            </div>
 
-          {/* Header */}
-          <motion.div layout className="mb-10 text-center sm:text-left">
-            <motion.h2
-              layout
-              className="text-3xl font-extrabold text-gray-900 dark:text-[#E2E2E2] mb-3"
-            >
-              {heading}
-            </motion.h2>
-            <motion.p
-              layout
-              className="text-[16px] font-medium text-green-700 dark:text-green-400 leading-relaxed"
-            >
-              {subtext}
-            </motion.p>
-          </motion.div>
-
-          {/* Error Banner */}
-          <AnimatePresence>
-            {authError && (
-              <motion.div
+            {/* Header */}
+            <motion.div layout className="mb-10 text-center lg:text-left">
+              <motion.h2
                 layout
-                initial={{ opacity: 0, scale: 0.95, y: -10 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, height: 0, marginBottom: 0 }}
-                className="mb-8 p-4 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 rounded-2xl flex items-start gap-3 shadow-sm"
+                className="text-3xl sm:text-4xl font-extrabold text-black dark:text-white mb-3 tracking-tight"
               >
-                <div className="mt-0.5 text-red-600 dark:text-red-400 flex-shrink-0">
-                  <AlertTriangle className="w-5 h-5" />
-                </div>
-                <p className="text-[15px] font-semibold text-red-800 dark:text-red-200 leading-snug">
-                  {authError}
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                {heading}
+              </motion.h2>
+              <motion.p
+                layout
+                className="text-[15px] font-medium text-gray-500 dark:text-gray-400 leading-relaxed"
+              >
+                {subtext}
+              </motion.p>
+            </motion.div>
 
-          {/* Main Form container */}
-          <motion.div layout className="space-y-6">
-            <AnimatePresence mode="wait">
-              {pendingMfa || pendingVerification ? (
+            {/* Error Banner */}
+            <AnimatePresence>
+              {authError && (
                 <motion.div
-                  key="otp-view"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                  className="space-y-6"
+                  layout
+                  initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, height: 0, marginBottom: 0 }}
+                  transition={m3SpatialSpring}
+                  className="mb-8 p-4 bg-[#FCE8E6] dark:bg-[#3B1212] rounded-[20px] flex items-start gap-3 border-none"
                 >
-                  <div>
-                    <label className={labelClass}>Security Code</label>
-                    <input
-                      type="password"
-                      inputMode="numeric"
-                      placeholder="000000"
-                      value={pendingMfa ? mfaCode : verificationCode}
-                      onChange={(e) => {
-                        const val = e.target.value
-                          .replace(/\D/g, "")
-                          .slice(0, 6);
-                        if (pendingMfa) setMfaCode(val);
-                        else setVerificationCode(val);
-                      }}
-                      onKeyDown={(e) =>
-                        e.key === "Enter" && canSubmit && handleSubmit()
-                      }
-                      className={`${inputClass} text-center text-4xl tracking-[0.4em] py-6 font-bold`}
-                    />
+                  <div className="mt-0.5 text-[#8C1D18] dark:text-[#F2B8B5] flex-shrink-0">
+                    <AlertTriangle className="w-5 h-5" />
                   </div>
-
-                  <div className="space-y-3 pt-2">
-                    <button
-                      onClick={handleSubmit}
-                      disabled={loading || !canSubmit}
-                      className={primaryButtonClass}
-                    >
-                      {loading ? (
-                        <FaSpinner className="animate-spin w-5 h-5" />
-                      ) : (
-                        "Verify Code"
-                      )}
-                    </button>
-
-                    <button
-                      onClick={() => {
-                        setPendingMfa(false);
-                        setPendingVerification(false);
-                        setVerificationCode("");
-                        setMfaCode("");
-                        setAuthError(null);
-                      }}
-                      className="w-full text-center text-[16px] font-bold text-gray-700 dark:text-black bg-gray-200 hover:bg-gray-300 dark:bg-gray-300 dark:hover:bg-white py-3.5 rounded-2xl cursor-pointer transition-colors active:scale-[0.98]"
-                    >
-                      Cancel and go back
-                    </button>
-                  </div>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="form-view"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                  className="space-y-5"
-                >
-                  {isSignUp && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="grid grid-cols-1 sm:grid-cols-2 gap-5 overflow-hidden"
-                    >
-                      <div>
-                        <label className={labelClass}>First Name</label>
-                        <input
-                          type="text"
-                          value={firstName}
-                          onChange={(e) => setFirstName(e.target.value)}
-                          className={inputClass}
-                          placeholder="Jane"
-                        />
-                      </div>
-                      <div>
-                        <label className={labelClass}>Last Name</label>
-                        <input
-                          type="text"
-                          value={lastName}
-                          onChange={(e) => setLastName(e.target.value)}
-                          className={inputClass}
-                          placeholder="Doe"
-                        />
-                      </div>
-                    </motion.div>
-                  )}
-
-                  <div>
-                    <label className={labelClass}>Email Address</label>
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      autoComplete="email"
-                      className={inputClass}
-                      placeholder="you@example.com"
-                    />
-                  </div>
-
-                  <div>
-                    <label className={labelClass}>Master Password</label>
-                    <div className="relative">
-                      <input
-                        type={showPassword ? "text" : "password"}
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        autoComplete={
-                          isSignUp ? "new-password" : "current-password"
-                        }
-                        onKeyDown={(e) =>
-                          e.key === "Enter" && canSubmit && handleSubmit()
-                        }
-                        className={`${inputClass} pr-14 ${!showPassword && password ? "tracking-[0.25em] text-lg font-bold" : ""}`}
-                        placeholder={
-                          !showPassword ? "••••••••" : "Your password"
-                        }
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword((s) => !s)}
-                        tabIndex={-1}
-                        aria-label={
-                          showPassword ? "Hide password" : "Show password"
-                        }
-                        className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-xl text-gray-400 dark:text-[#8E918F] hover:text-gray-900 dark:hover:text-[#E2E2E2] hover:bg-gray-200 dark:hover:bg-[#282A2C] transition-colors"
-                      >
-                        {showPassword ? (
-                          <EyeOff className="w-5 h-5" />
-                        ) : (
-                          <Eye className="w-5 h-5" />
-                        )}
-                      </button>
-                    </div>
-                  </div>
-
-                  <div
-                    id="clerk-captcha"
-                    data-cl-theme="dark"
-                    data-cl-size="flexible"
-                    className="pt-1"
-                  />
-
-                  <div className="pt-4 space-y-4">
-                    <button
-                      onClick={handleSubmit}
-                      disabled={loading || !canSubmit}
-                      className={primaryButtonClass}
-                    >
-                      {loading ? (
-                        <FaSpinner className="animate-spin w-5 h-5" />
-                      ) : isSignUp ? (
-                        "Create Secure Account"
-                      ) : (
-                        "Unlock Vault"
-                      )}
-                    </button>
-
-                    <div className="relative flex items-center justify-center py-2">
-                      <div className="absolute inset-0 flex items-center">
-                        <div className="w-full border-t border-gray-200 dark:border-gray-800"></div>
-                      </div>
-                      <div className="relative px-4 bg-white dark:bg-black text-[14px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">
-                        or
-                      </div>
-                    </div>
-
-                    <button
-                      onClick={toggleMode}
-                      className={secondaryButtonClass}
-                    >
-                      {isSignUp
-                        ? "Log in to existing account"
-                        : "Create a new account"}
-                    </button>
-                  </div>
+                  <p className="text-[14px] font-semibold text-[#8C1D18] dark:text-[#F2B8B5] leading-snug">
+                    {authError}
+                  </p>
                 </motion.div>
               )}
             </AnimatePresence>
-          </motion.div>
 
-          {/* Footer Terms */}
-          <motion.div
-            layout
-            className="mt-12 text-center text-[13px] font-medium text-gray-500 dark:text-[#8E918F] leading-relaxed px-4"
-          >
-            By continuing, you agree to our{" "}
-            <Link
-              href="/terms"
-              className="text-gray-700 dark:text-[#C4C7C5] hover:text-black dark:hover:text-[#E2E2E2] transition-colors underline decoration-gray-300 dark:decoration-[#282A2C] hover:decoration-blue-400 dark:hover:decoration-[#A8C7FA] underline-offset-4"
+            {/* Main Form container */}
+            <motion.div layout className="space-y-6">
+              <AnimatePresence mode="wait">
+                {pendingMfa || pendingVerification ? (
+                  <motion.div
+                    key="otp-view"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={m3SpatialSpring}
+                    className="space-y-6"
+                  >
+                    <div>
+                      <label className={labelClass}>Security Code</label>
+                      <input
+                        type="password"
+                        inputMode="numeric"
+                        placeholder="000000"
+                        value={pendingMfa ? mfaCode : verificationCode}
+                        onChange={(e) => {
+                          const val = e.target.value
+                            .replace(/\D/g, "")
+                            .slice(0, 6);
+                          if (pendingMfa) setMfaCode(val);
+                          else setVerificationCode(val);
+                        }}
+                        onKeyDown={(e) =>
+                          e.key === "Enter" && canSubmit && handleSubmit()
+                        }
+                        className={`${inputClass} text-center text-4xl tracking-[0.4em] py-6 font-bold`}
+                      />
+                    </div>
+
+                    <div className="space-y-3 pt-2">
+                      <button
+                        onClick={handleSubmit}
+                        disabled={loading || !canSubmit}
+                        className={primaryButtonClass}
+                      >
+                        {loading ? (
+                          <FaSpinner className="animate-spin w-5 h-5" />
+                        ) : (
+                          "Verify Code"
+                        )}
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          setPendingMfa(false);
+                          setPendingVerification(false);
+                          setVerificationCode("");
+                          setMfaCode("");
+                          setAuthError(null);
+                        }}
+                        className={secondaryButtonClass}
+                      >
+                        Cancel and go back
+                      </button>
+                    </div>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="form-view"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 20 }}
+                    transition={m3SpatialSpring}
+                    className="space-y-5"
+                  >
+                    {isSignUp && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="grid grid-cols-1 sm:grid-cols-2 gap-5 overflow-hidden"
+                      >
+                        <div>
+                          <label className={labelClass}>First Name</label>
+                          <input
+                            type="text"
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                            className={inputClass}
+                            placeholder="Jane"
+                          />
+                        </div>
+                        <div>
+                          <label className={labelClass}>Last Name</label>
+                          <input
+                            type="text"
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                            className={inputClass}
+                            placeholder="Doe"
+                          />
+                        </div>
+                      </motion.div>
+                    )}
+
+                    <div>
+                      <label className={labelClass}>Email Address</label>
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        autoComplete="email"
+                        className={inputClass}
+                        placeholder="you@example.com"
+                      />
+                    </div>
+
+                    <div>
+                      <label className={labelClass}>Master Password</label>
+                      <div className="relative">
+                        <input
+                          type={showPassword ? "text" : "password"}
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          autoComplete={
+                            isSignUp ? "new-password" : "current-password"
+                          }
+                          onKeyDown={(e) =>
+                            e.key === "Enter" && canSubmit && handleSubmit()
+                          }
+                          className={`${inputClass} pr-14 ${!showPassword && password ? "tracking-[0.25em] text-lg font-bold" : ""}`}
+                          placeholder={
+                            !showPassword ? "••••••••" : "Your password"
+                          }
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword((s) => !s)}
+                          tabIndex={-1}
+                          aria-label={
+                            showPassword ? "Hide password" : "Show password"
+                          }
+                          className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full text-gray-400 hover:text-black dark:hover:text-white hover:bg-white dark:hover:bg-[#333] transition-colors"
+                        >
+                          {showPassword ? (
+                            <EyeOff className="w-5 h-5" />
+                          ) : (
+                            <Eye className="w-5 h-5" />
+                          )}
+                        </button>
+                      </div>
+                    </div>
+
+                    <div
+                      id="clerk-captcha"
+                      data-cl-theme="dark"
+                      data-cl-size="flexible"
+                      className="pt-1"
+                    />
+
+                    <div className="pt-4 space-y-4">
+                      <button
+                        onClick={handleSubmit}
+                        disabled={loading || !canSubmit}
+                        className={primaryButtonClass}
+                      >
+                        {loading ? (
+                          <FaSpinner className="animate-spin w-5 h-5" />
+                        ) : isSignUp ? (
+                          "Create Secure Account"
+                        ) : (
+                          "Unlock Vault"
+                        )}
+                      </button>
+
+                      <div className="relative flex items-center justify-center py-2">
+                        <div className="absolute inset-0 flex items-center">
+                          <div className="w-full border-t border-gray-200 dark:border-[#222]"></div>
+                        </div>
+                        <div className="relative px-4 bg-white dark:bg-[#0A0A0A] text-[12px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">
+                          or
+                        </div>
+                      </div>
+
+                      <button
+                        onClick={toggleMode}
+                        className={secondaryButtonClass}
+                      >
+                        {isSignUp
+                          ? "Log in to existing account"
+                          : "Create a new account"}
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+
+            {/* Footer Terms */}
+            <motion.div
+              layout
+              className="mt-12 text-center text-[13px] font-medium text-gray-500 dark:text-gray-400 leading-relaxed px-4"
             >
-              Terms of Service
-            </Link>{" "}
-            and{" "}
-            <Link
-              href="/privacy"
-              className="text-gray-700 dark:text-[#C4C7C5] hover:text-black dark:hover:text-[#E2E2E2] transition-colors underline decoration-gray-300 dark:decoration-[#282A2C] hover:decoration-blue-400 dark:hover:decoration-[#A8C7FA] underline-offset-4"
-            >
-              Privacy Policy
-            </Link>
-            .
-          </motion.div>
+              By continuing, you agree to our{" "}
+              <Link
+                href="/terms"
+                className="text-black dark:text-white font-semibold hover:underline underline-offset-4 decoration-[#D3E4FF] dark:decoration-[#204473] transition-colors"
+              >
+                Terms of Service
+              </Link>{" "}
+              and{" "}
+              <Link
+                href="/privacy"
+                className="text-black dark:text-white font-semibold hover:underline underline-offset-4 decoration-[#D3E4FF] dark:decoration-[#204473] transition-colors"
+              >
+                Privacy Policy
+              </Link>
+              .
+            </motion.div>
+          </div>
         </div>
       </div>
     </div>

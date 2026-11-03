@@ -5,6 +5,13 @@ import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+// Material 3 Fast Spring Physics for UI toggles
+const m3FastSpring = {
+  type: "spring" as const,
+  stiffness: 550,
+  damping: 35,
+};
+
 export default function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -15,42 +22,46 @@ export default function ThemeToggle() {
     setMounted(true);
   }, []);
 
+  // Skeleton placeholder to prevent layout shift before hydration
   if (!mounted) {
-    // Skeleton placeholder to prevent layout shift before hydration
     return (
-      <div className="w-[44px] h-[44px] rounded-full dark:bg-[#252525] bg-gray-300 flex-shrink-0" />
+      <div
+        className="w-10 h-10 rounded-full bg-gray-100 dark:bg-[#1A1A1A] flex-shrink-0"
+        aria-hidden="true"
+      />
     );
   }
 
   return (
     <motion.button
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.85 }} // Extreme haptic "squish" feel
       type="button"
+      whileTap={{ scale: 0.9 }}
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="relative flex items-center justify-center p-2.5 w-[44px] h-[44px] rounded-full cursor-pointer bg-gray-300 dark:bg-[#252525] text-black  dark:text-white transition-colors flex-shrink-0 shadow-sm overflow-hidden"
+      className="flex items-center justify-center w-10 h-10 cursor-pointer rounded-full hover:rounded-[14px] active:rounded-[10px] bg-gray-100 dark:bg-[#1A1A1A] hover:bg-gray-200 dark:hover:bg-[#252525] text-black dark:text-white transition-[border-radius,background-color] duration-200 shrink-0 focus:outline-none border-none"
       aria-label="Toggle Theme"
     >
       <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-          key={theme}
-          initial={{ y: -20, opacity: 0, rotate: -90 }}
-          animate={{ y: 0, opacity: 1, rotate: 0 }}
-          exit={{ y: 20, opacity: 0, rotate: 90 }}
-          transition={{
-            duration: 0.2,
-            type: "spring",
-            stiffness: 300,
-            damping: 20,
-          }}
-          className="absolute flex items-center justify-center"
-        >
-          {theme === "dark" ? (
-            <Moon className="h-5 w-5 dark:text-yellow-300" />
-          ) : (
-            <Sun className="h-5 w-5 text-black" />
-          )}
-        </motion.div>
+        {theme === "dark" ? (
+          <motion.div
+            key="moon"
+            initial={{ rotate: -90, opacity: 0, scale: 0.7 }}
+            animate={{ rotate: 0, opacity: 1, scale: 1 }}
+            exit={{ rotate: 90, opacity: 0, scale: 0.7 }}
+            transition={m3FastSpring}
+          >
+            <Moon className="w-5 h-5" />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="sun"
+            initial={{ rotate: 90, opacity: 0, scale: 0.7 }}
+            animate={{ rotate: 0, opacity: 1, scale: 1 }}
+            exit={{ rotate: -90, opacity: 0, scale: 0.7 }}
+            transition={m3FastSpring}
+          >
+            <Sun className="w-5 h-5" />
+          </motion.div>
+        )}
       </AnimatePresence>
     </motion.button>
   );

@@ -19,12 +19,12 @@ export default function UserProfileDropdown({
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  /* ── Light & Dark Mode Styled Menu Items ── */
+  /* ── Borderless M3 Styled Menu Items ── */
   const menuItemClass =
-    "group w-full flex items-center gap-3 py-3 px-3 text-[14px] font-medium text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-black transition-all duration-200 outline-none active:scale-[0.98] rounded-full cursor-pointer";
+    "w-full flex items-center gap-3 px-4 py-3 text-[14px] font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#1A1A1A] hover:text-black dark:hover:text-white transition-[background-color,color] duration-200 text-left rounded-[16px] active:scale-[0.98] border-none outline-none";
 
   const dangerMenuItemClass =
-    "group w-full flex items-center gap-3 py-3 px-3 text-[14px] font-medium text-red-600 dark:text-white hover:bg-red-50 dark:hover:bg-red-600 transition-all duration-200 outline-none active:scale-[0.98] rounded-full cursor-pointer";
+    "w-full flex items-center gap-3 px-4 py-3 text-[14px] font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 transition-[background-color,color] duration-200 text-left rounded-[16px] active:scale-[0.98] border-none outline-none";
 
   /* ── Outside click (desktop) ── */
   useEffect(() => {
@@ -76,7 +76,7 @@ export default function UserProfileDropdown({
     signOut();
   };
 
-  /* ── Avatar ── */
+  /* ── Borderless Avatar ── */
   const renderAvatar = (size: number) => {
     return (
       <div className="relative shrink-0">
@@ -87,17 +87,17 @@ export default function UserProfileDropdown({
             width={size}
             height={size}
             unoptimized
-            className="object-cover rounded-full border border-gray-200 dark:border-[#282A2C] bg-gray-100 dark:bg-[#161923]"
+            className="object-cover rounded-full bg-gray-100 dark:bg-[#1A1A1A]"
             style={{ width: size, height: size }}
             referrerPolicy="no-referrer"
           />
         ) : (
           <span
-            className="bg-gray-200 dark:bg-[#242836] border border-gray-300 dark:border-[#282A2C] text-gray-700 dark:text-white font-semibold flex items-center justify-center rounded-full"
+            className="bg-gray-200 dark:bg-[#2A2A2A] text-black dark:text-white font-bold flex items-center justify-center rounded-full"
             style={{
               width: size,
               height: size,
-              fontSize: size < 32 ? 12 : 16,
+              fontSize: size < 32 ? 12 : 15,
             }}
           >
             {initials}
@@ -108,133 +108,112 @@ export default function UserProfileDropdown({
   };
 
   /* ─────────────────────────────────────────────
-     MOBILE — Integrated seamlessly into the Header's Grid Tile Container
+     MOBILE — Integrated seamlessly into the Header
      ───────────────────────────────────────────── */
   if (variant === "mobile") {
     return (
-      <div
-        className="relative w-full bg-transparent antialiased"
-        ref={dropdownRef}
-      >
+      <div className="w-full" ref={dropdownRef}>
         <button
           onClick={() => setIsOpen((prev) => !prev)}
-          className="w-full flex items-center gap-3 transition-colors duration-200 cursor-pointer outline-none active:scale-[0.98]"
+          className="w-full flex items-center gap-3 px-3 py-3 rounded-[20px] hover:bg-gray-100 dark:hover:bg-[#1A1A1A] transition-colors text-left outline-none border-none"
           aria-expanded={isOpen}
-          aria-haspopup="true"
         >
-          {renderAvatar(42)}
-          <div className="min-w-0 flex-1 text-left flex flex-col justify-center">
-            <p className="text-[15px] font-semibold text-black dark:text-white truncate">
+          {renderAvatar(38)}
+          <div className="flex-1 min-w-0">
+            <p className="text-[15px] font-bold text-black dark:text-white truncate">
               {displayName}
             </p>
             {email && (
-              <p className="text-[12px] text-gray-500 dark:text-gray-400 font-medium truncate mt-0.5">
+              <p className="text-[13px] text-gray-500 dark:text-gray-400 truncate">
                 {email}
               </p>
             )}
           </div>
-          <div className="w-8 h-8 flex items-center justify-center shrink-0 rounded-full bg-gray-100 dark:bg-[#161923] border border-gray-200 dark:border-[#282A2C]">
-            <FiChevronDown
-              className={`w-4 h-4 text-gray-600 dark:text-gray-400 transition-transform duration-300 ${
-                isOpen ? "rotate-180" : ""
-              }`}
-            />
-          </div>
+          <FiChevronDown
+            className={`w-5 h-5 text-gray-500 transition-transform duration-200 ${
+              isOpen ? "rotate-180" : ""
+            }`}
+          />
         </button>
 
-        <div
-          className={`overflow-hidden transition-all duration-300 ease-in-out ${
-            isOpen ? "max-h-64 opacity-100 mt-3" : "max-h-0 opacity-0 mt-0"
-          }`}
-        >
-          <div className="h-px bg-gray-200 dark:bg-[#282A2C] w-full mb-2" />
-          <div className="flex flex-col gap-1">
-            <button onClick={handleManage} className={menuItemClass}>
-              <FiSettings className="w-[18px] h-[18px] shrink-0 text-gray-600 dark:text-gray-400" />
+        {isOpen && (
+          <div className="mt-2 bg-gray-50 dark:bg-[#121212] rounded-[24px] p-2 flex flex-col space-y-1 overflow-hidden">
+            <button
+              onClick={handleManage}
+              className={
+                menuItemClass + " hover:bg-white dark:hover:bg-[#1A1A1A]"
+              }
+            >
+              <FiSettings className="w-[18px] h-[18px] shrink-0 text-gray-500" />
               <span>Account Settings</span>
             </button>
+            <button
+              onClick={handleSignOut}
+              className={
+                dangerMenuItemClass + " hover:bg-white dark:hover:bg-[#1A1A1A]"
+              }
+            >
+              <FiLogOut className="w-[18px] h-[18px] shrink-0" />
+              <span>Sign out</span>
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  }
 
+  /* ─────────────────────────────────────────────
+     DESKTOP — Clean M3 Borderless Dropdown Panel
+     ───────────────────────────────────────────── */
+  return (
+    <div className="relative" ref={dropdownRef}>
+      {/* Trigger */}
+      <button
+        onClick={() => setIsOpen((prev) => !prev)}
+        className="flex items-center gap-1.5 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-[#1A1A1A] transition-colors focus:outline-none border-none group"
+        aria-expanded={isOpen}
+      >
+        {renderAvatar(34)}
+        <FiChevronDown
+          className={`w-4 h-4 text-gray-600 dark:text-gray-400 transition-transform duration-200 group-hover:text-black dark:group-hover:text-white ${
+            isOpen ? "rotate-180" : ""
+          }`}
+        />
+      </button>
+
+      {/* Dropdown Box */}
+      {isOpen && (
+        <div className="absolute right-0 mt-3 w-[280px] bg-white dark:bg-[#0A0A0A] shadow-xl shadow-black/5 dark:shadow-white/5 rounded-[28px] z-50 overflow-hidden border-none">
+          {/* User Info Header (Tonal Surface) */}
+          <div className="px-5 py-4 bg-gray-50/50 dark:bg-[#141414]/50">
+            <div className="flex items-center gap-3">
+              {renderAvatar(42)}
+              <div className="flex-1 min-w-0">
+                <p className="text-[14.5px] font-bold text-black dark:text-white truncate">
+                  {displayName}
+                </p>
+                {email && (
+                  <p className="text-[13px] text-gray-500 dark:text-gray-400 truncate">
+                    {email}
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Action Links */}
+          <div className="p-2 space-y-0.5">
+            <button onClick={handleManage} className={menuItemClass}>
+              <FiSettings className="w-[18px] h-[18px] shrink-0 text-gray-500" />
+              <span>Account Settings</span>
+            </button>
             <button onClick={handleSignOut} className={dangerMenuItemClass}>
               <FiLogOut className="w-[18px] h-[18px] shrink-0" />
               <span>Sign out</span>
             </button>
           </div>
         </div>
-      </div>
-    );
-  }
-
-  /* ─────────────────────────────────────────────
-     DESKTOP — Floating Theme-Aware Panel
-     ───────────────────────────────────────────── */
-  return (
-    <div className="relative antialiased" ref={dropdownRef}>
-      {/* Pill Trigger */}
-      <button
-        onClick={() => setIsOpen((prev) => !prev)}
-        className={`flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer outline-none active:scale-95 border ${
-          isOpen
-            ? "bg-gray-200 dark:bg-[#141414] border-gray-300 dark:border-[#282A2C]"
-            : "bg-gray-100 dark:bg-[#141414] hover:bg-gray-200 dark:hover:bg-[#202020] border-gray-200 dark:border-transparent"
-        }`}
-        aria-expanded={isOpen}
-        aria-haspopup="true"
-      >
-        {renderAvatar(28)}
-        <FiChevronDown
-          className={`w-4 h-4 text-gray-600 dark:text-white transition-transform duration-300 ${
-            isOpen ? "rotate-180" : ""
-          }`}
-        />
-      </button>
-
-      {/* Dropdown panel */}
-      <div
-        className={`absolute right-0 top-[calc(100%+12px)] w-[300px] origin-top-right transition-all duration-200 ease-out z-50 ${
-          isOpen
-            ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
-            : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
-        }`}
-      >
-        <div className="relative rounded-4xl bg-white dark:bg-[#141414] shadow-xl dark:shadow-2xl border border-gray-200 dark:border-[#282A2C] flex flex-col p-2 overflow-hidden">
-          {/* User Info Header Card */}
-          <div className="flex items-center gap-3 p-3 mb-2 rounded-4xl bg-gray-50 dark:bg-[#121212] border border-gray-100 dark:border-transparent">
-            {renderAvatar(48)}
-            <div className="min-w-0 flex-1 flex flex-col justify-center">
-              <p className="text-[15px] font-semibold text-black dark:text-white truncate">
-                {displayName}
-              </p>
-              {email && (
-                <p className="text-[12px] text-blue-600 dark:text-[#ff9100] font-medium truncate mt-0.5">
-                  {email}
-                </p>
-              )}
-              {/* Active Status Badge */}
-              <div className="inline-flex items-center gap-1.5 mt-2 px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-400 self-start">
-                <div className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-black animate-pulse" />
-                <span className="text-[12px] font-bold text-blue-800 dark:text-black tracking-wider">
-                  Active
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div className="h-px bg-gray-100 dark:bg-[#141414] w-full my-1" />
-
-          {/* Action Buttons */}
-          <div className="flex flex-col gap-1 mt-1">
-            <button onClick={handleManage} className={menuItemClass}>
-              <FiSettings className="w-[18px] h-[18px] shrink-0 text-gray-600 dark:text-gray-400" />
-              <span className="flex-1 text-left">Account Settings</span>
-            </button>
-
-            <button onClick={handleSignOut} className={dangerMenuItemClass}>
-              <FiLogOut className="w-[18px] h-[18px] shrink-0" />
-              <span className="flex-1 text-left">Sign out of this device</span>
-            </button>
-          </div>
-        </div>
-      </div>
+      )}
     </div>
   );
 }

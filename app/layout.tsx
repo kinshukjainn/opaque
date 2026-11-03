@@ -6,6 +6,7 @@ import {
   Open_Sans,
   Plus_Jakarta_Sans,
   Poppins,
+  Oxygen,
   Public_Sans,
   Roboto,
   Staatliches,
@@ -26,6 +27,12 @@ const poppins = Poppins({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   variable: "--font-poppins",
+});
+
+const oxygen = Oxygen({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-oxygen",
 });
 
 const ubuntu = Ubuntu({
@@ -99,7 +106,7 @@ export default function RootLayout({
         lang="en"
         data-google-analytics-opt-out=""
         suppressHydrationWarning
-        className={`${geistSans.variable} ${inter.variable} ${geistMono.variable} ${openSans.variable} ${staatliches.variable}  ${poppins.variable} ${publicSans.variable} ${plusJakarta.variable} ${roboto.variable} ${ubuntu.variable} h-full antialiased`}
+        className={`${geistSans.variable} ${oxygen.variable} ${inter.variable} ${geistMono.variable} ${openSans.variable} ${staatliches.variable}  ${poppins.variable} ${publicSans.variable} ${plusJakarta.variable} ${roboto.variable} ${ubuntu.variable} h-full antialiased`}
       >
         <body suppressHydrationWarning className="min-h-full flex flex-col">
           <ThemeProvider>

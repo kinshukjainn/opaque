@@ -28,9 +28,9 @@ const CONTACT_EMAIL = "privacy@opaque.app";
 
 const springTransition: Transition = {
   type: "spring",
-  stiffness: 100,
-  damping: 20,
-  mass: 1,
+  stiffness: 420,
+  damping: 32,
+  mass: 0.9,
 };
 
 const fadeUp: Variants = {
@@ -106,17 +106,17 @@ function Section({
       className="scroll-mt-28 md:scroll-mt-32"
     >
       <div className="flex items-center gap-3 mb-4">
-        <div className="w-9 h-9 md:w-10 md:h-10 rounded-lg bg-[#1E1F20] border border-[#282A2C] flex items-center justify-center flex-shrink-0">
+        <div className="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-gray-100 dark:bg-[#1A1A1A] flex items-center justify-center flex-shrink-0">
           <Icon className="w-4 h-4 md:w-5 md:h-5" style={{ color: tint }} />
         </div>
-        <span className="text-[11px] md:text-[12px] tracking-[0.2em] text-[#5F6368] font-medium flex-shrink-0">
+        <span className="text-[11px] md:text-[12px] tracking-[0.2em] text-gray-500 dark:text-gray-400 font-medium flex-shrink-0">
           {index}
         </span>
-        <h2 className="text-[17px] md:text-xl font-semibold text-[#E2E2E2] tracking-tight">
+        <h2 className="text-[17px] md:text-xl font-semibold text-[#111318] dark:text-white tracking-tight">
           {title}
         </h2>
       </div>
-      <div className="space-y-4 text-[14px] md:text-[15px] leading-relaxed text-[#8E918F]">
+      <div className="space-y-4 text-[14px] md:text-[15px] leading-relaxed text-[#44474F] dark:text-[#C4C6D0]">
         {children}
       </div>
     </motion.section>
@@ -124,36 +124,41 @@ function Section({
 }
 
 function Em({ children }: { children: React.ReactNode }) {
-  return <strong className="font-medium text-[#E2E2E2]">{children}</strong>;
+  return (
+    <strong className="font-semibold text-[#111318] dark:text-white">
+      {children}
+    </strong>
+  );
 }
 
 export default function PrivacyPolicy() {
   return (
-    <main className="relative min-h-screen bg-[#161923] text-[#E2E2E2] selection:bg-[#A8C7FA] selection:text-[#041E49] overflow-x-hidden pb-20 md:pb-28">
-      {/* Background glow — same treatment as the landing page */}
-      <div className="absolute top-0 left-0 w-full h-[45vh] min-h-[360px] md:h-[520px] bg-[radial-gradient(ellipse_100%_80%_at_50%_-20%,rgba(168,199,250,0.08),transparent)] pointer-events-none -z-10" />
+    <main className="relative min-h-screen bg-white dark:bg-[#050505] text-[#111318] dark:text-[#E2E2E9] selection:bg-[#D8F5D0] selection:text-[#0A2E13] dark:selection:bg-[#1E4B2A] dark:selection:text-[#D8F5D0] overflow-x-hidden pb-20 md:pb-28">
+      {/* Background glow — soft green tonal gradient */}
+      <div className="absolute top-0 left-0 w-full h-[45vh] min-h-[360px] md:h-[520px] bg-[radial-gradient(ellipse_100%_80%_at_50%_-20%,rgba(27,127,59,0.06),transparent)] pointer-events-none -z-10" />
 
       {/* ================= HERO ================= */}
       <section className="relative pt-24 sm:pt-32 md:pt-36 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto z-10">
         <motion.div initial="hidden" animate="visible" variants={stagger}>
           <motion.div
             variants={fadeUp}
-            className="mb-6 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#131314] border border-[#282A2C] text-[13px] font-medium text-[#C4C7C5]"
+            className="mb-6 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-100 dark:bg-[#1A1A1A] text-[13px] font-medium text-[#111318] dark:text-[#E2E2E9] border-none"
           >
-            <Shield className="w-4 h-4 text-green-500 flex-shrink-0" />
+            <Shield className="w-4 h-4 text-[#1B7F3B] dark:text-[#8EE0A1] flex-shrink-0" />
             Zero-knowledge by design
           </motion.div>
 
           <motion.h1
             variants={fadeUp}
-            className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-white mb-5"
+            className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-[#111318] dark:text-white mb-5"
           >
-            Privacy <span className="text-green-500">Policy</span>
+            Privacy{" "}
+            <span className="text-[#1B7F3B] dark:text-[#8EE0A1]">Policy</span>
           </motion.h1>
 
           <motion.p
             variants={fadeUp}
-            className="text-[13px] md:text-[14px] text-[#5F6368] mb-6"
+            className="text-[13px] md:text-[14px] text-gray-500 dark:text-gray-400 mb-6"
           >
             Last updated {LAST_UPDATED} · Applies to the Opaque web application
             and its API
@@ -161,7 +166,7 @@ export default function PrivacyPolicy() {
 
           <motion.p
             variants={fadeUp}
-            className="text-base sm:text-lg text-[#8E918F] max-w-2xl leading-relaxed"
+            className="text-base sm:text-lg text-[#44474F] dark:text-[#C4C6D0] max-w-2xl leading-relaxed"
           >
             Most privacy policies ask you to trust a promise. This one mostly
             describes an architecture: Opaque is built so that we{" "}
@@ -176,19 +181,19 @@ export default function PrivacyPolicy() {
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
           variants={fadeUp}
-          className="mt-12 md:mt-14 p-5 md:p-7 rounded-[24px] md:rounded-[28px] bg-[#131314] border border-[#282A2C]/70"
+          className="mt-12 md:mt-14 p-5 md:p-7 rounded-[24px] md:rounded-[28px] bg-gray-50 dark:bg-[#111111] border-none"
         >
           <div className="flex items-center gap-3 mb-4">
-            <div className="p-2.5 rounded-lg bg-[#1E1F20] text-green-500 flex-shrink-0">
+            <div className="p-2.5 rounded-lg bg-white dark:bg-[#1A1A1A] text-[#1B7F3B] dark:text-[#8EE0A1] flex-shrink-0">
               <Lock className="w-4 h-4 md:w-5 md:h-5" />
             </div>
-            <h2 className="text-[15px] md:text-[16px] font-medium text-[#E2E2E2]">
+            <h2 className="text-[15px] md:text-[16px] font-semibold text-[#111318] dark:text-white">
               The one-minute version
             </h2>
           </div>
-          <ul className="space-y-3 text-[14px] md:text-[15px] text-[#8E918F] leading-relaxed">
+          <ul className="space-y-3 text-[14px] md:text-[15px] text-[#44474F] dark:text-[#C4C6D0] leading-relaxed">
             <li className="flex gap-3">
-              <Check className="w-4 h-4 text-green-500 mt-1 flex-shrink-0" />
+              <Check className="w-4 h-4 text-[#1B7F3B] dark:text-[#8EE0A1] mt-1 flex-shrink-0" />
               <span>
                 Everything in your vault is encrypted{" "}
                 <Em>inside your browser</Em> before it is sent to us. Our
@@ -196,7 +201,7 @@ export default function PrivacyPolicy() {
               </span>
             </li>
             <li className="flex gap-3">
-              <Check className="w-4 h-4 text-green-500 mt-1 flex-shrink-0" />
+              <Check className="w-4 h-4 text-[#1B7F3B] dark:text-[#8EE0A1] mt-1 flex-shrink-0" />
               <span>
                 Your master password and recovery phrase{" "}
                 <Em>never leave your device</Em> and are never stored anywhere —
@@ -204,7 +209,7 @@ export default function PrivacyPolicy() {
               </span>
             </li>
             <li className="flex gap-3">
-              <Check className="w-4 h-4 text-green-500 mt-1 flex-shrink-0" />
+              <Check className="w-4 h-4 text-[#1B7F3B] dark:text-[#8EE0A1] mt-1 flex-shrink-0" />
               <span>
                 We keep only what running your account requires: your email,
                 basic profile, plan, and non-secret item metadata.{" "}
@@ -224,13 +229,13 @@ export default function PrivacyPolicy() {
         >
           <motion.div
             variants={fadeUp}
-            className="p-5 md:p-7 rounded-[24px] md:rounded-[28px] bg-[#131314] border border-[#282A2C]/70"
+            className="p-5 md:p-7 rounded-[24px] md:rounded-[28px] bg-[#D8F5D0] dark:bg-[#1E4B2A] border-none"
           >
             <div className="flex items-center gap-3 mb-4">
-              <div className="p-2.5 rounded-lg bg-[#1E1F20] text-[#C4EDD0] flex-shrink-0">
+              <div className="p-2.5 rounded-lg bg-white/50 dark:bg-black/20 text-[#0A2E13] dark:text-[#D8F5D0] flex-shrink-0">
                 <EyeOff className="w-4 h-4 md:w-5 md:h-5" />
               </div>
-              <h3 className="text-[14px] md:text-[15px] font-medium text-[#E2E2E2]">
+              <h3 className="text-[14px] md:text-[15px] font-semibold text-[#0A2E13] dark:text-[#D8F5D0]">
                 What we can never read
               </h3>
             </div>
@@ -238,9 +243,9 @@ export default function PrivacyPolicy() {
               {cannotRead.map((item) => (
                 <li
                   key={item}
-                  className="flex gap-2.5 text-[13px] md:text-[14px] text-[#8E918F]"
+                  className="flex gap-2.5 text-[13px] md:text-[14px] text-[#0A2E13]/80 dark:text-[#D8F5D0]/80"
                 >
-                  <Check className="w-3.5 h-3.5 text-green-500 mt-[3px] flex-shrink-0" />
+                  <Check className="w-3.5 h-3.5 text-[#0A2E13] dark:text-[#D8F5D0] mt-[3px] flex-shrink-0" />
                   <span>{item}</span>
                 </li>
               ))}
@@ -249,13 +254,13 @@ export default function PrivacyPolicy() {
 
           <motion.div
             variants={fadeUp}
-            className="p-5 md:p-7 rounded-[24px] md:rounded-[28px] bg-[#131314] border border-[#282A2C]/70"
+            className="p-5 md:p-7 rounded-[24px] md:rounded-[28px] bg-gray-50 dark:bg-[#111111] border-none"
           >
             <div className="flex items-center gap-3 mb-4">
-              <div className="p-2.5 rounded-lg bg-[#1E1F20] text-[#8E918F] flex-shrink-0">
+              <div className="p-2.5 rounded-lg bg-white dark:bg-[#1A1A1A] text-gray-600 dark:text-gray-400 flex-shrink-0">
                 <Eye className="w-4 h-4 md:w-5 md:h-5" />
               </div>
-              <h3 className="text-[14px] md:text-[15px] font-medium text-[#E2E2E2]">
+              <h3 className="text-[14px] md:text-[15px] font-semibold text-[#111318] dark:text-white">
                 What we store in the clear
               </h3>
             </div>
@@ -263,14 +268,14 @@ export default function PrivacyPolicy() {
               {storedInClear.map((item) => (
                 <li
                   key={item}
-                  className="flex gap-2.5 text-[13px] md:text-[14px] text-[#8E918F]"
+                  className="flex gap-2.5 text-[13px] md:text-[14px] text-[#44474F] dark:text-[#C4C6D0]"
                 >
-                  <Minus className="w-3.5 h-3.5 text-[#5F6368] mt-[3px] flex-shrink-0" />
+                  <Minus className="w-3.5 h-3.5 text-gray-400 dark:text-gray-500 mt-[3px] flex-shrink-0" />
                   <span>{item}</span>
                 </li>
               ))}
             </ul>
-            <p className="mt-4 text-[12px] md:text-[13px] text-[#5F6368] leading-relaxed">
+            <p className="mt-4 text-[12px] md:text-[13px] text-gray-500 dark:text-gray-400 leading-relaxed">
               This is bookkeeping the app needs to list, filter, and count your
               items without decrypting anything.
             </p>
@@ -285,9 +290,9 @@ export default function PrivacyPolicy() {
           <aside className="hidden lg:block">
             <nav
               aria-label="On this page"
-              className="sticky top-28 border-l border-[#282A2C] pl-5"
+              className="sticky top-28 border-l-2 border-gray-100 dark:border-[#1A1A1A] pl-5"
             >
-              <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-[#5F6368] mb-4">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400 mb-4">
                 On this page
               </p>
               <ul className="space-y-0.5">
@@ -295,9 +300,9 @@ export default function PrivacyPolicy() {
                   <li key={item.id}>
                     <a
                       href={`#${item.id}`}
-                      className="group flex items-baseline gap-2.5 py-1.5 text-[13px] text-[#8E918F] hover:text-[#E2E2E2] focus-visible:text-[#E2E2E2] focus-visible:outline-none transition-colors"
+                      className="group flex items-baseline gap-2.5 py-1.5 text-[13px] text-[#44474F] dark:text-[#C4C6D0] hover:text-[#111318] dark:hover:text-white focus-visible:text-[#111318] dark:focus-visible:text-white focus-visible:outline-none transition-colors rounded-r-lg"
                     >
-                      <span className="text-[10px] tracking-wider text-[#5F6368] group-hover:text-green-500 transition-colors flex-shrink-0">
+                      <span className="text-[10px] tracking-wider text-gray-400 dark:text-gray-500 group-hover:text-[#1B7F3B] dark:group-hover:text-[#8EE0A1] transition-colors flex-shrink-0">
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       {item.label}
@@ -309,18 +314,18 @@ export default function PrivacyPolicy() {
           </aside>
 
           {/* Contents — mobile & tablet */}
-          <div className="lg:hidden mb-12 p-5 rounded-[24px] bg-[#131314] border border-[#282A2C]/70">
-            <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-[#5F6368] mb-4">
+          <div className="lg:hidden mb-12 p-5 rounded-[24px] bg-gray-50 dark:bg-[#111111] border-none">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400 mb-4">
               On this page
             </p>
-            <ul className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 gap-x-4 gap-y-2">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2">
               {toc.map((item, i) => (
                 <li key={item.id}>
                   <a
                     href={`#${item.id}`}
-                    className="flex items-baseline gap-2 text-[13px] text-[#8E918F] hover:text-[#E2E2E2] transition-colors py-0.5"
+                    className="flex items-baseline gap-2 text-[13px] text-[#44474F] dark:text-[#C4C6D0] hover:text-[#111318] dark:hover:text-white transition-colors py-0.5"
                   >
-                    <span className="text-[10px] tracking-wider text-[#5F6368] flex-shrink-0">
+                    <span className="text-[10px] tracking-wider text-gray-400 dark:text-gray-500 flex-shrink-0">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     {item.label}
@@ -336,7 +341,7 @@ export default function PrivacyPolicy() {
               id="scope"
               index="01"
               icon={FileText}
-              tint="#A8C7FA"
+              tint="#1B7F3B"
               title="Who we are & scope"
             >
               <p>
@@ -352,7 +357,7 @@ export default function PrivacyPolicy() {
                 system described at a deeper technical level, the{" "}
                 <Link
                   href="/docs/zero-knowledge-model"
-                  className="text-green-500 hover:text-green-400 underline underline-offset-4 decoration-green-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500/50 rounded-sm"
+                  className="text-[#1B7F3B] dark:text-[#8EE0A1] font-medium hover:underline underline-offset-4 decoration-[#1B7F3B]/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1B7F3B]/50 rounded-sm"
                 >
                   zero-knowledge documentation
                 </Link>{" "}
@@ -364,7 +369,7 @@ export default function PrivacyPolicy() {
               id="zero-knowledge"
               index="02"
               icon={Lock}
-              tint="#C4EDD0"
+              tint="#1B7F3B"
               title="Zero-knowledge, plainly"
             >
               <p>
@@ -394,11 +399,11 @@ export default function PrivacyPolicy() {
               id="data-we-store"
               index="03"
               icon={Database}
-              tint="#A8C7FA"
+              tint="#1B7F3B"
               title="Information we store"
             >
               <p>We store four narrow categories of information:</p>
-              <ul className="list-disc pl-5 marker:text-[#3E4042] space-y-3">
+              <ul className="list-disc pl-5 marker:text-[#1B7F3B] dark:marker:text-[#8EE0A1] space-y-3">
                 <li>
                   <Em>Account & profile.</Em> Your email address, display name,
                   avatar URL, and internal identifiers, provided through our
@@ -435,14 +440,14 @@ export default function PrivacyPolicy() {
               id="data-we-cannot-see"
               index="04"
               icon={EyeOff}
-              tint="#C4EDD0"
+              tint="#1B7F3B"
               title="What we can never access"
             >
               <p>
                 The following never reach our servers in readable form — not at
                 sign-up, not during syncing, not in logs, not ever:
               </p>
-              <ul className="list-disc pl-5 marker:text-[#3E4042] space-y-3">
+              <ul className="list-disc pl-5 marker:text-[#1B7F3B] dark:marker:text-[#8EE0A1] space-y-3">
                 <li>
                   <Em>Your master password.</Em> It is used only inside your
                   browser to derive a key, and is never transmitted or stored
@@ -476,11 +481,11 @@ export default function PrivacyPolicy() {
               id="how-we-use"
               index="05"
               icon={Fingerprint}
-              tint="#EADDFF"
+              tint="#1B7F3B"
               title="How we use information"
             >
               <p>We use the information above only to run the service:</p>
-              <ul className="list-disc pl-5 marker:text-[#3E4042] space-y-3">
+              <ul className="list-disc pl-5 marker:text-[#1B7F3B] dark:marker:text-[#8EE0A1] space-y-3">
                 <li>
                   To <Em>authenticate you</Em> and maintain your signed-in
                   session through Clerk.
@@ -517,7 +522,7 @@ export default function PrivacyPolicy() {
               id="cookies"
               index="06"
               icon={Cookie}
-              tint="#F2B8B5"
+              tint="#1B7F3B"
               title="Cookies & sessions"
             >
               <p>
@@ -539,7 +544,7 @@ export default function PrivacyPolicy() {
               id="third-parties"
               index="07"
               icon={Server}
-              tint="#A8C7FA"
+              tint="#1B7F3B"
               title="Third-party services"
             >
               <p>
@@ -547,7 +552,7 @@ export default function PrivacyPolicy() {
                 only what its role requires, and none of them can decrypt your
                 vault:
               </p>
-              <ul className="list-disc pl-5 marker:text-[#3E4042] space-y-3">
+              <ul className="list-disc pl-5 marker:text-[#1B7F3B] dark:marker:text-[#8EE0A1] space-y-3">
                 <li>
                   <Em>Clerk</Em> — authentication and session management. Clerk
                   holds your sign-in credentials and profile, and notifies us of
@@ -572,14 +577,14 @@ export default function PrivacyPolicy() {
               id="retention"
               index="08"
               icon={Trash2}
-              tint="#F2B8B5"
+              tint="#1B7F3B"
               title="Retention & deletion"
             >
               <p>
                 We keep your information for as long as your account exists, and
                 no longer than the service needs it:
               </p>
-              <ul className="list-disc pl-5 marker:text-[#3E4042] space-y-3">
+              <ul className="list-disc pl-5 marker:text-[#1B7F3B] dark:marker:text-[#8EE0A1] space-y-3">
                 <li>
                   <Em>Deleting an item</Em> removes it immediately. The row
                   removal and your item counter update happen in a single atomic
@@ -604,14 +609,14 @@ export default function PrivacyPolicy() {
               id="security"
               index="09"
               icon={ShieldCheck}
-              tint="#C4EDD0"
+              tint="#1B7F3B"
               title="Security practices"
             >
               <p>
                 Security here is structural, not a checklist bolted on
                 afterwards:
               </p>
-              <ul className="list-disc pl-5 marker:text-[#3E4042] space-y-3">
+              <ul className="list-disc pl-5 marker:text-[#1B7F3B] dark:marker:text-[#8EE0A1] space-y-3">
                 <li>
                   <Em>In transit</Em>, all traffic is protected with HTTPS
                   (TLS).
@@ -643,14 +648,14 @@ export default function PrivacyPolicy() {
               id="limits"
               index="10"
               icon={AlertTriangle}
-              tint="#F2B8B5"
+              tint="#1B7F3B"
               title="Honest limits"
             >
               <p>
                 No zero-knowledge system protects against everything, and we
                 would rather tell you where the line is:
               </p>
-              <ul className="list-disc pl-5 marker:text-[#3E4042] space-y-3">
+              <ul className="list-disc pl-5 marker:text-[#1B7F3B] dark:marker:text-[#8EE0A1] space-y-3">
                 <li>
                   <Em>A weak master password.</Em> Someone who stole our
                   database could attempt to guess your password offline. The
@@ -680,11 +685,11 @@ export default function PrivacyPolicy() {
               id="rights"
               index="11"
               icon={UserCheck}
-              tint="#EADDFF"
+              tint="#1B7F3B"
               title="Your rights & choices"
             >
               <p>You stay in control of everything we hold:</p>
-              <ul className="list-disc pl-5 marker:text-[#3E4042] space-y-3">
+              <ul className="list-disc pl-5 marker:text-[#1B7F3B] dark:marker:text-[#8EE0A1] space-y-3">
                 <li>
                   <Em>View and update</Em> your name, email, and avatar in
                   account settings; changes flow through to Opaque
@@ -713,7 +718,7 @@ export default function PrivacyPolicy() {
               id="children"
               index="12"
               icon={Users}
-              tint="#A8C7FA"
+              tint="#1B7F3B"
               title="Children's privacy"
             >
               <p>
@@ -728,7 +733,7 @@ export default function PrivacyPolicy() {
               id="changes"
               index="13"
               icon={FileText}
-              tint="#EADDFF"
+              tint="#1B7F3B"
               title="Changes to this policy"
             >
               <p>
@@ -745,14 +750,14 @@ export default function PrivacyPolicy() {
               id="contact"
               index="14"
               icon={Mail}
-              tint="#C4EDD0"
+              tint="#1B7F3B"
               title="Contact"
             >
               <p>
                 Questions, requests, or concerns about your data are welcome at{" "}
                 <a
                   href={`mailto:${CONTACT_EMAIL}`}
-                  className="text-green-500 hover:text-green-400 underline underline-offset-4 decoration-green-500/40 break-words focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500/50 rounded-sm"
+                  className="text-[#1B7F3B] dark:text-[#8EE0A1] font-medium hover:underline underline-offset-4 decoration-[#1B7F3B]/40 break-words focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1B7F3B]/50 rounded-sm"
                 >
                   {CONTACT_EMAIL}
                 </a>
@@ -766,13 +771,13 @@ export default function PrivacyPolicy() {
               whileInView="visible"
               viewport={{ once: true, margin: "-60px" }}
               variants={fadeUp}
-              className="p-6 md:p-8 rounded-[24px] md:rounded-[28px] bg-[#131314] border border-[#282A2C]/70 flex flex-col sm:flex-row sm:items-center justify-between gap-5"
+              className="p-6 md:p-8 rounded-[24px] md:rounded-[28px] bg-[#D8F5D0] dark:bg-[#1E4B2A] border-none flex flex-col sm:flex-row sm:items-center justify-between gap-5"
             >
               <div>
-                <h3 className="text-[15px] md:text-[16px] font-medium text-[#E2E2E2] mb-1.5">
+                <h3 className="text-[15px] md:text-[16px] font-semibold text-[#0A2E13] dark:text-[#D8F5D0] mb-1.5">
                   Want the technical version?
                 </h3>
-                <p className="text-[13px] md:text-[14px] text-[#8E918F] leading-relaxed max-w-md">
+                <p className="text-[13px] md:text-[14px] text-[#0A2E13]/80 dark:text-[#D8F5D0]/80 leading-relaxed max-w-md">
                   The documentation walks through the key hierarchy, the
                   encryption flows, and exactly what the server does — and
                   refuses to do.
@@ -781,14 +786,14 @@ export default function PrivacyPolicy() {
               <div className="flex flex-col xs:flex-row sm:flex-row gap-3 w-full sm:w-auto flex-shrink-0">
                 <Link
                   href="/docs/zero-knowledge-model"
-                  className="group py-2.5 px-5 flex items-center justify-center gap-2 rounded-lg bg-green-500 text-black font-semibold text-[14px] transition-all active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-400 w-full sm:w-auto"
+                  className="group py-2.5 px-5 flex items-center justify-center gap-2 rounded-xl bg-black dark:bg-white text-white dark:text-black font-semibold text-[14px] transition-all active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-black/50 dark:focus-visible:ring-white/50 w-full sm:w-auto border-none"
                 >
                   How it works
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                 </Link>
                 <Link
                   href="/vault"
-                  className="py-2.5 px-5 flex items-center justify-center rounded-lg bg-[#1E1F20] text-[#E2E2E2] font-medium text-[14px] hover:bg-[#282A2C] border border-[#282A2C] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8C7FA]/50 w-full sm:w-auto"
+                  className="py-2.5 px-5 flex items-center justify-center rounded-xl bg-white/50 dark:bg-black/20 text-[#0A2E13] dark:text-[#D8F5D0] font-medium text-[14px] hover:bg-white/70 dark:hover:bg-black/40 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1B7F3B]/50 w-full sm:w-auto border-none"
                 >
                   Open Vault
                 </Link>

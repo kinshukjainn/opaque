@@ -5,7 +5,7 @@
 body {
   background-color: #ffffff;
   color: #171717; /* Dark gray/almost black for readable text */
-  font-family: var(--font-inter), sans-serif;
+  font-family: var(--font-geist-sans), sans-serif;
 
   /* Adds a smooth fade effect when you click the theme toggle */
   transition:
@@ -19,8 +19,8 @@ body {
   color: #f3f4f6; /* Light gray/white text for dark mode */
 }
 
-.heading-font {
-  font-family: var(--font-staatliches), sans-serif;
+.monofont {
+  font-family: var(--font-geist-mono), monospace;
 }
 
 .prose pre code {
