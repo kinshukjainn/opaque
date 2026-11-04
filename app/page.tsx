@@ -2,10 +2,12 @@
 
 import { motion, Variants, Transition } from "framer-motion";
 import { Shield, Unlock, Check, X, Key, Lock } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { Show, useUser } from "@clerk/nextjs";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import Opaquesvganim from "./components/Opaquesvganim";
+import Privacythemesvg from "./components/Privacythemesvg";
+import Securedatasvg from "./components/Securedatasvg";
+import Welcomeloginsvg from "./components/Welcomeloginsvg";
 
 export default function Home() {
   const { user } = useUser();
@@ -42,16 +44,14 @@ export default function Home() {
               className="flex flex-col items-center w-full"
             >
               {/* Logo (Borderless) */}
-              <motion.div variants={fadeUp} className="mb-8 relative">
-                <div className="relative w-20 h-20 md:w-24 md:h-24 flex items-center justify-center bg-gray-900 dark:bg-blue-400 rounded-[28px]">
-                  <Image
-                    src="/logo/logog.png"
-                    alt="Opaque Logo"
-                    width={238}
-                    height={229}
-                    className="w-12 h-auto object-contain dark:invert"
-                    priority
-                  />
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2, ...springTransition }}
+              >
+                <div className="w-full relative flex items-center justify-center">
+                  <Welcomeloginsvg />
                 </div>
               </motion.div>
 
@@ -153,13 +153,8 @@ export default function Home() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.2, ...springTransition }}
                 >
-                  <div className="w-full relative flex items-center justify-center lg:h-[550px]">
-                    <DotLottieReact
-                      src="https://lottie.host/2a2ab846-57b8-4336-a58a-43f0997eab03/rboX8mEeV3.lottie"
-                      loop
-                      autoplay
-                      className="w-full max-w-[700px] object-contain lg:scale-110 drop-shadow-sm"
-                    />
+                  <div className="w-full relative flex items-center justify-center">
+                    <Opaquesvganim />
                   </div>
                 </motion.div>
               </div>
@@ -176,6 +171,16 @@ export default function Home() {
                 variants={stagger}
                 className="text-center max-w-2xl mx-auto mb-16"
               >
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2, ...springTransition }}
+                >
+                  <div className="w-full relative flex items-center justify-center">
+                    <Securedatasvg />
+                  </div>
+                </motion.div>
                 <motion.h2
                   variants={fadeUp}
                   className="text-3xl sm:text-4xl font-bold text-black dark:text-white mb-4 tracking-tight"
@@ -186,8 +191,8 @@ export default function Home() {
                   variants={fadeUp}
                   className="text-lg text-gray-600 dark:text-gray-400"
                 >
-                  We use military-grade encryption that happens entirely on your
-                  device. Even we can&apos;t see your passwords.
+                  We use production-grade encryption that happens entirely on
+                  your device. Even we can&apos;t see your passwords.
                 </motion.p>
               </motion.div>
 
@@ -307,7 +312,7 @@ export default function Home() {
           </section>
 
           {/* 4. BOTTOM CALL TO ACTION */}
-          <section className="py-24 bg-gray-50 dark:bg-[#121212]">
+          <section className="py-24 bg-gray-50 dark:bg-black">
             <div className="max-w-4xl mx-auto px-6 text-center">
               <motion.div
                 initial="hidden"
@@ -315,6 +320,16 @@ export default function Home() {
                 viewport={{ once: true }}
                 variants={stagger}
               >
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2, ...springTransition }}
+                >
+                  <div className="w-full relative flex items-center justify-center">
+                    <Privacythemesvg />
+                  </div>
+                </motion.div>
                 <motion.h2
                   variants={fadeUp}
                   className="text-4xl font-extrabold tracking-tight text-black dark:text-white mb-6"

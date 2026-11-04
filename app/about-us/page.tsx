@@ -92,11 +92,11 @@ export default function AboutUs() {
         {/* ================= HERO / PROJECT SECTION (Massive Tonal Block) ================= */}
         <motion.section
           variants={fadeUp}
-          className="bg-[#D3E4FF] dark:bg-[#204473] rounded-[40px] p-6 sm:p-10 md:p-14 border-none relative overflow-hidden"
+          className="bg-blue-100 dark:bg-[#141414] rounded-[40px] p-6 sm:p-10 md:p-14 border-none relative overflow-hidden"
         >
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 mb-8">
             {/* M3 Expressive Squircle Icon Container (Inverted for contrast) */}
-            <div className="w-16 h-16 bg-white dark:bg-black rounded-[24px] flex shrink-0 items-center justify-center border-none shadow-sm">
+            <div className="w-16 h-16 bg-black dark:bg-white rounded-[24px] flex shrink-0 items-center justify-center border-none shadow-sm">
               <Image
                 src="/logo/logog.png"
                 alt="Opaque Logo"
