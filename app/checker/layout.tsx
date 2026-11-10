@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Strength Checker",
+  title: "Strength Checker || Opaque",
   description: "Check your password strength easily",
 };
 

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Integration",
-  description: "All the integration listed with Opaque ",
+  title: "Terms & Conditions || Opaque",
+  description: "Terms & Conditions of the Opaque application",
 };
 
 export default function BlogLayout({

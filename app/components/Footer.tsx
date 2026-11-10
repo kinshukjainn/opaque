@@ -84,7 +84,7 @@ const socialLinks: LinkItem[] = [
 
 export default function Footer(): JSX.Element {
   return (
-    <footer className="bg-[#FAFAFA] dark:bg-[#0A0A0A] py-16 text-sm text-gray-600 dark:text-gray-400 border-none transition-colors duration-200">
+    <footer className="bg-[#FAFAFA]/20 backdrop-blur-sm dark:bg-[#0A0A0A]/20 py-16 text-sm text-gray-600 rounded-3xl mt-2 mr-2 ml-2 mb-2 dark:text-gray-400 h-max  border-none transition-colors duration-200">
       <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
         {/* Adjusted grid to properly house 5 distinct columns on large screens */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 lg:gap-8">

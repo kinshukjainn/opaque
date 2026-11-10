@@ -17,6 +17,7 @@ const config: Config = {
         publicSans: "var(--font-public-sans) , sans-serif",
         geist: "var(--font-geist-sans) , sans-serif",
         openSans: "var(--font-open-sans) , sans-serif",
+        scienceGothic: "var(--font-science-gothic) , sans-serif",
         oxygen: "var(--font-oxygen) , sans-serif",
         plusJakarta: "var(--font-plus-jakarta) , sans-serif",
         roboto: "var(--font-roboto) , sans-serif",

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About us ",
+  title: "About us || Opaque",
   description: "About the Opaque creator and application",
 };
 

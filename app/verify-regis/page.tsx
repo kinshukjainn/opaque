@@ -52,7 +52,7 @@ function BenefitItem({
 }) {
   return (
     <div className="flex items-start gap-4 transition-colors">
-      <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-[16px] bg-white/40 dark:bg-black/20 text-[#001D36] dark:text-[#D3E4FF]">
+      <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-white/40 dark:bg-blue-800 text-[#001D36] dark:text-white">
         {icon}
       </div>
       <div>
@@ -302,11 +302,11 @@ export default function AuthPage() {
       {/* Massive Borderless Split Card */}
       <div className="w-full max-w-[1400px] min-h-[800px] pt-15  grid grid-cols-1 lg:grid-cols-2 bg-white dark:bg-[#0A0A0A] rounded-[40px] overflow-hidden border-none">
         {/* LEFT PANEL: Branding & Benefits (Tonal Surface) */}
-        <div className="relative hidden lg:flex flex-col justify-between p-12 xl:p-16 bg-[#D3E4FF] dark:bg-[#001D36] border-none overflow-hidden">
+        <div className="relative hidden lg:flex flex-col justify-between p-12 xl:p-16 bg-[#D3E4FF] dark:bg-black border-none overflow-hidden">
           <div className="relative z-10 flex flex-col gap-12">
             {/* Logo */}
             <div className="flex items-center gap-3">
-              <span className="text-2xl font-bold tracking-tight text-[#001D36] dark:text-[#D3E4FF] flex items-center gap-3">
+              <span className="text-2xl font-bold taglinefont  tracking-tight text-[#001D36] dark:text-[#D3E4FF] flex items-center gap-3">
                 {APP_NAME}
                 <span className="text-[#001D36]/30 dark:text-[#D3E4FF]/30">
                   /
@@ -319,7 +319,7 @@ export default function AuthPage() {
 
             {/* Value Proposition */}
             <div>
-              <h1 className="text-4xl xl:text-5xl font-extrabold mb-6 leading-[1.1] tracking-tight text-[#001D36] dark:text-[#D3E4FF]">
+              <h1 className="text-4xl xl:text-5xl taglinefont font-extrabold mb-6 leading-[1.1] tracking-tight text-[#001D36] dark:text-[#D3E4FF]">
                 Your passwords, sealed by encryption only you can open.
               </h1>
             </div>

@@ -11,6 +11,7 @@ import {
   Roboto,
   Staatliches,
   Ubuntu,
+  Science_Gothic,
 } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -79,6 +80,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const scienceGothic = Science_Gothic({
+  subsets: ["latin"],
+  variable: "--font-science-gothic",
+  display: "swap",
+});
+
 export const openSans = Open_Sans({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
@@ -106,7 +113,7 @@ export default function RootLayout({
         lang="en"
         data-google-analytics-opt-out=""
         suppressHydrationWarning
-        className={`${geistSans.variable} ${oxygen.variable} ${inter.variable} ${geistMono.variable} ${openSans.variable} ${staatliches.variable}  ${poppins.variable} ${publicSans.variable} ${plusJakarta.variable} ${roboto.variable} ${ubuntu.variable} h-full antialiased`}
+        className={`${geistSans.variable} ${oxygen.variable} ${inter.variable} ${geistMono.variable} ${openSans.variable} ${staatliches.variable} ${scienceGothic.variable} ${poppins.variable} ${publicSans.variable} ${plusJakarta.variable} ${roboto.variable} ${ubuntu.variable} h-full antialiased`}
       >
         <body suppressHydrationWarning className="min-h-full flex flex-col">
           <ThemeProvider>

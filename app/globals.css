@@ -19,6 +19,10 @@ body {
   color: #f3f4f6; /* Light gray/white text for dark mode */
 }
 
+.taglinefont {
+  font-family: var(--font-science-gothic), sans-serif;
+}
+
 .monofont {
   font-family: var(--font-geist-mono), monospace;
 }

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Sigin/up",
-  description: "sigin/up of the Opaque application",
+  title: "Login / Signup || Opaque",
+  description: "Login or signup for the Opaque application",
 };
 
 export default function BlogLayout({

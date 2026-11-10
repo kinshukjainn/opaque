@@ -8,6 +8,7 @@ import Opaquesvganim from "./components/Opaquesvganim";
 import Privacythemesvg from "./components/Privacythemesvg";
 import Securedatasvg from "./components/Securedatasvg";
 import Welcomeloginsvg from "./components/Welcomeloginsvg";
+import { MatGridBackground } from "./components/MatGridBackground";
 
 export default function Home() {
   const { user } = useUser();
@@ -30,7 +31,12 @@ export default function Home() {
   };
 
   return (
-    <main className="relative min-h-screen w-full overflow-x-hidden bg-white dark:bg-[#0A0A0A]">
+    <main className="relative min-h-screen w-full overflow-x-hidden">
+      {/* ========================================== */}
+      {/* Matte grid background (fixed, -z-10)       */}
+      {/* ========================================== */}
+      <MatGridBackground />
+
       {/* ========================================== */}
       {/* LOGGED IN VIEW: The Technical Console      */}
       {/* ========================================== */}
@@ -97,7 +103,7 @@ export default function Home() {
       {/* LOGGED OUT VIEW: Marketing Page            */}
       {/* ========================================== */}
       <Show when="signed-out">
-        <div className="min-h-screen w-full bg-white dark:bg-[#0A0A0A] text-black dark:text-white">
+        <div className="min-h-screen w-full text-black dark:text-white">
           {/* 1. HERO SECTION */}
           <section className="relative pt-24 pb-16 lg:pt-32 lg:pb-24 overflow-hidden">
             <div className="max-w-7xl mx-auto px-6 sm:px-8">
@@ -112,21 +118,21 @@ export default function Home() {
                 >
                   <motion.div
                     variants={fadeUp}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 dark:bg-[#1A1A1A] text-black dark:text-white text-sm font-semibold mb-6 border-none"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 dark:bg-black/10 backdrop-blur-xs text-black dark:text-white text-sm font-semibold mb-6 border border-black/40 dark:border-white/[0.06]"
                   >
                     <Shield className="w-4 h-4" /> Zero knowledge architecture
                   </motion.div>
 
                   <motion.h1
                     variants={fadeUp}
-                    className="text-5xl sm:text-6xl lg:text-[4.5rem] font-extrabold tracking-tight text-black dark:text-white mb-6 leading-[1.05]"
+                    className="text-5xl sm:text-6xl lg:text-[4.5rem] font-extrabold taglinefont tracking-tight text-black dark:text-white mb-6 leading-[1.05]"
                   >
                     Secure your digital life, effortlessly.
                   </motion.h1>
 
                   <motion.p
                     variants={fadeUp}
-                    className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 mb-10 leading-relaxed"
+                    className="text-lg sm:text-xl text-gray-800 dark:text-gray-200 mb-10 leading-relaxed"
                   >
                     Opaque is a beautifully simple password vault that keeps
                     your credentials safe. We can&apos;t see your data, and
@@ -162,7 +168,7 @@ export default function Home() {
           </section>
 
           {/* 2. HOW WE SECURE YOUR DATA (Simple Language) */}
-          <section className="py-24 bg-gray-50 dark:bg-[#121212]">
+          <section className="relative py-24 border-y border-black/[0.04] dark:border-white/[0.05]">
             <div className="max-w-7xl mx-auto px-6 sm:px-8">
               <motion.div
                 initial="hidden"
@@ -183,7 +189,7 @@ export default function Home() {
                 </motion.div>
                 <motion.h2
                   variants={fadeUp}
-                  className="text-3xl sm:text-4xl font-bold text-black dark:text-white mb-4 tracking-tight"
+                  className="text-3xl taglinefont sm:text-4xl font-bold text-black dark:text-white mb-4 tracking-tight"
                 >
                   How we secure your data
                 </motion.h2>
@@ -199,10 +205,10 @@ export default function Home() {
               <div className="grid md:grid-cols-3 gap-6">
                 <motion.div
                   variants={fadeUp}
-                  className="bg-white dark:bg-[#1A1A1A] p-8 rounded-[32px] border-none"
+                  className="bg-gray-400/10 dark:bg-black/10 backdrop-blur-xs p-8 rounded-[32px] border border-black/10 dark:border-white/[0.06]"
                 >
-                  <div className="w-12 h-12 bg-blue-100 dark:bg-[#204473] rounded-2xl flex items-center justify-center mb-6">
-                    <Lock className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                  <div className="w-12 h-12 bg-blue-800 dark:bg-[#ff9100] rounded-full flex items-center justify-center mb-6">
+                    <Lock className="w-6 h-6 text-white dark:text-black" />
                   </div>
                   <h3 className="text-xl font-bold text-black dark:text-white mb-3">
                     Locks on your device
@@ -215,10 +221,10 @@ export default function Home() {
 
                 <motion.div
                   variants={fadeUp}
-                  className="bg-white dark:bg-[#1A1A1A] p-8 rounded-[32px] border-none"
+                  className="bg-yellow-400/10 dark:bg-black/10 backdrop-blur-xs p-8 rounded-[32px] border border-gray-400/10 dark:border-white/[0.06]"
                 >
-                  <div className="w-12 h-12 bg-green-100 dark:bg-[#1E4B2A] rounded-2xl flex items-center justify-center mb-6">
-                    <Key className="w-6 h-6 text-green-600 dark:text-green-400" />
+                  <div className="w-12 h-12 bg-black dark:bg-green-500 rounded-full flex items-center justify-center mb-6">
+                    <Key className="w-6 h-6 text-green-500 dark:text-black" />
                   </div>
                   <h3 className="text-xl font-bold text-black dark:text-white mb-3">
                     One Master Password
@@ -231,10 +237,10 @@ export default function Home() {
 
                 <motion.div
                   variants={fadeUp}
-                  className="bg-white dark:bg-[#1A1A1A] p-8 rounded-[32px] border-none"
+                  className="bg-red-400/10 dark:bg-black/10 backdrop-blur-xs p-8 rounded-[32px] border border-gray-400/10 dark:border-white/[0.06]"
                 >
-                  <div className="w-12 h-12 bg-purple-100 dark:bg-[#4A3C68] rounded-2xl flex items-center justify-center mb-6">
-                    <Shield className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                  <div className="w-12 h-12 bg-red-800 dark:bg-blue-800 rounded-full flex items-center justify-center mb-6">
+                    <Shield className="w-6 h-6 text-white dark:text-purple-100" />
                   </div>
                   <h3 className="text-xl font-bold text-black dark:text-white mb-3">
                     12-Word Backup Phrase
@@ -249,7 +255,7 @@ export default function Home() {
           </section>
 
           {/* 3. WHAT WE HAVE / WHAT WE DON'T */}
-          <section className="py-24 bg-white dark:bg-[#0A0A0A]">
+          <section className="relative py-24">
             <div className="max-w-5xl mx-auto px-6 sm:px-8">
               <motion.div
                 initial="hidden"
@@ -260,7 +266,7 @@ export default function Home() {
               >
                 {/* What we have */}
                 <motion.div variants={fadeUp}>
-                  <h2 className="text-3xl font-bold text-black dark:text-white mb-8 border-none">
+                  <h2 className="text-3xl taglinefont font-bold text-black dark:text-white mb-8 border-none">
                     What Opaque has
                   </h2>
                   <ul className="space-y-6">
@@ -272,8 +278,8 @@ export default function Home() {
                       "A safe way to recover your account if you forget your password",
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-3">
-                        <div className="mt-1 flex-shrink-0 w-6 h-6 rounded-full bg-green-100 dark:bg-[#1E4B2A] flex items-center justify-center">
-                          <Check className="w-4 h-4 text-green-700 dark:text-green-400" />
+                        <div className="mt-1 flex-shrink-0 w-6 h-6 rounded-full bg-green-400 dark:bg-green-800 flex items-center justify-center">
+                          <Check className="w-4 h-4 text-black dark:text-white" />
                         </div>
                         <span className="text-lg text-gray-700 dark:text-gray-300">
                           {item}
@@ -285,7 +291,7 @@ export default function Home() {
 
                 {/* What we don't */}
                 <motion.div variants={fadeUp}>
-                  <h2 className="text-3xl font-bold text-black dark:text-white mb-8 border-none">
+                  <h2 className="text-3xl taglinefont font-bold text-black dark:text-white mb-8 border-none">
                     What Opaque doesn&apos;t have
                   </h2>
                   <ul className="space-y-6">
@@ -297,8 +303,8 @@ export default function Home() {
                       "No weak security loopholes",
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-3">
-                        <div className="mt-1 flex-shrink-0 w-6 h-6 rounded-full bg-red-100 dark:bg-[#4A2020] flex items-center justify-center">
-                          <X className="w-4 h-4 text-red-700 dark:text-red-400" />
+                        <div className="mt-1 flex-shrink-0 w-6 h-6 rounded-full bg-red-400 dark:bg-red-800 flex items-center justify-center">
+                          <X className="w-4 h-4 text-black dark:text-white" />
                         </div>
                         <span className="text-lg text-gray-700 dark:text-gray-300">
                           {item}
@@ -312,7 +318,7 @@ export default function Home() {
           </section>
 
           {/* 4. BOTTOM CALL TO ACTION */}
-          <section className="py-24 bg-gray-50 dark:bg-black">
+          <section className="relative py-24 border-t border-black/[0.04] dark:border-white/[0.05]">
             <div className="max-w-4xl mx-auto px-6 text-center">
               <motion.div
                 initial="hidden"
@@ -332,7 +338,7 @@ export default function Home() {
                 </motion.div>
                 <motion.h2
                   variants={fadeUp}
-                  className="text-4xl font-extrabold tracking-tight text-black dark:text-white mb-6"
+                  className="text-4xl taglinefont font-extrabold tracking-tight text-black dark:text-white mb-6"
                 >
                   Take back your privacy
                 </motion.h2>

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { VaultProvider } from "../components/vault-comp/VaultProvider";
 
 export const metadata: Metadata = {
-  title: "Dashboard",
+  title: "Dashboard || Opaque",
   description: "Dashboard of the application",
 };
 
